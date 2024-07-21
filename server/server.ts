@@ -1,12 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './db/connect'
+import JobsRouter from './routes/jobs'
 
 const app = express()
-dotenv.config()
-
 app.use(express.json())
+dotenv.config()
 const port = process.env.PORT || 5000
+
+app.use('/api/v1/jobs',JobsRouter)
 
 const start = async () => {
   try {
@@ -19,3 +21,4 @@ const start = async () => {
   }
 }
 start();
+
