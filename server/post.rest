@@ -1,0 +1,28 @@
+GET http://localhost:5000/api/v1/jobs
+###
+
+
+
+GET http://localhost:5000/api/v1/jobs/669d586f408bc4a95f7041e6
+
+
+###
+
+DELETE  http://localhost:5000/api/v1/jobs/669d4d17bc193dc1de9e9c88
+
+
+
+###
+
+POST http://localhost:5000/api/v1/jobs
+Content-Type: application/json
+
+{
+  "title": "Job Title",
+  "description": "Job Description",
+  "numOfWorkers": 5,
+  "typeOfPay": "perHour"
+}
+
+
+

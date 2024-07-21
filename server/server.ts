@@ -1,11 +1,13 @@
 import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
 import connectDB from './db/connect'
 import JobsRouter from './routes/jobs'
+import cors from 'cors'
 
 const app = express()
 app.use(express.json())
-dotenv.config()
+app.use(cors())
 const port = process.env.PORT || 5000
 
 app.use('/api/v1/jobs',JobsRouter)
