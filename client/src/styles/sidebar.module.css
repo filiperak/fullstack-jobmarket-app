@@ -1,0 +1,25 @@
+
+
+.sidebarMain {
+  background-color: var(--app-dark-grey);
+  border-radius: 0 var(--app-border-radius) var(--app-border-radius) 0;
+  height: 100svh;
+  width: 25%;
+  max-width: 300px;
+  text-align: center;
+}
+.SideBarLogo{
+ color:var(--app-white);
+ padding: var(--app-padding);
+}
+.SideBarLogo svg{
+ font-size: 65px;
+}
+.SideBarLogo > div{
+    text-align: left;
+    margin-left: 3px;
+}
+.SideBarLogo > div h2{
+
+    margin: 0;
+}
