@@ -21,52 +21,100 @@
 .SideBarLogo > div h2 {
   margin: 0;
 }
-.navButtons{
-    background-color: var(--halfway-color);
-    border-radius: 20px;
-    padding: var(--app-padding);
-    margin: var(--app-margin);
-    /* color: var(--app-dark-grey); */
-    cursor: pointer;
+.navButtons {
+  background-color: var(--halfway-color);
+  border-radius: 20px;
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+  /* color: var(--app-dark-grey); */
+  cursor: pointer;
+  box-shadow: var(--app-border-shadow);
 }
-.navButtons p{
-   margin-left: 6px;
+.navButtons p {
+  margin-left: 6px;
 }
-.navButtons:hover{
-   background-color: var(--app-dark-grey);
-   /* color: var(--app-black); */
-}
-.toggle{
-    border-radius: var(--app-border-radius);
-    padding: var(--app-padding);
-    margin: var(--app-margin);
-    background: var(--halfway-color);
-    color:var(--app-black) !important;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 150px;
-    width: 100%;
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translate(-50%);
-}
-.toggle > div{
-    border-radius: 20px;
-    padding: var(--app-padding);
-    font-size: 0.9rem;
-    cursor: pointer;
-    width: 50%;
-  
+.navButtons:hover {
+  color: var(--app-dark-grey) !important;
 
+  /* color: var(--app-black); */
 }
-.toggle svg{
-    font-size: 1.4rem;
+.toggle {
+  border-radius: var(--app-border-radius);
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+  background: var(--halfway-color);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 150px;
+  width: 100%;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
 }
-.toggleActive{
-    box-shadow: var(--app-border-shadow);
-    background-color: var(--background-color);
+.toggle > div {
+  border-radius: 20px;
+  padding: var(--app-padding);
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 50%;
+}
+.toggle svg {
+  font-size: 1.4rem;
+}
+.toggleActive {
+  box-shadow: var(--app-border-shadow);
+  background-color: var(--background-color);
   color: blueviolet;
+}
+
+.avatarCntainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+  background: var(--halfway-color);
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: var(--app-border-shadow);
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%);
+}
+.avatarCntainer div {
+  text-align: left;
+  /* margin-left: 6px; */
+}
+.avatarCntainer p {
+  margin-left: 6px;
+}
+.avatarCntainer div :last-child {
+  font-size: 0.7rem;
+}
+
+@media screen and (max-width: 850px) {
+  .avatarCntainer p,
+  .avatarCntainer > svg,
+  .SideBarLogo h2,
+  .toggle span,
+  .navButtons p {
+    display: none;
+  }
+  .toggle,.avatarCntainer{
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .toggle >div{
+    width: 100%;
+  }
+  .sidebarMain{
+    width: 10%;
+    text-align: center;
+  }
+ 
 }

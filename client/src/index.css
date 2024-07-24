@@ -1,15 +1,15 @@
 
 :root{
   --app-theme-color:#5699d4;
-  --app-white:#faf4f4;
+  --app-white:#f3f3f3;
   --app-black:#292727;
   --app-ligth-grey:#eaecee;
   --app-mid-grey:#abb2b9;
-  --app-dark-grey:#808b96;
+  --app-dark-grey:#45484b;
   --app-border-radius:4px;
   --app-padding:4px;
   --app-margin:4px;
-  --app-border-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
+  --app-border-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 /* theme colors */
 [data-theme="light"] {
@@ -53,4 +53,10 @@ code {
 .flexLeft{
   display: flex;
   align-items: center;
+}
+@media screen and (max-width: 850px) {
+  .flexLeft{
+    text-align: center;
+    display: block;
+  }
 }

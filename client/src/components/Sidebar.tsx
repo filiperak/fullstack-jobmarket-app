@@ -4,6 +4,7 @@ import Logo from './Logo'
 import NavButton from './NavButton'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ThemeToggleSwitch from './ThemeToggleSwitch';
+import ProfileAvatar from './ProfileAvatar';
 const Sidebar = () => {
   return (
     <div className={styles.sidebarMain}>
@@ -15,6 +16,7 @@ const Sidebar = () => {
         <NavButton text="Home" Icon={HomeOutlinedIcon}/>
 
         <ThemeToggleSwitch/>
+        <ProfileAvatar/>
     </div>
   )
 }
