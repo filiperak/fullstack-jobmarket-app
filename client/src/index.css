@@ -1,20 +1,4 @@
-body {
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 :root{
   --app-theme-color:#5699d4;
   --app-white:#faf4f4;
@@ -27,6 +11,38 @@ code {
   --app-margin:4px;
   --app-border-shadow: 3px 1px 3px rgba(0, 0, 0, 0.3);
 }
+/* theme colors */
+[data-theme="light"] {
+  --background-color: var(--app-white);
+  --text-color: var(--app-black);
+  --halfway-color: var(--app-ligth-grey);
+}
+[data-theme="dark"] {
+  --background-color: var(--app-black);
+  --text-color: var(--app-white);
+  --halfway-color: var(--app-dark-grey);
+}
+/* general */
+body {
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
 
 /* global-classes */
 .flexCenter{

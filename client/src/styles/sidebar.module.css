@@ -1,5 +1,5 @@
 .sidebarMain {
-  background-color: var(--app-white);
+  background-color: var(--background-color);
   border-radius: 0 var(--app-border-radius) var(--app-border-radius) 0;
   height: 100svh;
   width: 25%;
@@ -8,7 +8,7 @@
   position: relative;
 }
 .SideBarLogo {
-  color: var(--app-black);
+  /* color: var(--app-black); */
   padding: var(--app-padding);
 }
 .SideBarLogo svg {
@@ -22,11 +22,11 @@
   margin: 0;
 }
 .navButtons{
-    background-color: var(--app-ligth-grey);
+    background-color: var(--halfway-color);
     border-radius: 20px;
     padding: var(--app-padding);
     margin: var(--app-margin);
-    color: var(--app-dark-grey);
+    /* color: var(--app-dark-grey); */
     cursor: pointer;
 }
 .navButtons p{
@@ -34,18 +34,20 @@
 }
 .navButtons:hover{
    background-color: var(--app-dark-grey);
-   color: var(--app-black);
+   /* color: var(--app-black); */
 }
 .toggle{
     border-radius: var(--app-border-radius);
     padding: var(--app-padding);
     margin: var(--app-margin);
-    background: var(--app-ligth-grey);
+    background: var(--halfway-color);
+    color:var(--app-black) !important;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 200px;
+    max-width: 150px;
+    width: 100%;
     position: absolute;
     bottom: 15%;
     left: 50%;
@@ -57,6 +59,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     width: 50%;
+  
 
 }
 .toggle svg{
@@ -64,6 +67,6 @@
 }
 .toggleActive{
     box-shadow: var(--app-border-shadow);
-    background-color: var(--app-white);
-
+    background-color: var(--background-color);
+  color: blueviolet;
 }
