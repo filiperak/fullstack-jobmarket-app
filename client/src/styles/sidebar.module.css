@@ -25,7 +25,9 @@
   background-color: var(--halfway-color);
   border-radius: 20px;
   padding: var(--app-padding);
-  margin: var(--app-margin);
+  padding-left: 8px;
+  margin: 10px;
+  align-items: center;
   /* color: var(--app-dark-grey); */
   cursor: pointer;
   box-shadow: var(--app-border-shadow);
@@ -34,7 +36,7 @@
   margin-left: 6px;
 }
 .navButtons:hover {
-  color: var(--app-dark-grey) !important;
+  background: var(--app-hover-color) !important;
 
   /* color: var(--app-black); */
 }
@@ -116,5 +118,11 @@
     width: 10%;
     text-align: center;
   }
- 
+  
+}
+.breakLine{
+  width: 90%;
+  background-color: var(--halfway-color);
+  margin: 5px auto;
+  height: 2px;
 }

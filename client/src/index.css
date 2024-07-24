@@ -3,22 +3,26 @@
   --app-theme-color:#5699d4;
   --app-white:#f3f3f3;
   --app-black:#292727;
-  --app-ligth-grey:#eaecee;
+  --app-ligth-grey:#f7fafc;
   --app-mid-grey:#abb2b9;
-  --app-dark-grey:#45484b;
+  --app-dark-grey:#374151;
+  --app-darkest-grey:#1a202c;
   --app-border-radius:4px;
   --app-padding:4px;
   --app-margin:4px;
-  --app-border-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  --app-border-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* --app-border-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); */
 }
 /* theme colors */
 [data-theme="light"] {
   --background-color: var(--app-white);
   --text-color: var(--app-black);
   --halfway-color: var(--app-ligth-grey);
+  --hover-color:var(var(--app-mid-grey))
 }
 [data-theme="dark"] {
-  --background-color: var(--app-black);
+  --background-color: var(--app-darkest-grey);
+  /* --background-color: var(--app-black); */
   --text-color: var(--app-white);
   --halfway-color: var(--app-dark-grey);
 }
@@ -59,4 +63,8 @@ code {
     text-align: center;
     display: block;
   }
+}
+
+.App{
+  display: flex;
 }
