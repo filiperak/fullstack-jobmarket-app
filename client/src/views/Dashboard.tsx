@@ -2,7 +2,7 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div style={{position:'relative'}}>
+    <div>
       Dashboard
         <p>dash</p>
         <p>dash</p>
