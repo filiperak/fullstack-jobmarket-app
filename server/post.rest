@@ -1,5 +1,5 @@
 GET http://localhost:5000/api/v1/jobs
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2N2JmNDJiMzg0NTQzYzI0YjIxYzMiLCJuYW1lIjoidmlrdG9yMiIsImlhdCI6MTcyMzIzNTY1NiwiZXhwIjoxNzI1ODI3NjU2fQ.d1wiMx-xpNG_N2m7BFjA2ek0uA2e5sjxU9o6KAewBGs
+//authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2N2JmNDJiMzg0NTQzYzI0YjIxYzMiLCJuYW1lIjoidmlrdG9yMiIsImlhdCI6MTcyMzIzNzUxMSwiZXhwIjoxNzI1ODI5NTExfQ.d_wGNkwWmAIwcTZk2Ap5kQ5jPOirg1WdtYAOPM7TWfk
 
 ###
 
@@ -18,13 +18,11 @@ DELETE  http://localhost:5000/api/v1/jobs/669d4d17bc193dc1de9e9c88
 
 POST http://localhost:5000/api/v1/jobs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2N2JmNDJiMzg0NTQzYzI0YjIxYzMiLCJuYW1lIjoidmlrdG9yMiIsImlhdCI6MTcyMzIzODY4NCwiZXhwIjoxNzI1ODMwNjg0fQ.sn0Hp2Pvns_8cvCQSwQRXWHvQvhQV_nQ-ZllKiGSN5Q
 
 {
-  "title": "Job Title",
-  "description": "Job Description",
-  "numOfWorkers": 5,
-  "typeOfPay": "perHour",
-  "postedBy":"66b37429823edabfc6ab3fc0"
+  "title": "Job test populate",
+  "description": "Job Description"
 }
 
 

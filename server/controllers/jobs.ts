@@ -13,15 +13,17 @@ export const getAllJobs = async (req: JobRequest, res: Response) => {
   try {
     const jobs = await JobModel
     .find({})
+    .populate('createdBy', 'username email');
     res.status(200).json({ jobs , numOfJobs:jobs.length,user:req.user});
   } catch (error) {
     res.status(500).json({ msg: error });
   }
 };
 
-export const createJob = async (req: Request, res: Response) => {
+export const createJob = async (req: JobRequest, res: Response) => {
   try {
-    const job = await JobModel.create(req.body);
+    req.body.createdBy = req.user?.userId
+    const job = await JobModel.create(req.body)
     res.status(200).json({ job });
   } catch (error) {
     res.status(500).json({ msg: error });    
