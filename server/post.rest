@@ -1,4 +1,6 @@
 GET http://localhost:5000/api/v1/jobs
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2N2JmNDJiMzg0NTQzYzI0YjIxYzMiLCJuYW1lIjoidmlrdG9yMiIsImlhdCI6MTcyMzIzNTY1NiwiZXhwIjoxNzI1ODI3NjU2fQ.d1wiMx-xpNG_N2m7BFjA2ek0uA2e5sjxU9o6KAewBGs
+
 ###
 
 
@@ -37,8 +39,8 @@ POST http://localhost:5000/api/v1/users/register
 Content-Type: application/json
 
 {
-  "username":"tanja2",
-  "email":"tanja2@mail.com",
+  "username":"viktor2",
+  "email":"viktor2@mail.com",
   "password":"sifra123"
 }
 
@@ -53,6 +55,6 @@ POST http://localhost:5000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "username":"tanja32",
+    "username":"viktor2",
   "password":"sifra123"
 }

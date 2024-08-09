@@ -2,11 +2,18 @@ import { Request, Response } from "express";
 import { JobModel } from "../models/jobs";
 import { UserModel } from "../models/users";
 
-export const getAllJobs = async (req: Request, res: Response) => {    
+interface JobRequest extends Request{
+  user?: {
+    userId: string;
+    username: string;
+};
+}
+
+export const getAllJobs = async (req: JobRequest, res: Response) => {    
   try {
     const jobs = await JobModel
     .find({})
-    res.status(200).json({ jobs , numOfJobs:jobs.length});
+    res.status(200).json({ jobs , numOfJobs:jobs.length,user:req.user});
   } catch (error) {
     res.status(500).json({ msg: error });
   }

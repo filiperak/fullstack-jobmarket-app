@@ -48,7 +48,8 @@ const JobsSchema:Schema<IJob> = new Schema({
      default: Date.now(),
    },
    expires: {
-     type: Date,
+    type: Date,
+    default: Date.now(),
    },
    active: {
      type: Boolean,
