@@ -6,7 +6,6 @@ export const getAllJobs = async (req: Request, res: Response) => {
   try {
     const jobs = await JobModel
     .find({})
-    .populate('postedBy', 'username email')
     res.status(200).json({ jobs , numOfJobs:jobs.length});
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -16,9 +15,6 @@ export const getAllJobs = async (req: Request, res: Response) => {
 export const createJob = async (req: Request, res: Response) => {
   try {
     const job = await JobModel.create(req.body);
-    const user = await UserModel.findById(req.body.postedBy)
-    user?.createdJobs.push(job._id);
-    await user?.save()
     res.status(200).json({ job });
   } catch (error) {
     res.status(500).json({ msg: error });    

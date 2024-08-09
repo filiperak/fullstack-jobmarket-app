@@ -37,11 +37,22 @@ POST http://localhost:5000/api/v1/users/register
 Content-Type: application/json
 
 {
-  "username":"test",
-  "email":"test@mail.com",
+  "username":"tanja2",
+  "email":"tanja2@mail.com",
   "password":"sifra123"
 }
 
 ###
 
 GET http://localhost:5000/api/v1/users/66b37444823edabfc6ab3fc4
+
+###
+
+
+POST http://localhost:5000/api/v1/users/login
+Content-Type: application/json
+
+{
+    "username":"tanja32",
+  "password":"sifra123"
+}
