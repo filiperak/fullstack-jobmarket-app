@@ -21,8 +21,27 @@ Content-Type: application/json
   "title": "Job Title",
   "description": "Job Description",
   "numOfWorkers": 5,
-  "typeOfPay": "perHour"
+  "typeOfPay": "perHour",
+  "postedBy":"66b37429823edabfc6ab3fc0"
 }
 
 
+###
 
+GET http://localhost:5000/api/v1/users/all
+
+
+###
+
+POST http://localhost:5000/api/v1/users/register
+Content-Type: application/json
+
+{
+  "username":"test",
+  "email":"test@mail.com",
+  "password":"sifra123"
+}
+
+###
+
+GET http://localhost:5000/api/v1/users/66b37444823edabfc6ab3fc4
