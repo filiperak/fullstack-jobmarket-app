@@ -1,6 +1,6 @@
 import React from "react";
 import HandymanIcon from '@mui/icons-material/Handyman';
-import styles from '../styles/sidebar.module.css'
+import styles from '../../styles/sidebar.module.css'
 const Logo = () => {
   return (
     <div className={`${styles.SideBarLogo} flexCenter`}> 

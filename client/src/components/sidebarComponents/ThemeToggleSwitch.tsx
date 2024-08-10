@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 
 import Brightness2OutlinedIcon from "@mui/icons-material/Brightness2Outlined";
-import styles from "../styles/sidebar.module.css";
-import { ThemeContext, useTheme } from "../context/ThemeContext";
+import styles from "../../styles/sidebar.module.css";
+import { ThemeContext, useTheme } from "../../context/ThemeContext";
 
 const ThemeToggleSwitch = () => {
   const { theme, toggleTheme } = useTheme();

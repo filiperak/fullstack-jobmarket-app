@@ -1,11 +1,14 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
-import styles from '../styles/sidebar.module.css'
+import styles from '../../styles/sidebar.module.css'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ISidebar } from '../../interface/props';
 
-const ProfileAvatar = () => {
+const ProfileAvatar = ({setModalOpen}:ISidebar) => {
   return (
-    <div className={styles.avatarCntainer}>
+    <div 
+    onClick={() => setModalOpen()}
+    className={styles.avatarCntainer}>
         <Avatar/>
         <div>
             <p>username</p>

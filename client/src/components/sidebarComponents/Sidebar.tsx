@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../styles/sidebar.module.css';
+import React, { useState } from 'react';
+import styles from '../../styles/sidebar.module.css';
 import Logo from './Logo';
 import NavButton from './NavButton';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -13,13 +13,19 @@ import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ProfileAvatar from './ProfileAvatar';
 import { BreakLine } from './BreakLine';
 import { useNavigate } from 'react-router-dom';
+import { ISidebar } from '../../interface/props';
 
-const Sidebar = () => {
+
+
+
+const Sidebar = ({setModalOpen}:ISidebar) => {
   const Navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
     Navigate(path);
   };
+
+
 
   return (
     <div className={styles.sidebarMain}>
@@ -33,7 +39,7 @@ const Sidebar = () => {
       <NavButton text="Info" Icon={InfoOutlinedIcon} path="/info" onClick={handleNavigation} />
       <NavButton text="Settings" Icon={SettingsOutlinedIcon} path="/settings" onClick={handleNavigation} />
       <ThemeToggleSwitch />
-      <ProfileAvatar />
+      <ProfileAvatar setModalOpen={setModalOpen}/>
     </div>
   );
 };

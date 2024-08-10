@@ -1,6 +1,6 @@
 import React, { ElementType } from 'react';
 import { SvgIconProps } from '@mui/material/SvgIcon';
-import styles from '../styles/sidebar.module.css';
+import styles from '../../styles/sidebar.module.css';
 import { useLocation } from 'react-router-dom';
 
 interface Props {

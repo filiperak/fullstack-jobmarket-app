@@ -1,0 +1,48 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 100;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:var(--halfway-color); 
+    padding: 50px;
+    z-index: 100;
+    border-radius: var(--app-border-radius);
+    width: 400px;
+}
+.modal input{
+    border: none;
+    background-color: var(--background-color);
+    border-radius: var(--app-border-radius);
+    padding: var(--app-padding);
+    outline: none;
+    width: 100%;
+}
+.btnContainer{
+    text-align: right;
+    margin-top: 10px;
+}
+.btnContainer button{
+    padding: var(--app-padding);
+    border-radius: var(--app-border-radius);
+    border: none;
+    cursor: pointer;
+    margin: var(--app-margin);
+    font-weight: 600;
+}
+.cancelBtn{
+    background-color: var(--app-red);
+
+}
+.confirmBtn{
+    background-color: var(--app-theme-color);
+}

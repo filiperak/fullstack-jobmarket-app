@@ -1,16 +1,17 @@
 import mongoose, { Model, Schema } from "mongoose";
 
 interface IJob extends Document {
-    title: string;
-    description: string;
-    createdBy: mongoose.Types.ObjectId;
-    applicants:mongoose.Types.ObjectId;
-  }
+  title: string;
+  description: string;
+  createdBy: mongoose.Types.ObjectId;
+  applicants:mongoose.Types.ObjectId;
+}
 
 const JobsSchema:Schema<IJob> = new Schema({
   title: {
     type: String,
-    required: [true, "must provide job title"]
+    required: [true, "must provide job title"],
+    minlength:3,
    },
    description: {
      type: String,
