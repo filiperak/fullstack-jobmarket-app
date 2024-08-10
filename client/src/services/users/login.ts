@@ -1,21 +1,20 @@
 import { API_URL } from "../API"
 
-export const registerUser = async(username:string,email:string,password:string) => {
+export const loginUser = async(username:string,password:string) => {
     try {
         const response = await fetch(
-            `${API_URL}/users/register`,
+            `${API_URL}/users/login`,
             {
                 method:"POST",
                 headers:{
                     "Content-Type": "application/json",
                 },
-                body:JSON.stringify({username,email,password})
+                body:JSON.stringify({username,password}) 
             }
         )
         const result = await response.json()
         console.log(result);
-        return result
     } catch (error) {
-        console.log(error);   
+        console.log(error);
     }
 }
