@@ -1,6 +1,6 @@
 .sidebarMain {
   background-color: var(--background-color);
-  border-radius: 0 var(--app-border-radius) var(--app-border-radius) 0;
+  /* border-radius: 0 var(--app-border-radius) var(--app-border-radius) 0; */
   height: 100svh;
   width: 25%;
   max-width: 275px;
@@ -8,8 +8,8 @@
   position: relative;
 }
 .SideBarLogo {
-  /* color: var(--app-black); */
-  padding: var(--app-padding);
+  /* color: var(--app-theme-color); */
+  padding: var(--app-color);
 }
 .SideBarLogo svg {
   font-size: 65px;
@@ -22,23 +22,26 @@
   margin: 0;
 }
 .navButtons {
-  background-color: var(--halfway-color);
-  border-radius: 20px;
+  border-radius: 8px;
   padding: var(--app-padding);
   padding-left: 8px;
   margin: 10px;
   align-items: center;
-  /* color: var(--app-dark-grey); */
   cursor: pointer;
-  box-shadow: var(--app-border-shadow);
+  font-weight: 600;
+  /* background-color: var(--halfway-color); */
+  /* color: var(--app-dark-grey); */
+  /* box-shadow: var(--app-border-shadow); */
 }
 .navButtons p {
   margin-left: 6px;
 }
 .navButtons:hover {
-  background: var(--app-hover-color) !important;
-
-  /* color: var(--app-black); */
+  background-color: var(--app-theme-color);
+  box-shadow: var(--app-border-shadow);
+}
+.active{
+  background-color: var(--app-theme-color);
 }
 .toggle {
   border-radius: var(--app-border-radius);
