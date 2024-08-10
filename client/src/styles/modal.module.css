@@ -26,6 +26,7 @@
     padding: var(--app-padding);
     outline: none;
     width: 100%;
+    margin: var(--app-margin) 0;
 }
 .btnContainer{
     text-align: right;
@@ -45,4 +46,8 @@
 }
 .confirmBtn{
     background-color: var(--app-theme-color);
+}
+.signinSpan{
+    text-decoration: underline;
+    cursor: pointer;
 }
