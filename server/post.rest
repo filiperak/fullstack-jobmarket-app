@@ -5,7 +5,7 @@ GET http://localhost:5000/api/v1/jobs
 
 
 
-GET http://localhost:5000/api/v1/jobs/669d586f408bc4a95f7041e6
+GET http://localhost:5000/api/v1/jobs/66b68c299fa997812a2d5f85
 
 
 ###
@@ -18,10 +18,10 @@ DELETE  http://localhost:5000/api/v1/jobs/669d4d17bc193dc1de9e9c88
 
 POST http://localhost:5000/api/v1/jobs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2N2JmNDJiMzg0NTQzYzI0YjIxYzMiLCJuYW1lIjoidmlrdG9yMiIsImlhdCI6MTcyMzIzODY4NCwiZXhwIjoxNzI1ODMwNjg0fQ.sn0Hp2Pvns_8cvCQSwQRXWHvQvhQV_nQ-ZllKiGSN5Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2Nzk2ZGY3ZTE1OGFmMGU1ODMzYTQiLCJuYW1lIjoidmlrdG9yIiwiaWF0IjoxNzIzMjc4Mzk3LCJleHAiOjE3MjU4NzAzOTd9.A3n5pKPaPLfx1NDWQDHkMxD_QLywQ_ZXsj1onNpna6o
 
 {
-  "title": "Job 4",
+  "title": "Job Patch test",
   "description": "Job Description"
 }
 
@@ -53,6 +53,12 @@ POST http://localhost:5000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "username":"viktor2",
+    "username":"tanja2",
   "password":"sifra123"
 }
+
+###
+
+PATCH http://localhost:5000/api/v1/jobs/66b7245f9fa997812a2d5f92
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2NGMwMjU4OWU1ZWIyYzMxYTczODciLCJuYW1lIjoidGFuamEyIiwiaWF0IjoxNzIzMjc4NTMzLCJleHAiOjE3MjU4NzA1MzN9.COJDIOJ71W2s1NGY0KMmrPguejVeEYpAtVRTroeYTKU

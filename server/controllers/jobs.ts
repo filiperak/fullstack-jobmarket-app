@@ -30,7 +30,7 @@ export const createJob = async (req: JobRequest, res: Response) => {
   }
 };
 
-export const applyToJob = async (req:JobRequest,res:Response) => {  //NE VALJA NISTA ISPRAVI SUTRA
+export const applyToJob = async (req:JobRequest,res:Response) => {
   try {
     const jobId = req.params.id;
     const userId = req.user?.userId
@@ -45,6 +45,8 @@ export const applyToJob = async (req:JobRequest,res:Response) => {  //NE VALJA N
     res.status(500).json({ msg: error });    
   }
 }
+
+
 
 export const getJob = async (req: Request, res: Response) => {
   try {
