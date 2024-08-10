@@ -30,6 +30,22 @@ export const createJob = async (req: JobRequest, res: Response) => {
   }
 };
 
+export const applyToJob = async (req:JobRequest,res:Response) => {  //NE VALJA NISTA ISPRAVI SUTRA
+  try {
+    const jobId = req.params.id;
+    const userId = req.user?.userId
+
+    const job = await JobModel.findByIdAndUpdate(
+      jobId,
+      {$push: {applicants:userId}},
+      {new: true}
+    )
+    res.status(200).json({msg:'applied to job',job})
+  } catch (error) {
+    res.status(500).json({ msg: error });    
+  }
+}
+
 export const getJob = async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id;

@@ -4,6 +4,7 @@ interface IJob extends Document {
     title: string;
     description: string;
     createdBy: mongoose.Types.ObjectId;
+    applicants:mongoose.Types.ObjectId;
   }
 
 const JobsSchema:Schema<IJob> = new Schema({
@@ -16,6 +17,7 @@ const JobsSchema:Schema<IJob> = new Schema({
      required: [true, "must provide job description"],
    },
    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+   applicants:{type:mongoose.Schema.Types.ObjectId, ref : "User"},
 },  
  {timestamps:true}
 );
