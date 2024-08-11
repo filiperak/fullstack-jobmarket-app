@@ -25,6 +25,12 @@ export const loginUser = async (username: string, password: string,userDispatch:
 
         } 
     });
+    localStorage.setItem('user', JSON.stringify({
+      id: result.user._id,
+      username: result.user.username,
+      email: result.user.email,
+      token: result.token,
+  }));
     return result;
   } catch (error: any) {
     throw new Error(error.message);

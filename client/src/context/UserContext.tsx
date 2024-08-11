@@ -10,13 +10,15 @@ interface IinitialState {
     logged:boolean
 }
 
-const initialState = {
-    id:'',
-    username:'',
-    email:'',
-    token:'',
-    logged:false
-}
+const storedUser = localStorage.getItem('user');
+const initialState = storedUser ? {...JSON.parse(storedUser),logged:true} : {
+    id: '',
+    username: '',
+    email: '',
+    token: '',
+    logged: false,
+};
+
 
 export const UserContext = createContext<{
     userState: IUserState;

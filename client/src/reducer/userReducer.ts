@@ -13,6 +13,7 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
                 logged: true
             };
         case 'LOG_OUT':
+            localStorage.removeItem('user');
             return {
                 id: '',
                 username: '',
