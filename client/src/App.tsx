@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Dashboard from './views/Dashboard';
 import Jobs from './views/Jobs';
 import LoginModal from './components/loginModal/LoginModal';
+import { UserContextProvider } from './context/UserContext';
 
 function App() {
   const [isModel,setIsModel] = useState<boolean>(false)
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className='App'>
       <ThemeProvider>
+      <UserContextProvider>
       <Router>
         <Sidebar setModalOpen={toggleModal}/>
         <LoginModal open={isModel} setModalOpen={toggleModal}/>
@@ -24,6 +26,7 @@ function App() {
         </Routes>
 
       </Router>
+      </UserContextProvider>
       </ThemeProvider>
 
     </div>
