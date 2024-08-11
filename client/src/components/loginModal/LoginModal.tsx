@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ISidebar } from "../../interface/props";
 import styles from "../../styles/modal.module.css";
-import { useAuth } from "../../services/users/useAuth";
+//import { useAuth } from "../../services/users/useAuth";
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import { UserContext } from "../../context/UserContext";
+import { loginUser } from "../../services/users/login";
+import { registerUser } from "../../services/users/register";
+
 
 const LoginModal = ({ open, setModalOpen }: ISidebar) => {
+    const {userDispatch} = useContext(UserContext)
   const [register, setRegister] = useState<boolean>(false);
-  const { handleLogin, handleRegister } = useAuth();
+  //const { handleLogin, handleRegister } = useAuth();
   const [formData, setFormData] = useState<{ username: string; email: string; password: string }>({
     username: "",
     email: "",
@@ -38,9 +43,9 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
     setErrorMsg(null);
     try {
       if (register) {
-        await handleRegister(formData.username, formData.email, formData.password);
+        await registerUser(formData.username, formData.email, formData.password);
       } else {
-        await handleLogin(formData.username, formData.password);
+        await loginUser(formData.username, formData.password,userDispatch);
       }
       setModalOpen();
       setFormData({ username: "", email: "", password: "" });
@@ -94,7 +99,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
           <button className={styles.cancelBtn} onClick={handleClose}>
             Cancel
           </button>
-          <button className={styles.confirmBtn} type="submit">
+          <button className={styles.confirmBtn} type="submit" onClick={handleSubmit}>
             {register ? "Register" : "Sign in"}
           </button>
         </div>

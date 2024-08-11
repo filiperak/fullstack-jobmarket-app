@@ -1,20 +1,5 @@
-export interface IUserState {
-    id: string;
-    username: string;
-    email: string;
-    token: string;
-    logged: boolean;
-}
+import { IUserAction, IUserState } from "../interface/props";
 
-export interface IUserAction {
-    type: 'LOG_IN' | 'LOG_OUT';
-    payload?: {
-        id: string;
-        username: string;
-        email: string;
-        token: string;
-    };
-}
 
 export const userReducer =  (state: IUserState, action: IUserAction) => {
     switch(action.type){

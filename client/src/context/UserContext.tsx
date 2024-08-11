@@ -1,5 +1,6 @@
 import  React,{ createContext, Dispatch, ReactNode, useReducer } from "react";
-import { IUserAction, IUserState, userReducer } from "../reducer/userReducer";
+import { userReducer } from "../reducer/userReducer";
+import { IUserAction, IUserState } from "../interface/props";
 
 interface IinitialState {
     id:string;
