@@ -51,3 +51,7 @@
     text-decoration: underline;
     cursor: pointer;
 }
+.modalErrMsg{
+    display: flex;
+    align-items: center;
+}

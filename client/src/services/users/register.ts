@@ -13,9 +13,13 @@ export const registerUser = async(username:string,email:string,password:string) 
             }
         )
         const result = await response.json()
-        console.log(result);
+        if(!response.ok){
+            throw new Error(result.message || 'login failed')
+        }
         return result
-    } catch (error) {
-        console.log(error);   
+        console.log(result);
+    } catch (error:any) {
+        console.log(error);
+        throw new Error(error.message)
     }
 }

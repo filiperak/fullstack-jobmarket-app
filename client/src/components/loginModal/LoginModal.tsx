@@ -2,33 +2,51 @@ import React, { useState } from "react";
 import { ISidebar } from "../../interface/props";
 import styles from "../../styles/modal.module.css";
 import { useAuth } from "../../services/users/useAuth";
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 
 const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const [register, setRegister] = useState<boolean>(false);
   const { handleLogin, handleRegister } = useAuth();
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [formData, setFormData] = useState<{ username: string; email: string; password: string }>({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [errorMsg, setErrorMsg] = useState<null | string>(null);
 
   if (!open) return null;
 
   const handleToggle = () => {
     setRegister((prev) => !prev);
+    setFormData({ username: "", email: "", password: "" });
+    setErrorMsg(null);
   };
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
+    setFormData({ username: "", email: "", password: "" });
     setModalOpen();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (register) {
-      await handleRegister(username, email, password);
-    } else {
-      await handleLogin(username, password);
+    setErrorMsg(null);
+    try {
+      if (register) {
+        await handleRegister(formData.username, formData.email, formData.password);
+      } else {
+        await handleLogin(formData.username, formData.password);
+      }
+      setModalOpen();
+      setFormData({ username: "", email: "", password: "" });
+    } catch (error: any) {
+      setErrorMsg(error.message);
     }
-    //setModalOpen();
   };
 
   return (
@@ -44,25 +62,32 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
             {register ? "Sign In" : "Register"}
           </span>
         </p>
+        { errorMsg && <div className={styles.modalErrMsg}>
+            <ReportGmailerrorredIcon/>
+            <p>{errorMsg}</p>
+            </div>}
         <input
           type="text"
+          name="username"
           placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formData.username}
+          onChange={handleChange}
         />
         {register && (
           <input
             type="text"
+            name="email"
             placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
         )}
         <input
           type="password"
+          name="password"
           placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
 
         <div className={styles.btnContainer}>

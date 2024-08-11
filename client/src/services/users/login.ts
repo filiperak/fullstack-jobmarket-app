@@ -13,8 +13,14 @@ export const loginUser = async(username:string,password:string) => {
             }
         )
         const result = await response.json()
+
+        if(!response.ok){
+            throw new Error(result.message || 'login failed')
+        }
+        return result
         console.log(result);
-    } catch (error) {
+    } catch (error:any) {
         console.log(error);
+        throw new Error(error.message)
     }
 }
