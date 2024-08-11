@@ -1,22 +1,26 @@
-import { Avatar } from '@mui/material'
-import React from 'react'
-import styles from '../../styles/sidebar.module.css'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { ISidebar } from '../../interface/props';
+import { Avatar } from "@mui/material";
+import React, { useContext } from "react";
+import styles from "../../styles/sidebar.module.css";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ISidebar } from "../../interface/props";
+import { UserContext } from "../../context/UserContext";
 
-const ProfileAvatar = ({setModalOpen}:ISidebar) => {
+const ProfileAvatar = ({ setModalOpen }: ISidebar) => {
+  const { userState } = useContext(UserContext);
   return (
-    <div 
-    onClick={() => setModalOpen()}
-    className={styles.avatarCntainer}>
-        <Avatar/>
+    <div onClick={() => setModalOpen()} className={styles.avatarCntainer}>
+      <Avatar />
+      {userState.logged ? (
         <div>
-            <p>username</p>
-            <p>savobacic@gmail.com</p>
+          <p>{userState.username}</p>
+          <p>{userState.email}</p>
         </div>
-        <MoreVertIcon/>
+      ) : (
+        <p>Log in</p>
+      )}
+      <MoreVertIcon />
     </div>
-  )
-}
+  );
+};
 
-export default ProfileAvatar
+export default ProfileAvatar;

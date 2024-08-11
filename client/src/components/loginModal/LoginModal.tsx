@@ -19,31 +19,30 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   });
   const [errorMsg, setErrorMsg] = useState<null | string>(null);
 
-  if (!open) return null;
-
+  
   const handleToggle = () => {
-    setRegister((prev) => !prev);
-    setFormData({ username: "", email: "", password: "" });
-    setErrorMsg(null);
-  };
-
-  const handleClose = (e: React.MouseEvent) => {
+      setRegister((prev) => !prev);
+      setFormData({ username: "", email: "", password: "" });
+      setErrorMsg(null);
+    };
+    
+    const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
     setFormData({ username: "", email: "", password: "" });
     setModalOpen();
-  };
+};
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
     try {
       if (register) {
-        await registerUser(formData.username, formData.email, formData.password);
+        await registerUser(formData.username, formData.email, formData.password,userDispatch);
       } else {
         await loginUser(formData.username, formData.password,userDispatch);
       }
@@ -52,8 +51,9 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
     } catch (error: any) {
       setErrorMsg(error.message);
     }
-  };
+};
 
+if (!open) return null;
   return (
     <>
       <div className={styles.overlay} />
@@ -96,10 +96,10 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
         />
 
         <div className={styles.btnContainer}>
-          <button className={styles.cancelBtn} onClick={handleClose}>
+          <button className={styles.cancelBtn} onClick={handleClose} type="button">
             Cancel
           </button>
-          <button className={styles.confirmBtn} type="submit" onClick={handleSubmit}>
+          <button className={styles.confirmBtn} type="submit" >
             {register ? "Register" : "Sign in"}
           </button>
         </div>

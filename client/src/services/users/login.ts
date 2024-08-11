@@ -25,13 +25,8 @@ export const loginUser = async (username: string, password: string,userDispatch:
 
         } 
     });
-    console.log(result);
-    console.log(result.token);
-    console.log(result.user);
-
     return result;
   } catch (error: any) {
-    console.log(error);
     throw new Error(error.message);
   }
 };

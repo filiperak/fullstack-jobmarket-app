@@ -11,9 +11,9 @@ export const useAuth = () => {
     }
   }
 
-  const handleRegister = async (username:string,email:string,password:string) => {
+  const handleRegister = async (username:string,email:string,password:string,userDispatch:React.Dispatch<IUserAction>) => {
     try {
-        await registerUser(username,email,password)
+        await registerUser(username,email,password,userDispatch)
     } catch (error: any) {
         throw new Error(error.message);
     }
