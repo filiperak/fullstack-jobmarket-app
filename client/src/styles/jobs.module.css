@@ -1,4 +1,15 @@
 .jobs{
-    background-color: var(--halfway-color);
-    width: 100%;
+    /* display:flex; */
+    position: relative;
+}
+
+.jobList{
+    
+}
+.search{
+    margin: var(--app-margin);
+    border-radius: var(--app-border-radius);
+    background-color: var(--background-color);
+    height: 150px;
+    
 }

@@ -25,3 +25,19 @@ export interface IjobPayload {
   title:string,
   description:string
 }
+
+interface IUser {
+  id: string;
+    username: string;
+    email: string;
+}
+
+export interface IJobs {
+  _id: string;
+  title: string;
+  description: string;
+  createdAt: string; 
+  updatedAt: string; 
+  createdBy: IUser; 
+  __v: number; 
+}
