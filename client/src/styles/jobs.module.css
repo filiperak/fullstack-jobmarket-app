@@ -1,16 +1,40 @@
 .jobs{
     /* display:flex; */
     position: relative;
+    height: 100svh;
+    overflow: scroll;
 }
 
-.jobList{
-    
+.jobList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: var(--app-margin);
 }
-.job{
+
+.job {
     margin: var(--app-margin);
     border-radius: var(--app-border-radius);
     background-color: var(--background-color);
 }
+
+@media (max-width: 1200px) {
+    .jobList {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .jobList {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .jobList {
+        grid-template-columns: 1fr;
+    }
+}
+
 .search{
     margin: var(--app-margin);
     border-radius: var(--app-border-radius);

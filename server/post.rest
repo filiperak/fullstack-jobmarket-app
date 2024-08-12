@@ -18,12 +18,21 @@ DELETE  http://localhost:5000/api/v1/jobs/669d4d17bc193dc1de9e9c88
 
 POST http://localhost:5000/api/v1/jobs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI4ZjlhY2Y4YzcxZmFiMzE1MDVhNTUiLCJuYW1lIjoiYWRhbSIsImlhdCI6MTcyMzQ1Njc3NCwiZXhwIjoxNzI2MDQ4Nzc0fQ.ITbUkf3WheT9VHiU-BFZx7Oh_nGyBraqyT0lTtUVzj8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI4ZjlhY2Y4YzcxZmFiMzE1MDVhNTUiLCJuYW1lIjoiYWRhbSIsImlhdCI6MTcyMzQ3MDM5OCwiZXhwIjoxNzI2MDYyMzk4fQ.YlwgirnUKc1IYBOujjfz2QBpBRIuDXE-PEBuRYsYm-k
 
-{
-  "title": "Job Patch test",
-  "description": "Job Description"
+  {
+  "title": "vodoinstalater",
+  "description": "We are looking for a skilled job dooer.",
+  "pay": {
+    "amount": 4206969,
+    "typeOfPay": "hourly"
+  },
+  "jobLocation": {
+    "country": "USA",
+    "city": "New York"
+  }
 }
+
 
 
 ###

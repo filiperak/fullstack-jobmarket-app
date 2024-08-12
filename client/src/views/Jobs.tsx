@@ -26,7 +26,7 @@ const Jobs = () => {
   return (
     <div className={`${globalStyles.views} ${styles.jobs}`}>
       <Search/>
-      <section>
+      <section className={styles.jobList}>
         {jobs && jobs.length > 0?
         jobs.map(job => (
           <Job key={job._id} data={job}/>
