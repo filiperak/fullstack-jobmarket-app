@@ -6,6 +6,11 @@
 .jobList{
     
 }
+.job{
+    margin: var(--app-margin);
+    border-radius: var(--app-border-radius);
+    background-color: var(--background-color);
+}
 .search{
     margin: var(--app-margin);
     border-radius: var(--app-border-radius);
