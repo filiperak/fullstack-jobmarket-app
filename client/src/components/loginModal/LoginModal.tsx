@@ -117,7 +117,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
         />
         {register && (
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="email"
             value={formData.email}
