@@ -28,9 +28,9 @@ export const register = async (req: Request, res: Response) => {
       { expiresIn: "30d" }
     );
 
-    res.status(201).json({ msg: "user created", user: user,token});
+    res.status(201).json({ message: "user created", user: user,token});
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(500).json({ message: error });
   }
 };
 
@@ -51,9 +51,9 @@ export const login = async (req: Request, res: Response) => {
             process.env.JWT_SECRET as string,
             { expiresIn: "30d" }
         );
-        res.status(200).json({msg:'user logged in',user,token})
+        res.status(200).json({message:'user logged in',user,token})
     } catch (error) {
-        res.status(500).json({ msg: error });
+        res.status(500).json({ message: error });
     }
 };
 
@@ -66,7 +66,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     const users = await UserModel.find({});
     return res.status(201).json({ users });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(500).json({ message: error });
   }
 };
 
@@ -77,6 +77,6 @@ export const getUser = async (req: Request, res: Response) => {
     );
     res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(500).json({ message: error });
   }
 };

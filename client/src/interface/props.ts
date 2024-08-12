@@ -20,3 +20,8 @@ export interface IUserAction {
     token: string;
   };
 }
+
+export interface IjobPayload {
+  title:string,
+  description:string
+}

@@ -18,7 +18,7 @@ DELETE  http://localhost:5000/api/v1/jobs/669d4d17bc193dc1de9e9c88
 
 POST http://localhost:5000/api/v1/jobs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI2Nzk2ZGY3ZTE1OGFmMGU1ODMzYTQiLCJuYW1lIjoidmlrdG9yIiwiaWF0IjoxNzIzMjc4Mzk3LCJleHAiOjE3MjU4NzAzOTd9.A3n5pKPaPLfx1NDWQDHkMxD_QLywQ_ZXsj1onNpna6o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI4ZjlhY2Y4YzcxZmFiMzE1MDVhNTUiLCJuYW1lIjoiYWRhbSIsImlhdCI6MTcyMzQ1Njc3NCwiZXhwIjoxNzI2MDQ4Nzc0fQ.ITbUkf3WheT9VHiU-BFZx7Oh_nGyBraqyT0lTtUVzj8
 
 {
   "title": "Job Patch test",
