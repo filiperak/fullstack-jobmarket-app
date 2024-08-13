@@ -44,7 +44,7 @@
 
 }
 .bar{
-  border-radius: var(--app-border-radius);
+    border-radius: var(--app-border-radius);
   background-color: var(--halfway-color);
   display: flex;
   align-items: center;
@@ -76,6 +76,71 @@
 }
 .filter:hover{
   background-color: var(--app-theme-color);
+}
+
+.panel{
+
+display: grid;
+max-width: 1049px;
+padding: var(--app-padding);
+width: 100%;
+margin: 0 auto ; 
+grid-template-columns: repeat(4, 1fr) 60px;
+}
+.panelItem{
+  border-radius: var(--app-border-radius);
+  background-color: var(--halfway-color);
+  margin: var(--app-margin);
+  padding: var(--app-padding);
+  
+}
+
+.panelBtn{
+  margin-top: 4px;
+  width: 60px;
+  text-align: center;
+  
+}
+.panelBtn button{
+  margin-bottom: var(--app-margin);
+  background-color: var(--halfway-color);
+  border: none;
+  border-radius: var(--app-border-radius);
+  padding: var(--app-padding);
+  cursor: pointer;
+  width: 45px;
+}
+.panelBtn button:hover{
+  background-color: var(--app-blue);
+}
+.sort{
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  margin: 0 auto;
+  text-align: center;
+}
+.sort select{
+  outline: none;
+  border: none;
+  background-color: var(--halfway-color);
+
+}
+
+.radioContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: var(--app-margin);
+  /* flex-direction: column; */
+}
+.radioContainer label {
+  display: flex;             
+  align-items: center;   
+  font-size: 0.8rem;    
+}
+.radioContainer input[type="radio"] {
+  margin-right: 5px;       
 }
 
 .job {
