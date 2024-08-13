@@ -6,6 +6,7 @@ import Dashboard from './views/Dashboard';
 import Jobs from './views/Jobs';
 import LoginModal from './components/loginModal/LoginModal';
 import { UserContextProvider } from './context/UserContext';
+import SingleJob from './views/SingleJob';
 
 function App() {
   const [isModel,setIsModel] = useState<boolean>(false)
@@ -22,6 +23,7 @@ function App() {
 
         <Routes>
         <Route path='/' element={<Jobs/>}/>
+        <Route path='job/:id' element={<SingleJob/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
 

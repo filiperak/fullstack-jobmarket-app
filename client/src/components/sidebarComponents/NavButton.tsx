@@ -12,7 +12,8 @@ interface Props {
 
 const NavButton = ({ Icon, text, path, onClick }: Props) => {
   const location = useLocation();
-  const isActive = location.pathname === path;
+  const isJobsActive = location.pathname === '/' || location.pathname.startsWith('/job');
+  const isActive = isJobsActive && path === '/' || location.pathname === path
 
   return (
     <div

@@ -5,7 +5,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface JobProps {
   data: IJobs;
@@ -13,9 +13,13 @@ interface JobProps {
 
 const Job = ({ data }: JobProps) => {
   console.log(data);
+  const Navigate = useNavigate()
+  const navigateToJob = (path:string) => {
+    Navigate(`/job/${path}`)
+  }
 
   return (
-    <div className={styles.job}>
+    <div className={styles.job} onClick={() => navigateToJob(data._id)}>
       <section className={styles.jobContent}>
         <h2>{data.title}</h2>
         <div className={styles.jobUsername}>{`posted by:${data.createdBy.username}`}</div>
