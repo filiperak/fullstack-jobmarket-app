@@ -30,11 +30,54 @@
 }
 
 .search {
-  margin: var(--app-margin);
+  margin: 0 var(--app-margin);
   border-radius: var(--app-border-radius);
   background-color: var(--background-color);
-  height: 150px;
+  /* height: 150px; */
+  padding: var(--app-padding);
 }
+.barAndFilter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--app-margin) auto;
+
+}
+.bar{
+  border-radius: var(--app-border-radius);
+  background-color: var(--halfway-color);
+  display: flex;
+  align-items: center;
+  max-width: 1000px;
+  padding: var(--app-padding);
+  width: 100%;
+  margin: var(--app-margin) ;
+
+}
+.bar input{
+  background-color: var(--halfway-color);
+  border: none;
+  outline: none;
+  width: 100%;
+}
+.bar button{
+  margin-right: auto;
+  background-color: var(--app-theme-color);
+  border: none;
+  border-radius: var(--app-border-radius);
+  padding: var(--app-padding);
+  cursor: pointer;
+}
+.filter{
+  background-color: var(--halfway-color);
+  padding: 02px var(--app-padding);
+  border-radius: var(--app-border-radius);
+  cursor: pointer;
+}
+.filter:hover{
+  background-color: var(--app-theme-color);
+}
+
 .job {
   margin: var(--app-margin);
   border-radius: var(--app-border-radius);
@@ -57,8 +100,7 @@
   display: flex;
   align-items: center;
 }
-.jobContent {
-}
+
 .jobHeader {
   display: flex;
   align-items: center;

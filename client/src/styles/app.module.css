@@ -1,4 +1,6 @@
 .views{
     background-color: var(--halfway-color);
     width: 100%;
+    max-width: 1500px;
+    margin: var(--app-margin) auto;
 }
