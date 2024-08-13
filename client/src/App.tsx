@@ -7,6 +7,7 @@ import Jobs from './views/Jobs';
 import LoginModal from './components/loginModal/LoginModal';
 import { UserContextProvider } from './context/UserContext';
 import SingleJob from './views/SingleJob';
+import { JobContextProvider } from './context/JobContext';
 
 function App() {
   const [isModel,setIsModel] = useState<boolean>(false)
@@ -17,6 +18,7 @@ function App() {
     <div className='App'>
       <ThemeProvider>
       <UserContextProvider>
+      <JobContextProvider>
       <Router>
         <Sidebar setModalOpen={toggleModal}/>
         <LoginModal open={isModel} setModalOpen={toggleModal}/>
@@ -28,6 +30,7 @@ function App() {
         </Routes>
 
       </Router>
+      </JobContextProvider>
       </UserContextProvider>
       </ThemeProvider>
 
