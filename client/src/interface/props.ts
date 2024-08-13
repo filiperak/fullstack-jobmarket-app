@@ -12,7 +12,7 @@ export interface IUserState {
 }
 
 export interface IUserAction {
-  type: "LOG_IN" | "LOG_OUT";
+  type: "LOG_IN" | "LOG_OUT" ;
   payload?: {
     id: string;
     username: string;
@@ -21,10 +21,15 @@ export interface IUserAction {
   };
 }
 
-export interface IjobPayload {
-  title:string,
-  description:string
+export interface IJobsAction {
+  type:"FETCH_JOBS" | "CREATE_JOBS" | "FETCH_JOB"| "SET_LOADING" | "SET_ERROR";
+  payload?:any
 }
+
+// export interface IjobPayload {
+//   title:string,
+//   description:string
+// }
 
 interface IUser {
   id: string;

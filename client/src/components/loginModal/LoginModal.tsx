@@ -6,6 +6,7 @@ import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { UserContext } from "../../context/UserContext";
 import { loginUser } from "../../services/users/login";
 import { registerUser } from "../../services/users/register";
+import { LOG_OUT } from "../../reducer/actions";
 
 const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -62,7 +63,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const handleLogOut = (e: React.FormEvent) => {
     e.preventDefault();
     userDispatch({
-      type: "LOG_OUT",
+      type: LOG_OUT,
     });
     setModalOpen();
   };

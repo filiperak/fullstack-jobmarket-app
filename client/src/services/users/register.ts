@@ -1,4 +1,5 @@
 import { IUserAction } from "../../interface/props"
+import { LOG_IN } from "../../reducer/actions"
 import { API_URL } from "../API"
 
 export const registerUser = async(username:string,email:string,password:string,userDispatch:React.Dispatch<IUserAction>) => {
@@ -18,7 +19,7 @@ export const registerUser = async(username:string,email:string,password:string,u
             throw new Error(result.message || 'login failed')
         }
         userDispatch({ 
-            type: "LOG_IN",
+            type: LOG_IN,
              payload: {
                 id:result.user._id,
                 username:result.user.username,
