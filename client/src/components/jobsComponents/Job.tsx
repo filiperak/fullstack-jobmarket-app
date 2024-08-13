@@ -1,22 +1,56 @@
-import React from 'react'
-import { IJobs } from '../../interface/props'
-import styles from '../../styles/jobs.module.css'
+import React from "react";
+import { IJobs } from "../../interface/props";
+import styles from "../../styles/jobs.module.css";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import { Avatar } from "@mui/material";
 
 interface JobProps {
-    data: IJobs;
-  }
-
-const Job = ({data}:JobProps) => {
-  return (
-    <div className={styles.job}>
-        <h1>
-        {data.title}
-        </h1>
-        <p>{data.description}</p>
-        <p>Created by: {data.createdBy.username} ({data.createdBy.email})</p>
-        <p>Posted on: {new Date(data.createdAt).toLocaleDateString()}</p>
-        </div>
-  )
+  data: IJobs;
 }
 
-export default Job
+const Job = ({ data }: JobProps) => {
+  console.log(data);
+
+  return (
+    <div className={styles.job}>
+      <section className={styles.jobContent}>
+        <h2>{data.title}</h2>
+        <div className={styles.jobUsername}>{`posted by:${data.createdBy.username}`}</div>
+        <p>
+          {data.description.length < 250
+            ? data.description
+            : data.description.slice(0, 249) + " ..."}
+        </p>
+      </section>
+      <footer>
+        <div>
+          <LocationOnOutlinedIcon sx={{ fontSize: "16px" }} />
+          <p>{data.jobLocation.city}</p>
+        </div>
+        <div>
+          <AccountBalanceWalletOutlinedIcon sx={{ fontSize: "16px" }} />
+          <p>{`${data.pay.amount}/${data.pay.typeOfPay}`}</p>
+        </div>
+        <div>
+          <AccessTimeOutlinedIcon sx={{ fontSize: "16px" }} />
+          <p>
+            {new Date(data.createdAt).toLocaleDateString("en-GB", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+        </div>
+        <div>
+          <GroupsOutlinedIcon sx={{ fontSize: "20px" }} />
+          <p>{`${data.applicants ? data.applicants.length : " 0"} applied`} </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Job;

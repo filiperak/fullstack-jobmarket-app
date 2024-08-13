@@ -21,15 +21,15 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmI4ZjlhY2Y4YzcxZmFiMzE1MDVhNTUiLCJuYW1lIjoiYWRhbSIsImlhdCI6MTcyMzQ3MDM5OCwiZXhwIjoxNzI2MDYyMzk4fQ.YlwgirnUKc1IYBOujjfz2QBpBRIuDXE-PEBuRYsYm-k
 
   {
-  "title": "vodoinstalater",
-  "description": "We are looking for a skilled job dooer.",
+  "title": "job3",
+  "description": "We are looking for a skilled job dooerWe are looking for a skilled job dooeWe are looking for a skilled job dooeWe are looking for a skilled job dooeWe are looking for a skilled job dooe.",
   "pay": {
-    "amount": 4206969,
-    "typeOfPay": "hourly"
+    "amount": 55,
+    "typeOfPay": "daily"
   },
   "jobLocation": {
     "country": "USA",
-    "city": "New York"
+    "city": "Belgrade"
   }
 }
 

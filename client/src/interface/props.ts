@@ -36,8 +36,18 @@ export interface IJobs {
   _id: string;
   title: string;
   description: string;
-  createdAt: string; 
-  updatedAt: string; 
-  createdBy: IUser; 
-  __v: number; 
+  createdBy: IUser;
+  applicants: IUser[] | [];
+  active: boolean;
+  pay: {
+    amount: number;
+    typeOfPay: string;
+  };
+  jobLocation: {
+    country: string;
+    city: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
