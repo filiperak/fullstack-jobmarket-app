@@ -82,10 +82,10 @@
 
 display: grid;
 max-width: 1049px;
-padding: var(--app-padding);
+padding-left: var(--app-padding);
 width: 100%;
 margin: 0 auto ; 
-grid-template-columns: repeat(4, 1fr) 60px;
+grid-template-columns: repeat(3, 1fr) 60px;
 }
 .panelItem{
   border-radius: var(--app-border-radius);
@@ -98,8 +98,6 @@ grid-template-columns: repeat(4, 1fr) 60px;
 .panelBtn{
   margin-top: 4px;
   width: 60px;
-  text-align: center;
-  
 }
 .panelBtn button{
   margin-bottom: var(--app-margin);
@@ -108,7 +106,8 @@ grid-template-columns: repeat(4, 1fr) 60px;
   border-radius: var(--app-border-radius);
   padding: var(--app-padding);
   cursor: pointer;
-  width: 45px;
+  width: 55px;
+  height: 31px;
 }
 .panelBtn button:hover{
   background-color: var(--app-blue);
@@ -141,6 +140,11 @@ grid-template-columns: repeat(4, 1fr) 60px;
 }
 .radioContainer input[type="radio"] {
   margin-right: 5px;       
+}
+.range{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .job {

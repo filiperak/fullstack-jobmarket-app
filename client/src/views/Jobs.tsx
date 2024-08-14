@@ -14,14 +14,12 @@ const Jobs = () => {
   const {loading,error,jobs} = jobState
 
 
-  if(error == null) return <Error/>
   return (
     <div className={`${globalStyles.views} ${styles.jobs}`}>
       <Search/>
       {!loading ? 
       <section className={styles.jobList}>
       {jobs && jobs.length > 0?
-
       jobs.map((job: IJobs) => (
         <Job key={job._id} data={job}/>
       )):null}

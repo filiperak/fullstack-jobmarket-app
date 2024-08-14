@@ -64,6 +64,30 @@ const Search = () => {
 
             </div>
           </div>
+
+          <div className={styles.panelItem}>
+            <p>Chose payment type:</p>
+            <div className={styles.radioContainer}>
+            <label htmlFor=""><input type="radio" name="radioBtn" id="" defaultChecked/>Any</label>
+            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Hourly</label>
+            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Daily</label>
+            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Monthly</label>
+            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Yearly</label>
+            </div>
+            <div className={styles.range}>
+            <p>Price from: ${range}</p>
+            <input
+              type="range"
+              name=""
+              id=""
+              min={"0"}
+              max={"10000"}
+              value={range}
+              onChange={(e) => setRange(e.target.value)}
+            />
+          </div>
+
+          </div>
           <div className={styles.panelItem}>
             <div className={styles.sort}>
               <p>Sort by:</p>
@@ -81,30 +105,6 @@ const Search = () => {
                 </optgroup>
               </select>
             </div>
-          </div>
-
-          <div className={styles.panelItem}>
-            <p>Chose payment type:</p>
-            <div className={styles.radioContainer}>
-            <label htmlFor=""><input type="radio" name="" id="" defaultChecked/>Any</label>
-            <label htmlFor=""><input type="radio" name="" id="" />Hourly</label>
-            <label htmlFor=""><input type="radio" name="" id="" />Daily</label>
-            <label htmlFor=""><input type="radio" name="" id="" />Monthly</label>
-            <label htmlFor=""><input type="radio" name="" id="" />Yearly</label>
-
-            </div>
-          </div>
-          <div className={styles.panelItem}>
-            <p>Price from: ${range}</p>
-            <input
-              type="range"
-              name=""
-              id=""
-              min={"0"}
-              max={"10000"}
-              value={range}
-              onChange={(e) => setRange(e.target.value)}
-            />
           </div>
           <div className={styles.panelBtn}>
             <button type="reset">Reset</button>
