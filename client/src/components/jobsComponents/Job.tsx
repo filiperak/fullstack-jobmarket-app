@@ -12,7 +12,6 @@ interface JobProps {
 }
 
 const Job = ({ data }: JobProps) => {
-  console.log(data);
   const Navigate = useNavigate()
   const navigateToJob = (path:string) => {
     Navigate(`/job/${path}`)

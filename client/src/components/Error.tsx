@@ -28,6 +28,7 @@ const ErrorWrapper = styled.div`
     height: 60px;
     width: 60px;
     margin-top: 50px;
+    cursor: pointer;
   }
   >p{
     margin-top: 20px;

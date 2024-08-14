@@ -26,10 +26,10 @@ export interface IJobsAction {
   payload?:any
 }
 
-// export interface IjobPayload {
-//   title:string,
-//   description:string
-// }
+export interface IjobPayload {
+  title:string,
+  description:string
+}
 
 interface IUser {
   id: string;

@@ -12,7 +12,7 @@ export interface IinitialState {
 const initialState: IinitialState = {
     jobs: [],
     job: null, 
-    loading: true,
+    loading: false,
     error: null,
 };
 

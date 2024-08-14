@@ -8,17 +8,38 @@ interface JobRequest extends Request{
     username: string;
 };
 }
+interface IqueryObject {
+  title?: { $regex: string; $options: string };
+}
+
 
 export const getAllJobs = async (req: JobRequest, res: Response) => {    
   try {
+    const {title} = req.query;
+    const queryObject:IqueryObject = {}
+    if(title){
+      queryObject.title = {$regex:title as string,$options:'i'}
+    }
+
+
     const jobs = await JobModel
-    .find({})
+    .find(queryObject)
     .populate('createdBy', 'username email');
-    res.status(200).json({ jobs , numOfJobs:jobs.length,user:req.user});
+    res.status(200).json({ jobs , numOfJobs:jobs.length});
   } catch (error) {
     res.status(500).json({ message: error });
   }
 };
+// export const getAllJobs = async (req: JobRequest, res: Response) => {    
+//   try {
+//     const jobs = await JobModel
+//     .find({})
+//     .populate('createdBy', 'username email');
+//     res.status(200).json({ jobs , numOfJobs:jobs.length,user:req.user});
+//   } catch (error) {
+//     res.status(500).json({ message: error });
+//   }
+// };
 
 export const createJob = async (req: JobRequest, res: Response) => {
   try {

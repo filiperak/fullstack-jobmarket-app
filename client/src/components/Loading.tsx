@@ -18,7 +18,7 @@ const LoadingWrapper = styled.div`
   background-color: var(--halfway-color);
   width: 100%;
   max-width: 1500px;
-  margin: var(--app-margin) auto;
+  margin: 150px auto;
   > svg {
     height: 60px;
     width: 60px;
