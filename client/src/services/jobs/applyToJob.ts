@@ -1,6 +1,6 @@
 import { API_URL } from "../API"
 
-export const applyToJon = async(token:string,params:string) => {
+export const applyToJob = async(token:string,params:string) => {
     try {
         const response = await fetch(`${API_URL}/jobs/${params}`,{
             method: "PATCH",

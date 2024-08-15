@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IJobs } from "../../interface/props";
 import styles from "../../styles/singleJob.module.css";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -7,17 +7,22 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { useNavigate } from "react-router-dom";
+import { applyToJob } from "../../services/jobs/applyToJob";
+import { UserContext } from "../../context/UserContext";
 interface IJobProps {
   data: IJobs;
 }
 const SingleJobComponent = ({ data }: IJobProps) => {
+    const {userState} = useContext(UserContext)
+    const {token} = userState
     const Navigate = useNavigate()
     const handleApply = async() => {
         alert('test')
         try {
-            
-        } catch (error) {
-            
+            const application = applyToJob(token,data._id)
+            alert(application)
+        } catch (error:any) {
+            console.log(error);
         }
     }
   return (
