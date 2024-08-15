@@ -4,7 +4,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import { JobContext } from "../../context/JobContext";
 import { getAllJobs } from "../../services/jobs/getAllJobs";
-import { FETCH_JOBS, SET_ERROR, SET_LOADING } from "../../reducer/actions";
+import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE } from "../../reducer/actions";
 
 
 const Search = () => {
@@ -17,14 +17,14 @@ const Search = () => {
 
   const fetchJobs = async() => {
     try {
-      jobDispatch({type:SET_LOADING});
+      jobDispatch({type:FETCH_JOBS_REQUEST});
       const jobsData = await getAllJobs(searchQuery);
-      jobDispatch({type:FETCH_JOBS,payload:jobsData.jobs});
+      jobDispatch({type:FETCH_JOBS_SUCCESS,payload:jobsData.jobs});
       console.log(jobsData.jobs);
       
     } catch (error: any) {
       console.log(error.message);
-      jobDispatch({type:SET_ERROR,payload:error.message});
+      jobDispatch({type:FETCH_JOBS_FAILURE,payload:error.message});
     }
   }
 

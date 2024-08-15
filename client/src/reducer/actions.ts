@@ -1,7 +1,7 @@
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
-export const FETCH_JOBS = 'FETCH_JOBS'
-export const FETCH_JOB = 'FETCH_JOB'
-export const SET_LOADING = 'SET_LOADING'
-export const SET_ERROR = 'FETCH_JOB'
+export const FETCH_JOBS_REQUEST = 'FETCH_JOBS_REQUEST'
+export const FETCH_JOB_SUCCESS = 'FETCH_JOB_SUCCESS'
+export const FETCH_JOBS_SUCCESS= 'FETCH_JOBS_SUCCESS'
+export const FETCH_JOBS_FAILURE = 'FETCH_JOBS_FAILURE'
 

@@ -15,7 +15,7 @@ interface IqueryObject {
 
 export const getAllJobs = async (req: JobRequest, res: Response) => {    
   try {
-    const {title} = req.query;
+    const {title,sort} = req.query;
     const queryObject:IqueryObject = {}
     if(title){
       queryObject.title = {$regex:title as string,$options:'i'}
@@ -24,7 +24,8 @@ export const getAllJobs = async (req: JobRequest, res: Response) => {
 
     const jobs = await JobModel
     .find(queryObject)
-    .populate('createdBy', 'username email');
+    .populate('createdBy', 'username email')
+    .sort()
     res.status(200).json({ jobs , numOfJobs:jobs.length});
   } catch (error) {
     res.status(500).json({ message: error });

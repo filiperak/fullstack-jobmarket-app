@@ -22,7 +22,7 @@ export interface IUserAction {
 }
 
 export interface IJobsAction {
-  type:"FETCH_JOBS" | "CREATE_JOBS" | "FETCH_JOB"| "SET_LOADING" | "SET_ERROR";
+  type:"FETCH_JOBS_REQUEST" | "CREATE_JOBS" | "FETCH_JOB_SUCCESS"| "FETCH_JOBS_SUCCESS" | "FETCH_JOBS_FAILURE";
   payload?:any
 }
 
