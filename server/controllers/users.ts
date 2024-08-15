@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
     );
 
     res.status(201).json({ message: "user created", user: user,token});
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };
@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response) => {
             { expiresIn: "30d" }
         );
         res.status(200).json({message:'user logged in',user,token})
-    } catch (error) {
+    } catch (error:any) {
         res.status(500).json({ message: error });
     }
 };
@@ -65,7 +65,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await UserModel.find({});
     return res.status(201).json({ users });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };
@@ -76,7 +76,7 @@ export const getUser = async (req: Request, res: Response) => {
       "appliedJobs"
     );
     res.status(200).json({ user });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };

@@ -27,7 +27,7 @@ export const getAllJobs = async (req: JobRequest, res: Response) => {
     .populate('createdBy', 'username email')
     .sort()
     res.status(200).json({ jobs , numOfJobs:jobs.length});
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };
@@ -47,7 +47,7 @@ export const createJob = async (req: JobRequest, res: Response) => {
     req.body.createdBy = req.user?.userId
     const job = await JobModel.create(req.body)
     res.status(200).json({ job });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });    
   }
 };
@@ -56,15 +56,17 @@ export const applyToJob = async (req:JobRequest,res:Response) => {
   try {
     const jobId = req.params.id;
     const userId = req.user?.userId
+    if(!userId){return res.status(400).json({messaage:'user  not logged in'})}
 
     const job = await JobModel.findByIdAndUpdate(
       jobId,
       {$push: {applicants:userId}},
       {new: true}
     )
+    if(!jobId){return res.status(400).json({messaage:'job not found'})}
     res.status(200).json({message:'applied to job',job})
-  } catch (error) {
-    res.status(500).json({ message: error });    
+  } catch (error:any) {
+    res.status(500).json({ message:'failed to apply' ,error });    
   }
 }
 
@@ -77,7 +79,7 @@ export const getJob = async (req: Request, res: Response) => {
     .populate('createdBy', 'username email')
     if (!job) return res.status(404).json({ message: "job not found" });
     res.status(200).json({ job });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };
@@ -88,7 +90,7 @@ export const deleteJob = async (req: Request, res: Response) => {
     const job = await JobModel.deleteOne({ _id: jobId });
     if (!job) return res.status(404).json({ message: "job not found" });
     res.status(200).json({ job });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({ message: error });
   }
 };

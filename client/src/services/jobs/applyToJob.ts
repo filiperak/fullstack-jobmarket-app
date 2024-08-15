@@ -6,14 +6,15 @@ export const applyToJob = async(token:string,params:string) => {
             method: "PATCH",
             headers:{
                 "Content-Type":"application/json",
-                Authorization: `Berer ${token}`,
+                Authorization: `Bearer ${token}`,
             }
         })
         const result = await response.json()
         if(!response.ok){
-            throw new Error(result.message || "failed to apply to job")
+            return { error: result.message || 'Failed to apply' }
         }
+        return result
     } catch (error: any) {
-        throw new Error(error.message);
+        return {error: error.message}
     }
 }

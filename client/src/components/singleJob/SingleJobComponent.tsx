@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { IJobs } from "../../interface/props";
 import styles from "../../styles/singleJob.module.css";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -9,24 +9,29 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import { useNavigate } from "react-router-dom";
 import { applyToJob } from "../../services/jobs/applyToJob";
 import { UserContext } from "../../context/UserContext";
+import Error from "../Error";
 interface IJobProps {
   data: IJobs;
 }
 const SingleJobComponent = ({ data }: IJobProps) => {
+    const [errorMsg, setErrorMsg] = useState<null | string>(null);
     const {userState} = useContext(UserContext)
     const {token} = userState
     const Navigate = useNavigate()
     const handleApply = async() => {
-        alert('test')
+        if(!token) return alert('user not logged')
         try {
-            const application = applyToJob(token,data._id)
-            alert(application)
+            const application = await applyToJob(token,data._id)
         } catch (error:any) {
             console.log(error);
+            setErrorMsg(error.message)
+            console.log(errorMsg);
+            
         }
     }
   return (
     <div className={styles.singleJob}>
+         {errorMsg && <Error msg={errorMsg} />}
       <header>
         <h2>{data.title}</h2>
         <h5>
