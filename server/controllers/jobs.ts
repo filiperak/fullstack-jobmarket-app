@@ -73,7 +73,8 @@ export const applyToJob = async (req:JobRequest,res:Response) => {
 export const getJob = async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id;
-    const job = await JobModel.findOne({ _id: jobId });
+    const job = await JobModel.findOne({ _id: jobId })
+    .populate('createdBy', 'username email')
     if (!job) return res.status(404).json({ message: "job not found" });
     res.status(200).json({ job });
   } catch (error) {

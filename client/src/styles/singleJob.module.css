@@ -1,0 +1,56 @@
+.singleJob{
+    background-color: var(--background-color);
+    height: 100%;
+    margin: var(--app-margin);
+    border-radius: var(--app-border-radius);
+    padding: var(--app-padding);
+    position: relative;
+}
+.singleJob header{
+    border-bottom: 2px solid var(--halfway-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--app-padding);
+}
+
+.singleJob header h5{
+    display: flex;
+    align-items: center;
+}
+.singleJob section {
+    border-bottom: 2px solid var(--halfway-color);
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+
+}
+.singleJob footer {
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    text-align: right;
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    left: 0;
+}
+.singleJob footer button{
+    padding: var(--app-padding);
+    border-radius: var(--app-border-radius);
+    border: none;
+    cursor: pointer;
+    margin: var(--app-margin);
+    font-weight: 600;
+}
+.singleJob footer button:first-child{
+    background-color: var(--app-red);
+}
+.singleJob footer button:last-child,.messageBtn{
+    background-color: var(--app-theme-color);
+}
+.singleJob li{
+    display: flex;
+    align-items: center;
+}
+/* .messageBtn{
+    background-color: var(--app-blue);
+} */
