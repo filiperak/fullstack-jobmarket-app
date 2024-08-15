@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
 import Sidebar from './components/sidebarComponents/Sidebar';
 import { ThemeProvider } from './context/ThemeContext';
@@ -7,13 +7,16 @@ import Jobs from './views/Jobs';
 import LoginModal from './components/loginModal/LoginModal';
 import { UserContextProvider } from './context/UserContext';
 import SingleJob from './views/SingleJob';
-import { JobContextProvider } from './context/JobContext';
+import { JobContext, JobContextProvider } from './context/JobContext';
+import InfoMsg from './components/InfoMsg';
 
 function App() {
   const [isModel,setIsModel] = useState<boolean>(false)
   const toggleModal = () => {
     setIsModel((prev) => !prev);
   };
+  const {jobState,jobDispatch} = useContext(JobContext)
+
   return (
     <div className='App'>
       <ThemeProvider>
@@ -22,6 +25,7 @@ function App() {
       <Router>
         <Sidebar setModalOpen={toggleModal}/>
         <LoginModal open={isModel} setModalOpen={toggleModal}/>
+        {jobState.infoMsg && <InfoMsg msg={jobState.infoMsg}/>}
 
         <Routes>
         <Route path='/' element={<Jobs/>}/>

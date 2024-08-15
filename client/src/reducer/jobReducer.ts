@@ -1,6 +1,6 @@
 import { IJobsAction } from "../interface/props";
 import {IinitialState} from "../context/JobContext"
-import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS,FETCH_JOB_SUCCESS, FETCH_JOBS_FAILURE } from "./actions";
+import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS,FETCH_JOB_SUCCESS, FETCH_JOBS_FAILURE, SHOW_INFO, HIDE_INFO } from "./actions";
 
 export const jobReducer = (state: IinitialState, action: IJobsAction): IinitialState => {
     switch(action.type) {
@@ -31,6 +31,16 @@ export const jobReducer = (state: IinitialState, action: IJobsAction): IinitialS
         job: null,
         error: action.payload,
       };
+      case SHOW_INFO:
+      return{
+        ...state,
+        infoMsg:action.payload
+      }
+      case HIDE_INFO:
+        return{
+          ...state,
+          infoMsg:null
+        }
         default:
             return state;
     }

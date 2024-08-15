@@ -7,6 +7,7 @@ export interface IinitialState {
     job: IJobs | null; 
     loading: boolean;
     error: any ;
+    infoMsg:null | string;
 }
 
 const initialState: IinitialState = {
@@ -14,6 +15,7 @@ const initialState: IinitialState = {
     job: null, 
     loading: false,
     error: null,
+    infoMsg:'test'
 };
 
 export const JobContext = createContext<{
