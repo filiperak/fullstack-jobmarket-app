@@ -5,10 +5,10 @@ export const getJob = async(jobId:string | undefined) => {
         const response = await fetch(`${API_URL}/jobs/${jobId}`)
         const result = await response.json()
         if(!response.ok){
-            throw new Error(result.message || 'failde to fetch jobs')
+            return { error: result.message || 'Failed to fetch job' }
         }
         return result
     } catch (error:any) {
-        throw new Error(error.message)        
+        return {error: error.message}
     }
 }

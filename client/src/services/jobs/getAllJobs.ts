@@ -7,10 +7,14 @@ export const getAllJobs = async (searchQuery:string) => {
         console.log(`Fetching jobs from: ${API_URL}/jobs?name=${searchQuery}`);
 
         if(!response.ok){
-            throw new Error(result.message || 'failed to fetch jobs')
+            console.log(result.message);
+            
+            return {error :result.message || 'failed to fetch jobs'}
         }
+        console.log(result);
         return result
+        
     } catch (error:any) {
-        throw new Error(error.message)        
+        return {error: error.message}
     }
 }

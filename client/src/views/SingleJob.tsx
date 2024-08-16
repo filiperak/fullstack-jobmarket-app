@@ -16,8 +16,15 @@ const SingleJob = () => {
     try {
       jobDispatch({type:FETCH_JOBS_REQUEST});
       const jobData = await getJob(jobId)
-      jobDispatch({type:FETCH_JOB_SUCCESS,payload:jobData.job})
-      console.log(jobData);
+      if(jobData.error){
+        jobDispatch({type:FETCH_JOBS_FAILURE,payload:jobData.error.message});
+        console.log(jobData.error);
+        
+      }else{
+        jobDispatch({type:FETCH_JOB_SUCCESS,payload:jobData.job})
+        console.log(jobData);
+
+      }
       
     } catch (error:any) {
       jobDispatch({type:FETCH_JOBS_FAILURE,payload:error.message});

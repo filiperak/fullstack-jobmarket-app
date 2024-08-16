@@ -19,11 +19,15 @@ const Search = () => {
     try {
       jobDispatch({type:FETCH_JOBS_REQUEST});
       const jobsData = await getAllJobs(searchQuery);
-      jobDispatch({type:FETCH_JOBS_SUCCESS,payload:jobsData.jobs});
-      console.log(jobsData.jobs);
-      
+      if(jobsData.error){
+        jobDispatch({type:FETCH_JOBS_FAILURE,payload:jobsData.error});
+        console.log(jobsData.error);
+        
+      }else{
+        jobDispatch({type:FETCH_JOBS_SUCCESS,payload:jobsData.jobs});
+        console.log(jobsData.jobs);
+      }
     } catch (error: any) {
-      console.log(error.message);
       jobDispatch({type:FETCH_JOBS_FAILURE,payload:error.message});
     }
   }
