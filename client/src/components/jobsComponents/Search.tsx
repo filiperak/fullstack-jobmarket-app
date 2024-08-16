@@ -5,6 +5,7 @@ import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import { JobContext } from "../../context/JobContext";
 import { getAllJobs } from "../../services/jobs/getAllJobs";
 import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE } from "../../reducer/actions";
+import cityList from '../../assets/citys.json'
 
 
 const Search = () => {
@@ -12,8 +13,8 @@ const Search = () => {
   const {loading,error,jobs} = jobState
   const [showPanel, setShowPanel] = useState<boolean>(true);
   const [range, setRange] = useState<string>("0");
-  const [searchQuery,setSearchQuery] = useState<string>('')
-
+  const [selectedRangeOption,setSelectedRangeOption] = useState<string>('any')
+  const [searchQuery,setSearchQuery] = useState<string>('')  
 
   const fetchJobs = async() => {
     try {
@@ -39,9 +40,29 @@ const Search = () => {
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
     fetchJobs()
-    console.log(searchQuery);
-    
+    console.log(searchQuery);   
   }
+  useEffect(() => {
+    switch (selectedRangeOption) {
+      case 'hourly':
+        setRange('50');
+        break;
+      case 'daily':
+        setRange('100');
+        break;
+      case 'monthly':
+        setRange('5000');
+        break;
+      case 'yearly':
+        setRange('100000');
+        break;
+      case 'any':
+        setRange('0');
+        break;
+      default:
+        setRange('10000'); 
+    }
+  }, [selectedRangeOption]);
   return (
     <form className={styles.search} onSubmit={handleSubmit}>
       <div className={styles.barAndFilter}>
@@ -61,8 +82,9 @@ const Search = () => {
             <p>Chose location:</p>
             <select defaultValue=''>
                 <option value="" disabled>Select an option</option>
-                <option value="city">City</option>
-                <option value="city2">City2</option>
+                {cityList.map(city => (
+                  <option>{city}</option>
+                ))}
 
             </select>
 
@@ -72,11 +94,11 @@ const Search = () => {
           <div className={styles.panelItem}>
             <p>Chose payment type:</p>
             <div className={styles.radioContainer}>
-            <label htmlFor=""><input type="radio" name="radioBtn" id="" defaultChecked/>Any</label>
-            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Hourly</label>
-            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Daily</label>
-            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Monthly</label>
-            <label htmlFor=""><input type="radio" name="radioBtn" id="" />Yearly</label>
+            <label htmlFor="any"><input type="radio" name="radioBtn" id="any" defaultChecked onChange={() => setSelectedRangeOption('any')}/>Any</label>
+            <label htmlFor="hourly"><input type="radio" name="radioBtn" id="hourly" onChange={() => setSelectedRangeOption('hourly')}/>Hourly</label>
+            <label htmlFor="daily"><input type="radio" name="radioBtn" id="daily" onChange={() => setSelectedRangeOption('daily')}/>Daily</label>
+            <label htmlFor="monthly"><input type="radio" name="radioBtn" id="monthly" onChange={() => setSelectedRangeOption('monthly')}/>Monthly</label>
+            <label htmlFor="yearly"><input type="radio" name="radioBtn" id="yearly" onChange={() => setSelectedRangeOption('yearly')}/>Yearly</label>
             </div>
             <div className={styles.range}>
             <p>Price from: ${range}</p>
@@ -85,7 +107,7 @@ const Search = () => {
               name=""
               id=""
               min={"0"}
-              max={"10000"}
+              max={selectedRangeOption}
               value={range}
               onChange={(e) => setRange(e.target.value)}
             />
@@ -96,7 +118,7 @@ const Search = () => {
             <div className={styles.sort}>
               <p>Sort by:</p>
               <select defaultValue="">
-                <option value="" disabled>
+                <option value="" >
                   Select an option
                 </option>
                 <optgroup label="Price">
