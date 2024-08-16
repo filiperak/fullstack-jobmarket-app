@@ -14,6 +14,7 @@ export const applyToJob = async(token:string,params:string) => {
             return { error: result.message || 'Failed to apply' }
         }
         return result
+        
     } catch (error: any) {
         return {error: error.message}
     }

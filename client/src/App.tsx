@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
 import Sidebar from './components/sidebarComponents/Sidebar';
 import { ThemeProvider } from './context/ThemeContext';
@@ -15,7 +15,8 @@ function App() {
   const toggleModal = () => {
     setIsModel((prev) => !prev);
   };
-  const {jobState,jobDispatch} = useContext(JobContext)
+  const {jobState} = useContext(JobContext)
+  const {infoMsg} = jobState
 
   return (
     <div className='App'>
@@ -25,14 +26,13 @@ function App() {
       <Router>
         <Sidebar setModalOpen={toggleModal}/>
         <LoginModal open={isModel} setModalOpen={toggleModal}/>
-        {jobState.infoMsg && <InfoMsg msg={jobState.infoMsg}/>}
+        {typeof(infoMsg) !== null && <InfoMsg/>}
 
         <Routes>
         <Route path='/' element={<Jobs/>}/>
         <Route path='job/:jobId' element={<SingleJob/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
-
       </Router>
       </JobContextProvider>
       </UserContextProvider>

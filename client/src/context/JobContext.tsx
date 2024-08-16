@@ -15,7 +15,7 @@ const initialState: IinitialState = {
     job: null, 
     loading: false,
     error: null,
-    infoMsg:'test'
+    infoMsg:null
 };
 
 export const JobContext = createContext<{
