@@ -6,6 +6,7 @@
   max-width: 275px;
   text-align: center;
   position: relative;
+  overflow: hidden;
 
 
 }
@@ -31,9 +32,6 @@
   align-items: center;
   cursor: pointer;
   font-weight: 600;
-  /* background-color: var(--halfway-color); */
-  /* color: var(--app-dark-grey); */
-  /* box-shadow: var(--app-border-shadow); */
 }
 .navButtons p {
   margin-left: 6px;
@@ -122,6 +120,13 @@
   .sidebarMain{
     width: 10%;
     text-align: center;
+  }
+  .navButtons{
+    margin: 2px;
+    padding: 8px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
 }

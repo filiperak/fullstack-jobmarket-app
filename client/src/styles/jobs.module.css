@@ -16,34 +16,33 @@
   }
   .panel {
     display: flex;
-    justify-content: space-between; 
-    align-items: stretch; 
+    justify-content: space-between;
+    align-items: stretch;
   }
   .panelItem {
-    flex: 1 1 auto; 
+    flex: 1 1 auto;
     max-width: none;
-    margin: 0 10px; 
-    box-sizing: border-box; 
+    margin: 0 10px;
+    box-sizing: border-box;
   }
-  .panelBtn{
+  .panelBtn {
     flex-direction: column;
     margin-left: auto;
   }
-
 }
 
-@media only screen and (min-width:529px) and (max-width: 768px) {
+@media only screen and (min-width: 529px) and (max-width: 768px) {
   .jobList {
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
-  .panel{
+  .panel {
     display: flex;
     flex-wrap: wrap;
   }
-  .panelItem{
+  .panelItem {
     flex: 0.5;
   }
-  .panelBtn{
+  .panelBtn {
     flex: 0.1;
     flex-direction: column;
     margin-left: auto;
@@ -54,21 +53,20 @@
   .jobList {
     grid-template-columns: 1fr;
   }
-  .radioContainer{
+  .radioContainer {
     flex-direction: column;
   }
-  .panel{
+  .panel {
     max-width: 1000px;
     margin: 0 auto;
-    border: 1px solid purple;
-    }
-    .panelItem{
-      border-radius: var(--app-border-radius);
-      background-color: var(--halfway-color);
-      margin: var(--app-margin);
-      padding: var(--app-padding);
-      text-align: center;
-    }
+  }
+  .panelItem {
+    border-radius: var(--app-border-radius);
+    background-color: var(--halfway-color);
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    text-align: center;
+  }
 }
 
 .search {
@@ -77,31 +75,29 @@
   background-color: var(--background-color);
   padding: var(--app-padding);
 }
-.barAndFilter{
+.barAndFilter {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: var(--app-margin) auto;
   max-width: 1000px;
-
 }
-.bar{
-    border-radius: var(--app-border-radius);
+.bar {
+  border-radius: var(--app-border-radius);
   background-color: var(--halfway-color);
   display: flex;
   align-items: center;
   padding: var(--app-padding);
   width: 100%;
-  margin: var(--app-margin) ;
-
+  margin: var(--app-margin);
 }
-.bar input{
+.bar input {
   background-color: var(--halfway-color);
   border: none;
   outline: none;
   width: 100%;
 }
-.bar button{
+.bar button {
   margin-right: auto;
   background-color: var(--app-theme-color);
   border: none;
@@ -109,38 +105,36 @@
   padding: var(--app-padding);
   cursor: pointer;
 }
-.filter{
+.filter {
   background-color: var(--halfway-color);
   padding: 02px var(--app-padding);
   border-radius: var(--app-border-radius);
   cursor: pointer;
 }
-.filter:hover{
+.filter:hover {
   background-color: var(--app-theme-color);
 }
 
-.panel{
-max-width: 1000px;
-margin: 0 auto;
+.panel {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.panelItem{
+.panelItem {
   border-radius: var(--app-border-radius);
   background-color: var(--halfway-color);
   margin: var(--app-margin);
   padding: var(--app-padding);
   text-align: center;
-} 
+}
 
-.panelBtn{
-
+.panelBtn {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   padding: var(--app-padding);
-  
 }
-.panelBtn button{
+.panelBtn button {
   margin-bottom: var(--app-margin);
   background-color: var(--halfway-color);
   border: none;
@@ -150,34 +144,36 @@ margin: 0 auto;
   width: 55px;
   height: 31px;
 }
+.panelBtn button:hover {
+  background-color: var(--app-theme-color);
+}
 
-.sort{
+.sort {
   margin: 0 auto;
   text-align: center;
 }
-.sort select{
+.sort select {
   outline: none;
   border: none;
   background-color: var(--halfway-color);
-
 }
 
-.radioContainer{
+.radioContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: var(--app-margin);
 }
 .radioContainer label {
-  display: flex;             
-  align-items: center;   
-  font-size: 0.8rem;  
-  margin: var(--app-margin);  
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  margin: var(--app-margin);
 }
 .radioContainer input[type="radio"] {
-  margin-right: 5px;       
+  margin-right: 5px;
 }
-.range{
+.range {
   display: flex;
   align-items: center;
   justify-content: center;
