@@ -1,17 +1,14 @@
 import { API_URL } from "../API"
 
-export const getAllJobs = async (searchQuery:string) => {
+export const getAllJobs = async (searchQuery: string, city: string, range: string, sort: string) => {
     try {
-        const response = await fetch(`${API_URL}/jobs?title=${searchQuery}`)
+        const response = await fetch(`${API_URL}/jobs?title=${searchQuery}&city=${city}&range=${range}&sort=${sort}`);
         const result = await response.json()
-        console.log(`Fetching jobs from: ${API_URL}/jobs?name=${searchQuery}`);
+        //console.log(`Fetching jobs from: ${API_URL}/jobs?title=${searchQuery}&city=${city}&range=${range}&sort=${sort}`);
 
-        if(!response.ok){
-            console.log(result.message);
-            
+        if(!response.ok){            
             return {error :result.message || 'failed to fetch jobs'}
         }
-        console.log(result);
         return result
         
     } catch (error:any) {

@@ -9,36 +9,45 @@ interface JobRequest extends Request {
     username: string;
   };
 }
-interface IqueryObject {
+export interface IqueryObject {
   title?: { $regex: string; $options: string };
+  'jobLocation.city'?: string;
+  'pay.amount'?: { $gte: number };
 }
+
 
 export const getAllJobs = async (req: JobRequest, res: Response) => {
   try {
-    const { title, sort } = req.query;
+    const { title,city,range,sort } = req.query;
     const queryObject: IqueryObject = {};
     if (title) {
       queryObject.title = { $regex: title as string, $options: "i" };
     }
-
+    if(city){
+      queryObject['jobLocation.city'] = city as string
+    }
+    if(range){
+      const minRange = parseInt(range as string,10)
+      queryObject['pay.amount'] = {$gte:minRange}
+    }
+    let sortOptions:any = {}
+    if (sort === 'priceAscending') {
+      sortOptions = { 'pay.amount': 1 };
+    } else if (sort === 'priceDescending') {
+      sortOptions = { 'pay.amount': -1 };
+    } else if (sort === 'latest') {
+      sortOptions = { createdAt: -1 };
+    } else if (sort === 'earliest') {
+      sortOptions = { createdAt: 1 };
+    }
     const jobs = await JobModel.find(queryObject)
       .populate("createdBy", "username email")
-      .sort();
+      .sort(sortOptions);
     res.status(200).json({ jobs, numOfJobs: jobs.length });
   } catch (error: any) {
     res.status(500).json({ message: error });
   }
 };
-// export const getAllJobs = async (req: JobRequest, res: Response) => {
-//   try {
-//     const jobs = await JobModel
-//     .find({})
-//     .populate('createdBy', 'username email');
-//     res.status(200).json({ jobs , numOfJobs:jobs.length,user:req.user});
-//   } catch (error) {
-//     res.status(500).json({ message: error });
-//   }
-// };
 
 export const createJob = async (req: JobRequest, res: Response) => {
   try {
