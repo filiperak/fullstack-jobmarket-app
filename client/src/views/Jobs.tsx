@@ -13,7 +13,6 @@ const Jobs = () => {
   const {jobState,jobDispatch} = useContext(JobContext)
   const {loading,error,jobs} = jobState
 
-
   return (
     <div className={`${globalStyles.views} ${styles.jobs}`}>
       <Search/>

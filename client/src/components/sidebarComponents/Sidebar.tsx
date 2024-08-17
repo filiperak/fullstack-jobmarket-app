@@ -10,6 +10,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ThemeToggleSwitch from './ThemeToggleSwitch';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import ProfileAvatar from './ProfileAvatar';
 import { BreakLine } from './BreakLine';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +34,7 @@ const Sidebar = ({setModalOpen}:ISidebar) => {
       {BreakLine}
       <NavButton text="Jobs" Icon={WorkOutlineOutlinedIcon} path="/" onClick={handleNavigation} />
       <NavButton text="Dashboard" Icon={GridViewOutlinedIcon} path="/dashboard" onClick={handleNavigation} />
+      <NavButton text="Menage My Jobs" Icon={PostAddIcon} path="/menagejobs" onClick={handleNavigation} />
       <NavButton text="Notifications" Icon={NotificationsActiveOutlinedIcon} path="/notifications" onClick={handleNavigation} />
       <NavButton text="Chats" Icon={ChatBubbleOutlineOutlinedIcon} path="/chats" onClick={handleNavigation} />
       {BreakLine}

@@ -9,6 +9,7 @@ import { UserContextProvider } from './context/UserContext';
 import SingleJob from './views/SingleJob';
 import { JobContext, JobContextProvider } from './context/JobContext';
 import InfoMsg from './components/InfoMsg';
+import MenageMyJobs from './views/MenageMyJobs';
 
 function App() {
   const [isModel,setIsModel] = useState<boolean>(false)
@@ -32,6 +33,7 @@ function App() {
         <Route path='/' element={<Jobs/>}/>
         <Route path='job/:jobId' element={<SingleJob/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/menagejobs' element={<MenageMyJobs/>}/>
         </Routes>
       </Router>
       </JobContextProvider>

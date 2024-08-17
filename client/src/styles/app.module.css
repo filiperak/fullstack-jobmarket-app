@@ -3,4 +3,6 @@
     width: 100%;
     max-width: 1500px;
     margin: var(--app-margin) auto;
+    overflow-y: scroll;
+
 }

@@ -101,7 +101,6 @@ const Search = () => {
                 ))}
 
             </select>
-
             </div>
           </div>
 
@@ -115,7 +114,7 @@ const Search = () => {
             <label htmlFor="yearly"><input type="radio" name="radioBtn" id="yearly" onChange={() => setSelectedRangeOption('yearly')}/>Yearly</label>
             </div>
             <div className={styles.range}>
-            <p>Price from: ${searchParams.range}</p>
+            <p>Pay from: ${searchParams.range}</p>
             <input
               type="range"
               name=""

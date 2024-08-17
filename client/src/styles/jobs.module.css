@@ -42,6 +42,9 @@
   .panelItem {
     flex: 0.5;
   }
+  .panelItem:nth-child(3){
+    flex-grow: 1;
+  }
   .panelBtn {
     flex: 0.1;
     flex-direction: column;
