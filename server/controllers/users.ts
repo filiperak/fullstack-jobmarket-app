@@ -39,7 +39,13 @@ export const login = async (req: Request, res: Response) => {
         const { username, password } = req.body;
         if (!username || !password) throw new Error();
         const user = await UserModel.findOne({ username })
-        .populate("jobsCreated")
+        .populate({
+          path: "jobsCreated",
+          populate: {
+            path: "applicants",
+            select: "username email", 
+          },
+        })
         .populate("jobsAppliedTo")
         if (!user) {
             return res.status(400).json({ message: "user dosen't exist" });

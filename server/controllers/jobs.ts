@@ -42,6 +42,7 @@ export const getAllJobs = async (req: JobRequest, res: Response) => {
     }
     const jobs = await JobModel.find(queryObject)
       .populate("createdBy", "username email")
+      .populate("applicants","username email")
       .sort(sortOptions);
     res.status(200).json({ jobs, numOfJobs: jobs.length });
   } catch (error: any) {
