@@ -4,6 +4,8 @@ interface IUser extends Document {
     username:string,
     email:string,
     password:string,
+    jobsCreated:mongoose.Types.ObjectId[];
+    jobsAppliedTo:mongoose.Types.ObjectId[];
 }
 
 const UsersSchema:Schema<IUser> = new Schema ({
@@ -27,7 +29,9 @@ const UsersSchema:Schema<IUser> = new Schema ({
         type:String,
         required:[true,'provide password'],
         minlength:3,
-    }
+    },
+    jobsCreated:{type:[mongoose.Schema.Types.ObjectId],ref:'Job',default:[]},
+    jobsAppliedTo:{type:[mongoose.Schema.Types.ObjectId],ref:'Job',default:[]},
 })
 
 export const UserModel:Model<IUser> = mongoose.model('User',UsersSchema)
