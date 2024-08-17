@@ -41,10 +41,14 @@ export const login = async (req: Request, res: Response) => {
         const user = await UserModel.findOne({ username })
         .populate({
           path: "jobsCreated",
-          populate: {
+          populate: [{
             path: "applicants",
             select: "username email", 
           },
+          {
+            path:"createdBy",
+            select:"username email"
+          }]
         })
         .populate("jobsAppliedTo")
         if (!user) {

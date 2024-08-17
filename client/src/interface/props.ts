@@ -7,15 +7,19 @@ export interface IUserState {
   id: string;
   username: string;
   email: string;
+  jobsCreated:any
+  jobsAppliedTo:any
   token: string;
   logged: boolean;
 }
 
 export interface IUserAction {
-  type: "LOG_IN" | "LOG_OUT" ;
+  type: "LOG_IN" | "LOG_OUT" |"USER_CREATED_JOB"| "USER_APPLIED_TO_JOB";
   payload?: {
     id: string;
     username: string;
+    jobsCreated: IJobs[];
+    jobsAppliedTo: IJobs[]; 
     email: string;
     token: string;
   };

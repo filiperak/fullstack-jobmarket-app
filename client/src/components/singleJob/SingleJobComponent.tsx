@@ -11,13 +11,13 @@ import { applyToJob } from "../../services/jobs/applyToJob";
 import { UserContext } from "../../context/UserContext";
 import Error from "../Error";
 import { JobContext } from "../../context/JobContext";
-import { SHOW_INFO } from "../../reducer/actions";
+import { SHOW_INFO, USER_APPLIED_TO_JOB } from "../../reducer/actions";
 interface IJobProps {
   data: IJobs;
 }
 const SingleJobComponent = ({ data }: IJobProps) => {
   const [errorMsg, setErrorMsg] = useState<null | string>(null);
-  const { userState } = useContext(UserContext);
+  const { userState , userDispatch} = useContext(UserContext);
   const { jobDispatch } = useContext(JobContext);
   const { token, logged } = userState;
   const Navigate = useNavigate();
@@ -36,6 +36,7 @@ const SingleJobComponent = ({ data }: IJobProps) => {
       if (application.error) {
         jobDispatch({ type: SHOW_INFO, payload: application.error });
       } else {
+        userDispatch({type:USER_APPLIED_TO_JOB,payload:application.job})
         jobDispatch({
           type: SHOW_INFO,
           payload: `${application.message}:${application.job.title}`,

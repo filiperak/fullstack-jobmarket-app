@@ -1,5 +1,9 @@
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
+export const USER_APPLIED_TO_JOB = 'USER_APPLIED_TO_JOB'
+export const USER_CREATED_JOB = 'USER_CREATED_JOB'
+
+
 export const FETCH_JOBS_REQUEST = 'FETCH_JOBS_REQUEST'
 export const FETCH_JOB_SUCCESS = 'FETCH_JOB_SUCCESS'
 export const FETCH_JOBS_SUCCESS= 'FETCH_JOBS_SUCCESS'

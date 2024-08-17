@@ -24,6 +24,8 @@ export const registerUser = async(username:string,email:string,password:string,u
                 id:result.user._id,
                 username:result.user.username,
                 email:result.user.email,
+                jobsCreated:[],
+                jobsAppliedTo:[],
                 token:result.token
     
             } 
