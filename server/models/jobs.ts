@@ -49,7 +49,7 @@ const JobsSchema:Schema<IJob> = new Schema({
   jobLocation: {
     country: {
       type: String,
-      required: [true, "Must provide country"],
+      default: 'Serbia',
     },
     city: {
       type: String,

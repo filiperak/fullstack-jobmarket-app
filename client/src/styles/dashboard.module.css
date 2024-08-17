@@ -1,26 +1,61 @@
-.container{
-   display: flex;
-   height: 100%;
-
+.container {
+  display: flex;
+  height: 100%;
 }
-.myJobs, .appliedJobs{
-    background-color: var(--background-color);
-    padding: var(--app-padding);
-    border-radius: var(--app-border-radius);
-    height: 100%;
-    flex: 0.5;
-    margin: var(--app-margin);
+.myJobs,
+.appliedJobs {
+  background-color: var(--background-color);
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  height: 100%;
+  flex: 0.5;
+  margin: var(--app-margin);
 }
-.myJobs header,.addBtn{
-    border-bottom: 2px solid var(--halfway-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--app-padding);
+.myJobs header,
+.addBtn {
+  border-bottom: 2px solid var(--halfway-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--app-padding);
 }
-.addBtn{
+.addBtn {
+  background-color: var(--app-theme-color);
+  border: none;
+  border-radius: var(--app-border-radius);
+  cursor: pointer;
+}
+.myJobsList {
+    overflow-y: scroll;
+}
+.jobListItem {
+  background-color: var(--halfway-color);
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  margin: var(--app-margin);
+}
+.jobListItem header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid var(--background-color);
+}
+.jobListItem section {
+  border-bottom: 2px solid var(--background-color);
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+}
+.jobListItem ul {
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+}
+.jobListItem li {
+  list-style: none;
+}
+.showBtn{
     background-color: var(--app-theme-color);
-    border: none;
     border-radius: var(--app-border-radius);
     cursor: pointer;
+    padding: var(--app-padding);
+    margin: var(--app-margin);
+    display: inline-block;
 }
