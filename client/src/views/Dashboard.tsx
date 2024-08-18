@@ -3,19 +3,30 @@ import globalStyles from "../styles/app.module.css";
 import styles from "../styles/dashboard.module.css";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { UserContext } from "../context/UserContext";
-import { IJobs } from "../interface/props";
+import { IjobPayload, IJobs } from "../interface/props";
 import cityList from "../assets/citys.json";
 import { JobContext } from "../context/JobContext";
 import { SHOW_INFO } from "../reducer/actions";
+import { crateJob } from "../services/jobs/createJob";
 
 const Dashboard = () => {
   const { userState } = useContext(UserContext);
-  const { jobsCreated, logged } = userState;
-  const {jobState,jobDispatch} = useContext(JobContext)
+  const { jobsCreated, logged,token } = userState;
+  const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
-
-
   const [selected, setSelected] = useState<string[]>([]);
+  const [jobData, setJobData] = useState<IjobPayload>({
+    title: "",
+    description: "",
+    pay: {
+      amount: 0,
+      typeOfPay: "",
+    },
+    jobLocation: {
+      city: "",
+    },
+  });
+
   const handleSelected = (currentId: string) => {
     const copySelected = [...selected];
     const findIndexOfSelected = copySelected.indexOf(currentId);
@@ -26,14 +37,47 @@ const Dashboard = () => {
     }
     setSelected(copySelected);
   };
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
 
-  const handleSubmitNew = (e:React.FormEvent) => {
+    setJobData((prev) => {
+      if (name === "title" || name === "description") {
+        return { ...prev, [name]: value };
+      } else if (name === "city") {
+        return { ...prev, jobLocation: { ...prev.jobLocation, city: value } };
+      } else if (name === "pay") {
+        return { ...prev, pay: { ...prev.pay, typeOfPay: value } };
+      } else if (name === "amount") {
+        return { ...prev, pay: { ...prev.pay, amount: Number(value) } };
+      }
+
+      return prev;
+    });
+  };
+
+  const createNewJob = async () => {
+    try {
+      const result = await crateJob(token,jobData)
+      if(result && result.error){        
+        jobDispatch({ type: SHOW_INFO, payload: result.error.message });
+      }
+
+    } catch (error) {}
+  };
+  const handleSubmitNew = (e: React.FormEvent) => {
     e.preventDefault();
-    if(!logged){
-      jobDispatch({type:SHOW_INFO,payload:'Log in to create jobs'})
-      return
+    if (!logged || ! token) {
+      jobDispatch({ type: SHOW_INFO, payload: "Log in to create jobs" });
+      return;
     }
-  }
+    console.log(jobData);
+    createNewJob()
+    
+  };
 
   return (
     <div className={globalStyles.views}>
@@ -48,23 +92,37 @@ const Dashboard = () => {
               onClick={() => setShowNew((prev) => !prev)}
             >
               <PostAddIcon />
-              <p >Add New</p>
+              <p>Add New</p>
             </div>
           </header>
           {showNew && (
             <form className={styles.newJobForm} onSubmit={handleSubmitNew}>
               <div className={styles.inpField}>
                 <p>Job Title:</p>
-                <input type="text" name="" id="" placeholder="new awsome job" />
+                <input
+                  type="text"
+                  name="title"
+                  value={jobData.title}
+                  onChange={handleChange}
+                  placeholder="new awsome job"
+                />
               </div>
               <div className={styles.description}>
                 <p>Job Description:</p>
-                <textarea name="" id="" />
+                <textarea
+                  name="description"
+                  value={jobData.description}
+                  onChange={handleChange}
+                />
               </div>
               <section className={styles.tags}>
                 <div>
                   <p>Chose location:</p>
-                  <select name="" id="">
+                  <select
+                    name="city"
+                    value={jobData.jobLocation.city}
+                    onChange={handleChange}
+                  >
                     <option value="" disabled>
                       Choose city
                     </option>
@@ -77,23 +135,43 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <p>Pay amount:</p>
-                  <input type="number"placeholder="69"/>
+                  <input
+                    type="number"
+                    placeholder="69"
+                    value={Number(jobData.pay.amount)}
+                    onChange={handleChange}
+                    name="amount"
+                  />
                 </div>
                 <div>
                   <p>Pay type:</p>
-                  <select name="" id="">
-                    <option value="" disabled>Select one</option>
-                    <option value="hourly" >hourly</option>
-                    <option value="daily" >daily</option>
-                    <option value="weekly" >weekly</option>
-                    <option value="monthly" >monthly</option>
-                    <option value="yearly" >yearly</option>
+                  <select
+                    name="pay"
+                    onChange={handleChange}
+                    value={jobData.pay.typeOfPay}
+                  >
+                    <option value="" disabled>
+                      Select one
+                    </option>
+                    <option value="hourly">hourly</option>
+                    <option value="daily">daily</option>
+                    <option value="weekly">weekly</option>
+                    <option value="monthly">monthly</option>
+                    <option value="yearly">yearly</option>
                   </select>
                 </div>
               </section>
               <footer>
-                <button type="button" className={globalStyles.cancelBtn} onClick={() => setShowNew(false)}>Cancel</button>
-                <button type="submit" className={globalStyles.confirmBtn}>Create Job</button>
+                <button
+                  type="button"
+                  className={globalStyles.cancelBtn}
+                  onClick={() => setShowNew(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className={globalStyles.confirmBtn}>
+                  Create Job
+                </button>
               </footer>
             </form>
           )}
@@ -136,6 +214,7 @@ const Dashboard = () => {
                     {selected.indexOf(job._id) !== -1
                       ? "Hide Applicants"
                       : "Show Applicants"}
+                  </span>
                   <span
                     className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
                     onClick={() => handleSelected(job._id)}

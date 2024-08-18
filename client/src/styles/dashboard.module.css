@@ -21,7 +21,6 @@
 
 }
 .myJobs header {
-.myJobs header {
   border-bottom: 2px solid var(--halfway-color);
   display: flex;
   align-items: center;
@@ -175,4 +174,4 @@
 }
 .applicantBtn span:first-child{ 
     background-color: var(--app-red);
-} */
+} 

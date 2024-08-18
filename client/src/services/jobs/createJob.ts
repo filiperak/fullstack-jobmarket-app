@@ -15,9 +15,9 @@ export const crateJob = async (token: string, jobPayload: IjobPayload) => {
     const result = await response.json()
 
     if(!response.ok){
-        throw new Error(result.message || "failed to create job")
+        return{ error:result.message || "failed to create job"}
     }
   } catch (error: any) {
-    throw new Error(error.message);
+    return{ error:error.message}
   }
 };

@@ -30,9 +30,22 @@ export interface IJobsAction {
   payload?:any
 }
 
+
+export interface IPay {
+  amount: number | null;
+  typeOfPay: string;
+}
+
+export interface IJobLocation {
+  city: string ;
+}
+
+
 export interface IjobPayload {
   title:string,
   description:string
+  pay:IPay;
+  jobLocation:IJobLocation
 }
 
 interface IUser {
