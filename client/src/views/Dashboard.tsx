@@ -48,7 +48,7 @@ const Dashboard = () => {
               onClick={() => setShowNew((prev) => !prev)}
             >
               <PostAddIcon />
-              <p>Add New</p>
+              <p >Add New</p>
             </div>
           </header>
           {showNew && (
@@ -129,6 +129,13 @@ const Dashboard = () => {
                       {job.applicants.length > 0 ? job.applicants.length : 0}
                     </li>
                   </ul>
+                  <span
+                    className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
+                    onClick={() => handleSelected(job._id)}
+                  >
+                    {selected.indexOf(job._id) !== -1
+                      ? "Hide Applicants"
+                      : "Show Applicants"}
                   <span
                     className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
                     onClick={() => handleSelected(job._id)}

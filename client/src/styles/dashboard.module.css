@@ -2,6 +2,8 @@
   display: flex;
   height: 99%;
   overflow-x: scroll;
+  height: 99%;
+  overflow-x: scroll;
 }
 .myJobs,
 .appliedJobs {
@@ -14,7 +16,11 @@
   display: flex;
   flex-direction: column;
 
+  display: flex;
+  flex-direction: column;
+
 }
+.myJobs header {
 .myJobs header {
   border-bottom: 2px solid var(--halfway-color);
   display: flex;
@@ -29,6 +35,9 @@
   cursor: pointer;
 } */
 .myJobsList {
+    overflow: scroll;
+    flex-grow: 1;
+    margin-top: var(--app-margin);
     overflow: scroll;
     flex-grow: 1;
     margin-top: var(--app-margin);
@@ -57,6 +66,18 @@
   list-style: none;
 }
 .showBtn{
+    display: inline-block;
+}
+.applicantList li{
+    background-color: var(--background-color);
+    border-radius: var(--app-border-radius);
+    padding:8px;
+    margin: var(--app-margin);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* .applicantBtn span{
     display: inline-block;
 }
 .applicantList li{
@@ -152,3 +173,6 @@
   margin: var(--app-margin);
 
 }
+.applicantBtn span:first-child{ 
+    background-color: var(--app-red);
+} */

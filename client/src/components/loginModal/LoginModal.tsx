@@ -31,7 +31,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
     setErrorMsg(null);
   };
 
-  const handleClose = (e: React.MouseEvent) => {
+  const handleClose = (e: React.MouseEvent) => {3
     e.preventDefault();
     setFormData({ username: "", email: "", password: "" });
     setModalOpen();
