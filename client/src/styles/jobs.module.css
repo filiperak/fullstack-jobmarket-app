@@ -101,12 +101,7 @@
   width: 100%;
 }
 .bar button {
-  margin-right: auto;
-  background-color: var(--app-theme-color);
-  border: none;
-  border-radius: var(--app-border-radius);
-  padding: var(--app-padding);
-  cursor: pointer;
+  margin: 0;
 }
 .filter {
   background-color: var(--halfway-color);

@@ -6,7 +6,7 @@ import { JobContext } from "../../context/JobContext";
 import { getAllJobs } from "../../services/jobs/getAllJobs";
 import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE } from "../../reducer/actions";
 import cityList from '../../assets/citys.json'
-
+import globalStyles from '../../styles/app.module.css'
 
 const Search = () => {
   const {jobState,jobDispatch} = useContext(JobContext)
@@ -84,7 +84,7 @@ const Search = () => {
         <div className={styles.bar}>
           <SearchOutlinedIcon />
           <input type="text" name='searchQuery' value={searchParams.searchQuery} onChange={handleChange} placeholder="Search jobs..." />
-          <button type="submit">Search</button>
+          <button type="submit" className={globalStyles.confirmBtn}>Search</button>
         </div>
         <div className={styles.filter} onClick={() => setShowPanel(!showPanel)}>
           <TuneOutlinedIcon />

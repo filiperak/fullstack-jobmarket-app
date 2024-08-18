@@ -176,7 +176,7 @@ const Dashboard = () => {
             </form>
           )}
           <section className={styles.myJobsList}>
-            {jobsCreated.length > 0 ? (
+            {jobsCreated && jobsCreated.length > 0 ? (
               jobsCreated.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>
                   <header>
