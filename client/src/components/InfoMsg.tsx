@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styles from "../styles/modal.module.css";
 import { JobContext } from "../context/JobContext";
 import { HIDE_INFO } from "../reducer/actions";
+import globalStyles from '../styles/app.module.css'
 
 
 const InfoMsg = () => {
@@ -14,7 +15,7 @@ const InfoMsg = () => {
         <h3>Info</h3>
         <p>{jobState.infoMsg}</p>
         <div className={styles.btnContainer}>
-        <button className={styles.confirmBtn} onClick={() => jobDispatch({ type: HIDE_INFO })}>Close</button>
+        <button className={globalStyles.confirmBtn} onClick={() => jobDispatch({ type: HIDE_INFO })}>Close</button>
         </div>
       </div>
     </>

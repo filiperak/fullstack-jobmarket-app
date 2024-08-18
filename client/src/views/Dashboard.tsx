@@ -4,11 +4,23 @@ import styles from "../styles/dashboard.module.css";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { UserContext } from "../context/UserContext";
 import { IJobs } from "../interface/props";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Dashboard = () => {
   const { userState } = useContext(UserContext);
   const { jobsCreated, logged } = userState;
-  const [show,setShow] = useState<boolean>(false)
+
+  const [selected, setSelected] = useState<string[]>([]);
+  const handleSelected = (currentId: string) => {
+    const copySelected = [...selected];
+    const findIndexOfSelected = copySelected.indexOf(currentId);
+    if (findIndexOfSelected === -1) {
+      copySelected.push(currentId);
+    } else {
+      copySelected.splice(findIndexOfSelected, 1);
+    }
+    setSelected(copySelected);
+  };
 
   return (
     <div className={globalStyles.views}>
@@ -18,9 +30,9 @@ const Dashboard = () => {
         <div className={styles.myJobs}>
           <header>
             <h3>My Jobs</h3>
-            <div className={styles.addBtn}>
+            <div className={globalStyles.confirmBtn}>
               <PostAddIcon />
-              <p>Add New</p>
+              <p >Add New</p>
             </div>
           </header>
           <section className={styles.myJobsList}>
@@ -55,9 +67,35 @@ const Dashboard = () => {
                       {job.applicants.length > 0 ? job.applicants.length : 0}
                     </li>
                   </ul>
-                  <span className={styles.showBtn} onClick={() => setShow(!show)}>
-                      {show? 'Show Applicants':'Hide Applicants'}
+                  <span
+                    className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
+                    onClick={() => handleSelected(job._id)}
+                  >
+                    {selected.indexOf(job._id) !== -1
+                      ? "Hide Applicants"
+                      : "Show Applicants"}
                   </span>
+                  {selected.indexOf(job._id) !== -1 && (
+                    <ul className={styles.applicantList}>
+                      <p>Applicants:</p>
+                      {job.applicants.length > 0 ? (
+                        job.applicants.map((user) => (
+                          <li>
+                            <p>
+                              @{user.username} / {user.email}
+                            </p>
+                            <div className={styles.applicantBtn}>
+                              <span className={globalStyles.cancelBtn}>Decline</span>
+                              <span className={globalStyles.confirmBtn}>Contact</span>
+                              <span className={globalStyles.confirmBtn}>Accept</span>
+                            </div>
+                          </li>
+                        ))
+                      ) : (
+                        <p>No user has applieed yet</p>
+                      )}
+                    </ul>
+                  )}
                 </form>
               ))
             ) : (

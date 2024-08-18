@@ -27,13 +27,14 @@
 .singleJob footer {
     margin: var(--app-margin);
     padding: var(--app-padding);
-    text-align: right;
+    display: flex;
+    justify-content: right;
     position: absolute;
     bottom: 10%;
     right: 5%;
     left: 0;
 }
-.singleJob footer button{
+/* .singleJob footer button{
     padding: var(--app-padding);
     border-radius: var(--app-border-radius);
     border: none;
@@ -46,7 +47,7 @@
 }
 .singleJob footer button:last-child,.messageBtn{
     background-color: var(--app-theme-color);
-}
+} */
 .singleJob li{
     display: flex;
     align-items: center;

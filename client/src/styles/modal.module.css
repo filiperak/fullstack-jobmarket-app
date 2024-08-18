@@ -29,24 +29,26 @@
     margin: var(--app-margin) 0;
 }
 .btnContainer{
-    text-align: right;
+    display: flex;
+    /* text-align: right; */
+    justify-content: right;
     margin-top: 10px;
 }
 .btnContainer button{
-    padding: var(--app-padding);
+    /* padding: var(--app-padding);
     border-radius: var(--app-border-radius);
     border: none;
     cursor: pointer;
-    margin: var(--app-margin);
+    margin: var(--app-margin); */
     font-weight: 600;
 }
-.cancelBtn{
+/* .cancelBtn{
     background-color: var(--app-red);
 
 }
 .confirmBtn{
     background-color: var(--app-theme-color);
-}
+} */
 .signinSpan{
     text-decoration: underline;
     cursor: pointer;

@@ -12,6 +12,8 @@ import { UserContext } from "../../context/UserContext";
 import Error from "../Error";
 import { JobContext } from "../../context/JobContext";
 import { SHOW_INFO, USER_APPLIED_TO_JOB } from "../../reducer/actions";
+import globalStyles from "../../styles/app.module.css";
+
 interface IJobProps {
   data: IJobs;
 }
@@ -87,9 +89,9 @@ const SingleJobComponent = ({ data }: IJobProps) => {
         </ul>
       </section>
       <footer>
-        <button onClick={() => Navigate(-1)}>Go Back</button>
-        <button className={styles.messageBtn}>Send Message</button>
-        <button onClick={() => handleApply()}>Apply To Job</button>
+        <button onClick={() => Navigate(-1)} className={globalStyles.cancelBtn}>Go Back</button>
+        <button className={globalStyles.confirmBtn}>Send Message</button>
+        <button onClick={() => handleApply()} className={globalStyles.confirmBtn}>Apply To Job</button>
       </footer>
     </div>
   );

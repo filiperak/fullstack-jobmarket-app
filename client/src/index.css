@@ -80,5 +80,4 @@ code {
 .App{
   display: flex;
   background-color: var(--halfway-color);
-  /* min-width: 650px; */
 }
