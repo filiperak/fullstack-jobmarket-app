@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  height: 100%;
+  height: 99%;
+  overflow-x: scroll;
 }
 .myJobs,
 .appliedJobs {
@@ -10,23 +11,27 @@
   height: 100%;
   flex: 0.5;
   margin: var(--app-margin);
+  display: flex;
+  flex-direction: column;
+
 }
-.myJobs header,
-.addBtn {
+.myJobs header {
   border-bottom: 2px solid var(--halfway-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--app-padding);
 }
-.addBtn {
+/* .addBtn {
   background-color: var(--app-theme-color);
   border: none;
   border-radius: var(--app-border-radius);
   cursor: pointer;
-}
+} */
 .myJobsList {
-    overflow-y: scroll;
+    overflow: scroll;
+    flex-grow: 1;
+    margin-top: var(--app-margin);
 }
 .jobListItem {
   background-color: var(--halfway-color);
@@ -52,10 +57,98 @@
   list-style: none;
 }
 .showBtn{
-    background-color: var(--app-theme-color);
+    display: inline-block;
+}
+.applicantList li{
+    background-color: var(--background-color);
     border-radius: var(--app-border-radius);
-    cursor: pointer;
+    padding:8px;
+    margin: var(--app-margin);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* .applicantBtn span{
+    border-radius: var(--app-border-radius);
     padding: var(--app-padding);
     margin: var(--app-margin);
-    display: inline-block;
+    cursor: pointer;
+    background-color: var(--app-theme-color);
+
+}
+.applicantBtn span:first-child{ 
+    background-color: var(--app-red);
+} */
+.newJobForm{
+  background-color: var(--halfway-color);
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  margin: var(--app-margin);
+}
+.inpField{
+  display: flex;
+  align-items: center;
+  
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+
+}
+.inpField input{
+  outline: none;
+  background-color: var(--background-color);
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  margin: var(--app-margin);
+  border: none;
+  flex-grow: 1;
+}
+.description{
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+}
+.description textarea{
+  width: 100%;
+  background-color: var(--background-color);
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  outline: none;
+  border: none;
+  min-height: 150px;
+}
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: var(--app-padding);
+
+  margin: var(--app-margin);
+
+}
+.tags > div{
+  background-color: var(--background-color);
+  border-radius: var(--app-border-radius);
+  padding: var(--app-padding);
+}
+.tags select{
+  width: 100%;
+  background-color: var(--halfway-color);
+  outline: none;
+  border: none;
+}
+.tags input{
+  background-color: var(--halfway-color);
+  outline: none;
+  padding: var(--app-padding);
+  border-radius: var(--app-border-radius);
+  margin: var(--app-margin);
+  border: none;
+}
+.newJobForm footer{
+  display: flex;
+  justify-content: right;
+  padding: var(--app-padding);
+
+  margin: var(--app-margin);
+
 }

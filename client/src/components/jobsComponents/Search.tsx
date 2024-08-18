@@ -19,6 +19,7 @@ const Search = () => {
     range: '0',
     sort: '',
   });
+  
 
   const fetchJobs = async() => {
     console.log(searchParams);

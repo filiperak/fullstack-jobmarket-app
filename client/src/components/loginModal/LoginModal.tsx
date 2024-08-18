@@ -7,6 +7,8 @@ import { UserContext } from "../../context/UserContext";
 import { loginUser } from "../../services/users/login";
 import { registerUser } from "../../services/users/register";
 import { LOG_OUT } from "../../reducer/actions";
+import globalStyles from '../../styles/app.module.css'
+import { GlobalStyles } from "@mui/material";
 
 const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -78,13 +80,13 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
           <p>Do you want to log out?</p>
           <div className={styles.btnContainer}>
           <button
-            className={styles.cancelBtn}
+            className={globalStyles.cancelBtn}
             onClick={handleClose}
             type="button"
           >
             Cancel
           </button>
-          <button className={styles.confirmBtn} type="submit">
+          <button className={globalStyles.confirmBtn} type="submit">
             Log out
           </button>
           </div>
@@ -135,13 +137,13 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
 
         <div className={styles.btnContainer}>
           <button
-            className={styles.cancelBtn}
+            className={globalStyles.cancelBtn}
             onClick={handleClose}
             type="button"
           >
             Cancel
           </button>
-          <button className={styles.confirmBtn} type="submit">
+          <button className={globalStyles.confirmBtn} type="submit">
             {register ? "Register" : "Sign in"}
           </button>
         </div>
