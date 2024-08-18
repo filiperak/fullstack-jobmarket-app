@@ -38,11 +38,14 @@ const SingleJobComponent = ({ data }: IJobProps) => {
       if (application.error) {
         jobDispatch({ type: SHOW_INFO, payload: application.error });
       } else {
-        userDispatch({type:USER_APPLIED_TO_JOB,payload:application.job})
+        userDispatch({type:USER_APPLIED_TO_JOB,payload:application.user})
         jobDispatch({
           type: SHOW_INFO,
           payload: `${application.message}:${application.job.title}`,
         });
+        console.log(application.user);
+        console.log(application);
+        
       }
     } catch (error: any) {
       setErrorMsg(error.message);

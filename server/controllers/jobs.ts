@@ -58,7 +58,7 @@ export const createJob = async (req: JobRequest, res: Response) => {
     const userObject = await UserModel.findById(userId)
     userObject?.jobsCreated.push(job.id)
     await userObject?.save()
-    res.status(200).json({ job });
+    res.status(200).json({ job , userObject });
   } catch (error: any) {
     res.status(500).json({ message: error });
   }
@@ -93,7 +93,7 @@ export const applyToJob = async (req: JobRequest, res: Response) => {
     await user?.save()
     await job.save();
 
-    res.status(200).json({ message: "Applied to job", job });
+    res.status(200).json({ message: "Applied to job", job ,user :user.jobsAppliedTo});
   } catch (error: any) {
     res.status(500).json({ message: "failed to apply", error });
   }

@@ -14,7 +14,7 @@ export interface IUserState {
 }
 
 export interface IUserAction {
-  type: "LOG_IN" | "LOG_OUT" |"USER_CREATED_JOB"| "USER_APPLIED_TO_JOB";
+  type: "LOG_IN" | "LOG_OUT" |"USER_CREATED_JOB"| "USER_APPLIED_TO_JOB" | "UPDATE_USER";
   payload?: {
     id: string;
     username: string;

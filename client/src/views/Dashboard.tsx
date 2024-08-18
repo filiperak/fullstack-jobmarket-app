@@ -65,7 +65,8 @@ const Dashboard = () => {
       if(result && result.error){        
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
       }
-
+      console.log(result);
+      
     } catch (error) {}
   };
   const handleSubmitNew = (e: React.FormEvent) => {
@@ -207,14 +208,7 @@ const Dashboard = () => {
                       {job.applicants.length > 0 ? job.applicants.length : 0}
                     </li>
                   </ul>
-                  <span
-                    className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
-                    onClick={() => handleSelected(job._id)}
-                  >
-                    {selected.indexOf(job._id) !== -1
-                      ? "Hide Applicants"
-                      : "Show Applicants"}
-                  </span>
+                 
                   <span
                     className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
                     onClick={() => handleSelected(job._id)}
@@ -227,8 +221,8 @@ const Dashboard = () => {
                     <ul className={styles.applicantList}>
                       <p>Applicants:</p>
                       {job.applicants.length > 0 ? (
-                        job.applicants.map((user) => (
-                          <li>
+                        job.applicants.map((user,ind) => (
+                          <li key={ind}>
                             <p>
                               @{user.username} / {user.email}
                             </p>

@@ -1,5 +1,5 @@
 import { IUserAction, IUserState } from "../interface/props";
-import { LOG_IN, LOG_OUT, USER_APPLIED_TO_JOB, USER_CREATED_JOB } from "./actions";
+import { LOG_IN, LOG_OUT, UPDATE_USER, USER_APPLIED_TO_JOB, USER_CREATED_JOB } from "./actions";
 
 
 export const userReducer =  (state: IUserState, action: IUserAction) => {
@@ -31,12 +31,21 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
         case USER_APPLIED_TO_JOB:
             return{
                 ...state,
-                jobsAppliedTo: [...state.jobsAppliedTo, action.payload]
+                // jobsAppliedTo: [...state.jobsAppliedTo, action.payload]
+                jobsAppliedTo:[action.payload]
             }
         case USER_CREATED_JOB:
             return{
                 ...state,
-                jobsCreated:[...state.jobsCreated,action.payload]
+                //jobsCreated:[...state.jobsCreated,action.payload]
+                jobsCreated:[action.payload]
+
+            }
+        case UPDATE_USER:
+            return{
+                ...state,
+                jobsCreated: action.payload?.jobsCreated || [],
+                jobsAppliedTo: action.payload?.jobsAppliedTo || [],
             }
         default:
             return state;
