@@ -62,3 +62,10 @@
         width: 300px;
     }
 }
+.spinner{
+    text-align: center;
+}
+.spinner svg{
+    height: 40px;
+    width: 40px;
+}

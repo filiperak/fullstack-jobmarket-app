@@ -64,6 +64,8 @@ const Dashboard = () => {
       const result = await crateJob(token,jobData)
       if(result && result.error){        
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
+      }else{
+        
       }
       console.log(result);
       

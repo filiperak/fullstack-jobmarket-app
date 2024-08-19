@@ -57,8 +57,9 @@ export const createJob = async (req: JobRequest, res: Response) => {
     const job = await JobModel.create(req.body);
     const userObject = await UserModel.findById(userId)
     userObject?.jobsCreated.push(job.id)
+    userObject?.populate("jobsCreated")
     await userObject?.save()
-    res.status(200).json({ job , userObject });
+    res.status(200).json({ job , createdJobs:userObject?.jobsCreated });
   } catch (error: any) {
     res.status(500).json({ message: error });
   }
@@ -86,6 +87,7 @@ export const applyToJob = async (req: JobRequest, res: Response) => {
     if (checkIfUserApplied){
       return res.status(400).json({ message: "User has alrady applied to this job" });
     }
+    await user.populate("jobsAppliedTo")
 
     job.applicants.push(userObjectId);
     user?.jobsAppliedTo.push(job._id)

@@ -9,10 +9,12 @@ import { registerUser } from "../../services/users/register";
 import { LOG_OUT } from "../../reducer/actions";
 import globalStyles from '../../styles/app.module.css'
 import { GlobalStyles } from "@mui/material";
+import {ReactComponent as Spinner} from '../../assets/Spinner.svg'
 
 const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const { userState, userDispatch } = useContext(UserContext);
   const [register, setRegister] = useState<boolean>(false);
+  const [loading,setLoading] = useState<boolean>(false)
   //const { handleLogin, handleRegister } = useAuth();
   const [formData, setFormData] = useState<{
     username: string;
@@ -46,6 +48,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
     e.preventDefault();
     setErrorMsg(null);
     try {
+      setLoading(true)
       if (register) {
         await registerUser(
           formData.username,
@@ -53,13 +56,16 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
           formData.password,
           userDispatch
         );
+        
       } else {
         await loginUser(formData.username, formData.password, userDispatch);
       }
+      setLoading(false)
       setModalOpen();
       setFormData({ username: "", email: "", password: "" });
     } catch (error: any) {
       setErrorMsg(error.message);
+      setLoading(false)
     }
   };
   const handleLogOut = (e: React.FormEvent) => {
@@ -111,6 +117,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
             <p>{errorMsg}</p>
           </div>
         )}
+        {loading && <div className={styles.spinner}><Spinner/></div>}
         <input
           type="text"
           name="username"
