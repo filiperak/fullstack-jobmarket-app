@@ -3,7 +3,7 @@ import globalStyles from "../styles/app.module.css";
 import styles from "../styles/dashboard.module.css";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import { UserContext } from "../context/UserContext";
-import { IjobPayload, IJobs } from "../interface/props";
+import { IjobPayload, IJobs, IJobsAppliedTo } from "../interface/props";
 import cityList from "../assets/citys.json";
 import { JobContext } from "../context/JobContext";
 import { SHOW_INFO, USER_CREATED_JOB } from "../reducer/actions";
@@ -11,14 +11,18 @@ import { crateJob } from "../services/jobs/createJob";
 import { sortByDate } from "../utility/sortByDate";
 import { ReactComponent as Spinner } from "../assets/Spinner.svg";
 import { getUserJobs } from "../services/users/getUserJobs";
+import Error from "../components/Error";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
-  const { jobsCreated, logged, token, id } = userState;
-  const sortedJobs = sortByDate(jobsCreated);
+  const [jobsCreated,setJobsCreated] = useState<null | IJobs[]>(null)
+  const [jobsAppliedTo,setJobaAppliedTo] = useState<null | IJobsAppliedTo[]>(null)
+  const { logged, token, id } = userState;
+  const sortedJobs = jobsCreated? sortByDate(jobsCreated): null;
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMsg,setErrorMsg] = useState <null | string>(null);
   const [selected, setSelected] = useState<string[]>([]);
   const [jobData, setJobData] = useState<IjobPayload>({
     title: "",
@@ -65,23 +69,32 @@ const Dashboard = () => {
   };
 
   const getJobs = async () => {
+    setLoading(true)
     try {
       const result = await getUserJobs(id);
 
       if (result && result.error) {
         console.log(result.error);
+        setErrorMsg(result.error)
       } else {
-        console.log(result.user);
+        setJobaAppliedTo(result.jobsAppliedTo);
+        setJobsCreated(result.jobsCreated)
       }
+      setLoading(false)
     } catch (error: any) {
-      console.log(error.message);
+      setLoading(false)
     }
   };
   useEffect(() => {
     getJobs();
   }, []);
 
-  const createNewJob = async () => {
+  const handleSubmitNew = async(e: React.FormEvent) => {
+    e.preventDefault();
+    if (!logged || !token) {
+      jobDispatch({ type: SHOW_INFO, payload: "Log in to create jobs" });
+      return;
+    }
     setLoading(true);
     try {
       const result = await crateJob(token, jobData);
@@ -89,20 +102,13 @@ const Dashboard = () => {
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
       } else {
         userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
+        setShowNew(false);
       }
       setLoading(false);
     } catch (error: any) {
       jobDispatch({ type: SHOW_INFO, payload: error.message });
       setLoading(false);
     }
-  };
-  const handleSubmitNew = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!logged || !token) {
-      jobDispatch({ type: SHOW_INFO, payload: "Log in to create jobs" });
-      return;
-    }
-    createNewJob();
     setJobData({
       title: "",
       description: "",
@@ -114,14 +120,16 @@ const Dashboard = () => {
         city: "",
       },
     });
-    setShowNew(false);
+    getJobs()
   };
 
   return (
     <div className={globalStyles.views}>
       <section className={styles.container}>
-        <div className={styles.appliedJobs}>myJobs</div>
-
+        <div className={styles.appliedJobs}>
+          myJobs
+          {errorMsg !== null && <Error/>}
+          </div>
         <div className={styles.myJobs}>
           <header>
             <h3>My Jobs</h3>
@@ -240,6 +248,7 @@ const Dashboard = () => {
                 <Spinner />
               </div>
             )}
+            {errorMsg !== null && <Error/>}
             {sortedJobs && sortedJobs.length > 0 ? (
               sortedJobs.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>

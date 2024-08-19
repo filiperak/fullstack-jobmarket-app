@@ -73,3 +73,17 @@ export interface IJobs {
   updatedAt: string;
   __v: number;
 }
+
+export interface IJobsAppliedTo {
+  _id: string;
+  title: string;
+  createdBy: IUser;
+  pay: {
+    amount: number;
+    typeOfPay: string;
+  };
+  jobLocation: {
+    country: string;
+    city: string;
+  };
+}

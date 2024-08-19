@@ -24,10 +24,12 @@ const ErrorWrapper = styled.div`
   width: 100%;
   max-width: 1500px;
   margin: var(--app-margin) auto;
+  border-radius: var(--app-border-radius);
   > svg {
     height: 60px;
     width: 60px;
     margin-top: 50px;
+    margin-bottom: 50px;
     cursor: pointer;
   }
   >p{
