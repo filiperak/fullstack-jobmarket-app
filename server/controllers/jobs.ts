@@ -53,13 +53,19 @@ export const getAllJobs = async (req: JobRequest, res: Response) => {
 export const createJob = async (req: JobRequest, res: Response) => {
   try {
     const userId = req.user?.userId
+    if (!userId) {
+      return res.status(404).json({ messaage: "user  not logged in" });
+    }
     req.body.createdBy = userId;
     const job = await JobModel.create(req.body);
     const userObject = await UserModel.findById(userId)
-    userObject?.jobsCreated.push(job.id)
-    await userObject?.populate("jobsCreated")
-    await userObject?.save()
-    res.status(200).json({ job , createdJobs:userObject?.jobsCreated });
+    if (!userObject) {
+      return res.status(404).json({ messaage: "user  not found" });
+    }
+    userObject.jobsCreated.push(job.id)
+    await userObject.populate("jobsCreated")
+    await userObject.save()
+    res.status(200).json({ job , createdJobs:userObject.jobsCreated });
   } catch (error: any) {
     res.status(500).json({ message: error });
   }
@@ -100,23 +106,6 @@ export const applyToJob = async (req: JobRequest, res: Response) => {
     res.status(500).json({ message: "failed to apply", error });
   }
 };
-// export const applyToJob = async (req:JobRequest,res:Response) => {
-//   try {
-//     const jobId = req.params.id;
-//     const userId = req.user?.userId
-//     if(!userId){return res.status(400).json({messaage:'user  not logged in'})}
-
-//     const job = await JobModel.findByIdAndUpdate(
-//       jobId,
-//       {$push: {applicants:userId}},
-//       {new: true}
-//     )
-//     if(!jobId){return res.status(400).json({messaage:'job not found'})}
-//     res.status(200).json({message:'Applied to job',job})
-//   } catch (error:any) {
-//     res.status(500).json({ message:'failed to apply' ,error });
-//   }
-// }
 
 export const getJob = async (req: Request, res: Response) => {
   try {

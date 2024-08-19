@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 export const register = async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body;
-    //vrv bespotrebno, nemoj da brises ipak
     const checkUserExists = await UserModel.findOne({
       $or: [
         { username: username },
@@ -96,8 +95,18 @@ export const getUser = async (req: Request, res: Response) => {
         select:"username email"
       }]
     })
-    .populate("jobsAppliedTo")
-    res.status(200).json({ user });
+    .populate({
+      path: "jobsAppliedTo",
+      select: "title jobLocation pay",
+      populate: {
+        path: "createdBy", 
+        select: "username email",
+      },
+    });
+    if(!user){
+      return res.status(404).json({message:'user not found'})
+    }
+    res.status(200).json({ user,jobsCreated:user.jobsCreated,jobsAppliedTo:user.jobsAppliedTo });
   } catch (error:any) {
     res.status(500).json({ message: error });
   }

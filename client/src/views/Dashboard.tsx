@@ -9,11 +9,12 @@ import { JobContext } from "../context/JobContext";
 import { SHOW_INFO, USER_CREATED_JOB } from "../reducer/actions";
 import { crateJob } from "../services/jobs/createJob";
 import { sortByDate } from "../utility/sortByDate";
-import {ReactComponent as Spinner} from '../assets/Spinner.svg'
+import { ReactComponent as Spinner } from "../assets/Spinner.svg";
+import { getUserJobs } from "../services/users/getUserJobs";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
-  const { jobsCreated, logged, token } = userState;
+  const { jobsCreated, logged, token, id } = userState;
   const sortedJobs = sortByDate(jobsCreated);
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
@@ -63,8 +64,25 @@ const Dashboard = () => {
     });
   };
 
+  const getJobs = async () => {
+    try {
+      const result = await getUserJobs(id);
+
+      if (result && result.error) {
+        console.log(result.error);
+      } else {
+        console.log(result.user);
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getJobs();
+  }, []);
+
   const createNewJob = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const result = await crateJob(token, jobData);
       if (result && result.error) {
@@ -72,11 +90,10 @@ const Dashboard = () => {
       } else {
         userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error: any) {
       jobDispatch({ type: SHOW_INFO, payload: error.message });
-      setLoading(false)
-
+      setLoading(false);
     }
   };
   const handleSubmitNew = (e: React.FormEvent) => {
@@ -97,7 +114,7 @@ const Dashboard = () => {
         city: "",
       },
     });
-    setShowNew(false)
+    setShowNew(false);
   };
 
   return (
@@ -195,7 +212,7 @@ const Dashboard = () => {
                   type="button"
                   className={globalStyles.cancelBtn}
                   onClick={() => {
-                    setShowNew(false)
+                    setShowNew(false);
                     setJobData({
                       title: "",
                       description: "",
@@ -218,7 +235,11 @@ const Dashboard = () => {
             </form>
           )}
           <section className={styles.myJobsList}>
-          {loading && <div className={styles.spinner}><Spinner/></div>}
+            {loading && (
+              <div className={styles.spinner}>
+                <Spinner />
+              </div>
+            )}
             {sortedJobs && sortedJobs.length > 0 ? (
               sortedJobs.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>
