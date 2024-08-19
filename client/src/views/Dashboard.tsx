@@ -9,6 +9,7 @@ import { JobContext } from "../context/JobContext";
 import { SHOW_INFO, USER_CREATED_JOB } from "../reducer/actions";
 import { crateJob } from "../services/jobs/createJob";
 import { sortByDate } from "../utility/sortByDate";
+import {ReactComponent as Spinner} from '../assets/Spinner.svg'
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const sortedJobs = sortByDate(jobsCreated);
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<string[]>([]);
   const [jobData, setJobData] = useState<IjobPayload>({
     title: "",
@@ -62,6 +64,7 @@ const Dashboard = () => {
   };
 
   const createNewJob = async () => {
+    setLoading(true)
     try {
       const result = await crateJob(token, jobData);
       if (result && result.error) {
@@ -69,10 +72,11 @@ const Dashboard = () => {
       } else {
         userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
       }
-      console.log(result);
+      setLoading(false)
     } catch (error: any) {
-      console.log(error.message);
       jobDispatch({ type: SHOW_INFO, payload: error.message });
+      setLoading(false)
+
     }
   };
   const handleSubmitNew = (e: React.FormEvent) => {
@@ -214,6 +218,7 @@ const Dashboard = () => {
             </form>
           )}
           <section className={styles.myJobsList}>
+          {loading && <div className={styles.spinner}><Spinner/></div>}
             {sortedJobs && sortedJobs.length > 0 ? (
               sortedJobs.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>

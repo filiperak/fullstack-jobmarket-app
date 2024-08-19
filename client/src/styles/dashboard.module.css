@@ -179,3 +179,10 @@
 .applicantBtn span:first-child{ 
     background-color: var(--app-red);
 } 
+.spinner{
+  text-align: center;
+}
+.spinner svg{
+  height: 40px;
+  width: 40px;
+}
