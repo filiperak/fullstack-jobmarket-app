@@ -157,6 +157,8 @@
   background-color: var(--halfway-color);
   outline: none;
   border: none;
+  border-radius: var(--app-border-radius);
+
 }
 .tags input{
   background-color: var(--halfway-color);

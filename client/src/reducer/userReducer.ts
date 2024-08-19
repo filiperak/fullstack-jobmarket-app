@@ -31,14 +31,12 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
         case USER_APPLIED_TO_JOB:
             return{
                 ...state,
-                // jobsAppliedTo: [...state.jobsAppliedTo, action.payload]
-                jobsAppliedTo:[action.payload]
+                jobsAppliedTo:action.payload
             }
         case USER_CREATED_JOB:
             return{
                 ...state,
-                //jobsCreated:[...state.jobsCreated,action.payload]
-                jobsCreated:[action.payload]
+                jobsCreated:action.payload
 
             }
         case UPDATE_USER:

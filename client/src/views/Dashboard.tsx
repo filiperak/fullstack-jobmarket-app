@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import globalStyles from "../styles/app.module.css";
 import styles from "../styles/dashboard.module.css";
 import PostAddIcon from "@mui/icons-material/PostAdd";
@@ -6,12 +6,14 @@ import { UserContext } from "../context/UserContext";
 import { IjobPayload, IJobs } from "../interface/props";
 import cityList from "../assets/citys.json";
 import { JobContext } from "../context/JobContext";
-import { SHOW_INFO } from "../reducer/actions";
+import { SHOW_INFO, USER_CREATED_JOB } from "../reducer/actions";
 import { crateJob } from "../services/jobs/createJob";
+import { sortByDate } from "../utility/sortByDate";
 
 const Dashboard = () => {
-  const { userState } = useContext(UserContext);
-  const { jobsCreated, logged,token } = userState;
+  const { userState, userDispatch } = useContext(UserContext);
+  const { jobsCreated, logged, token } = userState;
+  const sortedJobs = sortByDate(jobsCreated);
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
   const [selected, setSelected] = useState<string[]>([]);
@@ -61,25 +63,37 @@ const Dashboard = () => {
 
   const createNewJob = async () => {
     try {
-      const result = await crateJob(token,jobData)
-      if(result && result.error){        
+      const result = await crateJob(token, jobData);
+      if (result && result.error) {
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
-      }else{
-        
+      } else {
+        userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
       }
       console.log(result);
-      
-    } catch (error) {}
+    } catch (error: any) {
+      console.log(error.message);
+      jobDispatch({ type: SHOW_INFO, payload: error.message });
+    }
   };
   const handleSubmitNew = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!logged || ! token) {
+    if (!logged || !token) {
       jobDispatch({ type: SHOW_INFO, payload: "Log in to create jobs" });
       return;
     }
-    console.log(jobData);
-    createNewJob()
-    
+    createNewJob();
+    setJobData({
+      title: "",
+      description: "",
+      pay: {
+        amount: 0,
+        typeOfPay: "",
+      },
+      jobLocation: {
+        city: "",
+      },
+    });
+    setShowNew(false)
   };
 
   return (
@@ -129,6 +143,7 @@ const Dashboard = () => {
                     <option value="" disabled>
                       Choose city
                     </option>
+                    <hr />
                     {cityList.map((elem, ind) => (
                       <option key={ind} value={elem}>
                         {elem}
@@ -139,9 +154,15 @@ const Dashboard = () => {
                 <div>
                   <p>Pay amount:</p>
                   <input
-                    type="number"
+                    type="text"
+                    pattern="[0-9]*"
                     placeholder="69"
-                    value={Number(jobData.pay.amount)}
+                    inputMode="numeric"
+                    onInput={(e) => {
+                      const input = e.target as HTMLInputElement;
+                      input.value = input.value.replace(/[^0-9]/g, "");
+                    }}
+                    value={String(jobData.pay.amount)}
                     onChange={handleChange}
                     name="amount"
                   />
@@ -156,6 +177,7 @@ const Dashboard = () => {
                     <option value="" disabled>
                       Select one
                     </option>
+                    <hr />
                     <option value="hourly">hourly</option>
                     <option value="daily">daily</option>
                     <option value="weekly">weekly</option>
@@ -168,7 +190,20 @@ const Dashboard = () => {
                 <button
                   type="button"
                   className={globalStyles.cancelBtn}
-                  onClick={() => setShowNew(false)}
+                  onClick={() => {
+                    setShowNew(false)
+                    setJobData({
+                      title: "",
+                      description: "",
+                      pay: {
+                        amount: 0,
+                        typeOfPay: "",
+                      },
+                      jobLocation: {
+                        city: "",
+                      },
+                    });
+                  }}
                 >
                   Cancel
                 </button>
@@ -179,8 +214,8 @@ const Dashboard = () => {
             </form>
           )}
           <section className={styles.myJobsList}>
-            {jobsCreated && jobsCreated.length > 0 ? (
-              jobsCreated.map((job: IJobs) => (
+            {sortedJobs && sortedJobs.length > 0 ? (
+              sortedJobs.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>
                   <header>
                     <h4>{job.title}</h4>
@@ -210,7 +245,7 @@ const Dashboard = () => {
                       {job.applicants.length > 0 ? job.applicants.length : 0}
                     </li>
                   </ul>
-                 
+
                   <span
                     className={`${styles.showBtn} ${globalStyles.confirmBtn}`}
                     onClick={() => handleSelected(job._id)}
@@ -223,7 +258,7 @@ const Dashboard = () => {
                     <ul className={styles.applicantList}>
                       <p>Applicants:</p>
                       {job.applicants.length > 0 ? (
-                        job.applicants.map((user,ind) => (
+                        job.applicants.map((user, ind) => (
                           <li key={ind}>
                             <p>
                               @{user.username} / {user.email}

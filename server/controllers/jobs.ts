@@ -57,7 +57,7 @@ export const createJob = async (req: JobRequest, res: Response) => {
     const job = await JobModel.create(req.body);
     const userObject = await UserModel.findById(userId)
     userObject?.jobsCreated.push(job.id)
-    userObject?.populate("jobsCreated")
+    await userObject?.populate("jobsCreated")
     await userObject?.save()
     res.status(200).json({ job , createdJobs:userObject?.jobsCreated });
   } catch (error: any) {
