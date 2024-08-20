@@ -12,6 +12,7 @@ import { sortByDate } from "../utility/sortByDate";
 import { ReactComponent as Spinner } from "../assets/Spinner.svg";
 import { getUserJobs } from "../services/users/getUserJobs";
 import Error from "../components/Error";
+import AppliedToJobs from "../components/dahboard/AppliedToJobs";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -72,12 +73,9 @@ const Dashboard = () => {
     setLoading(true)
     try {
       const result = await getUserJobs(id);
-
       if (result && result.error) {
-        console.log(result.error);
         setErrorMsg(result.error)
       } else {
-        setJobaAppliedTo(result.jobsAppliedTo);
         setJobsCreated(result.jobsCreated)
       }
       setLoading(false)
@@ -122,13 +120,12 @@ const Dashboard = () => {
     });
     getJobs()
   };
-
   return (
     <div className={globalStyles.views}>
       <section className={styles.container}>
         <div className={styles.appliedJobs}>
           myJobs
-          {errorMsg !== null && <Error/>}
+          <AppliedToJobs/>
           </div>
         <div className={styles.myJobs}>
           <header>

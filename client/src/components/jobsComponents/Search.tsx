@@ -21,9 +21,7 @@ const Search = () => {
   });
   
 
-  const fetchJobs = async() => {
-    console.log(searchParams);
-    
+  const fetchJobs = async() => {    
     try {
       jobDispatch({type:FETCH_JOBS_REQUEST});
       const jobsData = await getAllJobs(searchParams.searchQuery,searchParams.city,searchParams.range,searchParams.sort);
