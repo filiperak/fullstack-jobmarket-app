@@ -70,6 +70,7 @@ const Dashboard = () => {
   };
 
   const getJobs = async () => {
+    if(!token) return
     setLoading(true)
     try {
       const result = await getUserJobs(id);
@@ -77,6 +78,7 @@ const Dashboard = () => {
         setErrorMsg(result.error)
       } else {
         setJobsCreated(result.jobsCreated)
+        
       }
       setLoading(false)
     } catch (error: any) {
@@ -124,7 +126,9 @@ const Dashboard = () => {
     <div className={globalStyles.views}>
       <section className={styles.container}>
         <div className={styles.appliedJobs}>
-          myJobs
+          <header>
+            <h3>Applied to jobs</h3>
+          </header>
           <AppliedToJobs/>
           </div>
         <div className={styles.myJobs}>
@@ -293,7 +297,8 @@ const Dashboard = () => {
                         job.applicants.map((user, ind) => (
                           <li key={ind}>
                             <p>
-                              @{user.username} / {user.email}
+                              @{user.applicant.username} / {user.applicant.email}
+                              {user.status}
                             </p>
                             <div className={styles.applicantBtn}>
                               <span className={globalStyles.cancelBtn}>

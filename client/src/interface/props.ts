@@ -49,17 +49,20 @@ export interface IjobPayload {
 }
 
 interface IUser {
-  id: string;
+    _id: string;
     username: string;
     email: string;
 }
-
+interface IApplicants{
+  applicant:IUser;
+  status:string;
+}
 export interface IJobs {
   _id: string;
   title: string;
   description: string;
   createdBy: IUser;
-  applicants: IUser[] | [];
+  applicants: IApplicants[] | [];
   active: boolean;
   pay: {
     amount: number;
@@ -78,6 +81,7 @@ export interface IJobsAppliedTo {
   _id: string;
   title: string;
   createdBy: IUser;
+  applicants: IApplicants[] | [];
   pay: {
     amount: number;
     typeOfPay: string;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { JobModel } from "../models/jobs";
+import { IApplicants, JobModel } from "../models/jobs";
 import { UserModel } from "../models/users";
 import mongoose from "mongoose";
 
@@ -89,13 +89,16 @@ export const applyToJob = async (req: JobRequest, res: Response) => {
       return res.status(404).json({ message: "job not found" });
     }
     const userObjectId = new mongoose.Types.ObjectId(userId);
-    const checkIfUserApplied = job.applicants.includes(userObjectId);
+
+    const checkIfUserApplied = job.applicants
+    .map((applicant:IApplicants) => applicant.applicant.toString())
+    .includes(userId);
     if (checkIfUserApplied){
       return res.status(400).json({ message: "User has alrady applied to this job" });
     }
     await user.populate("jobsAppliedTo")
 
-    job.applicants.push(userObjectId);
+    job.applicants.push({ applicant: userObjectId, status: "pending" });
     user?.jobsAppliedTo.push(job._id)
     
     await user?.save()
@@ -131,3 +134,39 @@ export const deleteJob = async (req: Request, res: Response) => {
     res.status(500).json({ message: error });
   }
 };
+export const menageApplicant = async(req:JobRequest,res:Response) => {
+
+  try {
+    const userId = req.user?.userId
+    if (!userId) {
+      return res.status(404).json({ messaage: "user  not logged in" });
+    }
+    const {jobId,applicantId} = req.params;
+    const {action} = req.body;
+
+
+    const job = await JobModel.findById(jobId);
+    if(!job){
+      return res.status(404).json({message:'job not found'})
+    }
+
+    if(job.createdBy._id.toString() !== userId){
+      res.status(400).json({message:'you are not authorized for thiss action'})
+    }
+    console.log(applicantId);
+    
+    const applicant = job.applicants.find(applicant => 
+      applicant.applicant.toString() === applicantId
+    
+    )
+    if (!applicant) {
+      return res.status(404).json({ message: 'applicant not found', test:job.applicants});
+    }
+    applicant.status = action === 'accept' ? 'accepted':'declined'
+    await job.save()
+
+    res.status(200).json({ message: `Applicant ${action}ed successfully`, job });
+  } catch (error: any) {
+    res.status(500).json({ message: error });
+  }
+}

@@ -8,12 +8,16 @@ type jobLocationType = {
   country:string;
   city:string
 }
+export type IApplicants = {
+  applicant:mongoose.Types.ObjectId;
+  status:string;
+}
 
 interface IJob extends Document {
   title: string;
   description: string;
   createdBy: mongoose.Types.ObjectId;
-  applicants:mongoose.Types.ObjectId[];
+  applicants:IApplicants[];
   active:boolean;
   pay:payType;
   jobLocation:jobLocationType;
@@ -30,7 +34,17 @@ const JobsSchema:Schema<IJob> = new Schema({
      required: [true, "must provide job description"],
    },
    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-   applicants:{type:[mongoose.Schema.Types.ObjectId], ref : "User",default:[]},
+   //applicants:{type:[mongoose.Schema.Types.ObjectId], ref : "User",default:[]},
+   applicants: [
+    {
+      applicant: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      status: {
+        type: String,
+        enum: ["pending", "accepted", "declined"],
+        default: "pending",
+      },
+    },
+  ],
    active:{
     type:Boolean,
     default:true
