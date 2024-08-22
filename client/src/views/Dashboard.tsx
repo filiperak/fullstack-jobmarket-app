@@ -169,15 +169,9 @@ const Dashboard = () => {
     <div className={globalStyles.views}>
       <section className={styles.container}>
         <div className={styles.appliedJobs}>
-          {/* <header>
-            <h3>Statistics</h3>
-          </header>
-          <section className={styles.statistics}>
-            <PieChartComponent/>
-          </section>
           <header>
             <h3>Applied to jobs</h3>
-          </header> */}
+          </header>
           <div className={styles.appliedJobsList}>
           <AppliedToJobs />
           </div>
