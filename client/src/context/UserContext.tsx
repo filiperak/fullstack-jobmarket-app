@@ -11,8 +11,8 @@ const initialState: IUserState = storedUser
       id: '',
       username: '',
       email: '',
-      jobsCreated: [],
-      jobsAppliedTo: [],
+      //jobsCreated: [],
+      //jobsAppliedTo: [],
       token: '',
       logged: false,
     };

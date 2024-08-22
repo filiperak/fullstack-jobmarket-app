@@ -45,19 +45,17 @@
   justify-content: space-between;
   padding: var(--app-padding);
 }
-.appliedJobs header {
+.appliedJobs  header {
   border-bottom: 2px solid var(--halfway-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--app-padding);
 }
-/* .addBtn {
-  background-color: var(--app-theme-color);
-  border: none;
-  border-radius: var(--app-border-radius);
-  cursor: pointer;
-} */
+ .header{
+  height: 57.6px;
+}
+
 .myJobsList, .appliedJobsList{
     overflow: scroll;
     flex-grow: 1;

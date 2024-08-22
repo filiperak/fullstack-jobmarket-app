@@ -109,7 +109,6 @@ const Dashboard = () => {
       if (result && result.error) {
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
       } else {
-        // userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
         setShowNew(false);
       }
       setLoading(false);
@@ -153,23 +152,17 @@ const Dashboard = () => {
       const result = await changeAppliedStatus(token,jobId,userId,action)
       if(result && result.error){
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
-
-      }else{
-        console.log(result.message);
-        
       }
     } catch (error:any) {
       jobDispatch({ type: SHOW_INFO, payload: error.message });
     }
-
-
   };
 
   return (
     <div className={globalStyles.views}>
       <section className={styles.container}>
         <div className={styles.appliedJobs}>
-          <header>
+          <header className={styles.header}>
             <h3>Applied to jobs</h3>
           </header>
           <div className={styles.appliedJobsList}>
