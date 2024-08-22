@@ -162,7 +162,7 @@ export const menageApplicant = async(req:JobRequest,res:Response) => {
     if (!applicant) {
       return res.status(404).json({ message: 'applicant not found', test:job.applicants});
     }
-    applicant.status = action === 'accept' ? 'accepted':'declined'
+    applicant.status = action === 'accepted' ? 'accepted':'declined'
     await job.save()
 
     res.status(200).json({ message: `Applicant ${action}ed successfully`, job });

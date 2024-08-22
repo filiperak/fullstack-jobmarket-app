@@ -13,17 +13,22 @@ import { ReactComponent as Spinner } from "../assets/Spinner.svg";
 import { getUserJobs } from "../services/users/getUserJobs";
 import Error from "../components/Error";
 import AppliedToJobs from "../components/dahboard/AppliedToJobs";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import { changeAppliedStatus } from "../services/jobs/changeAppliedStatus";
+import PieChartComponent from "../components/dahboard/PieChartComponent";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
-  const [jobsCreated,setJobsCreated] = useState<null | IJobs[]>(null)
-  const [jobsAppliedTo,setJobaAppliedTo] = useState<null | IJobsAppliedTo[]>(null)
+  const [jobsCreated, setJobsCreated] = useState<null | IJobs[]>(null);
+  //const [jobsAppliedTo, setJobaAppliedTo] = useState<null | IJobsAppliedTo[]>(null);
   const { logged, token, id } = userState;
-  const sortedJobs = jobsCreated? sortByDate(jobsCreated): null;
+  const sortedJobs = jobsCreated ? sortByDate(jobsCreated) : null;
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMsg,setErrorMsg] = useState <null | string>(null);
+  const [errorMsg, setErrorMsg] = useState<null | string>(null);
   const [selected, setSelected] = useState<string[]>([]);
   const [jobData, setJobData] = useState<IjobPayload>({
     title: "",
@@ -70,26 +75,29 @@ const Dashboard = () => {
   };
 
   const getJobs = async () => {
-    if(!token) return
-    setLoading(true)
+    if (!token) return;
+    setLoading(true);
     try {
       const result = await getUserJobs(id);
       if (result && result.error) {
-        setErrorMsg(result.error)
+        setErrorMsg(result.error);
       } else {
-        setJobsCreated(result.jobsCreated)
-        
+        setJobsCreated(result.jobsCreated);
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error: any) {
-      setLoading(false)
+      setLoading(false);
     }
   };
   useEffect(() => {
-    getJobs();
-  }, []);
+    if (logged && token && id) {
+      getJobs();
+    } else {
+      setJobsCreated(null);
+    }
+  }, [logged, id, token]);
 
-  const handleSubmitNew = async(e: React.FormEvent) => {
+  const handleSubmitNew = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!logged || !token) {
       jobDispatch({ type: SHOW_INFO, payload: "Log in to create jobs" });
@@ -101,7 +109,7 @@ const Dashboard = () => {
       if (result && result.error) {
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
       } else {
-        userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
+        // userDispatch({ type: USER_CREATED_JOB, payload: result.createdJobs });
         setShowNew(false);
       }
       setLoading(false);
@@ -120,17 +128,60 @@ const Dashboard = () => {
         city: "",
       },
     });
-    getJobs()
+    getJobs();
   };
+
+  const handleStatusChange = async(userId: string, jobId: string,action:string) => {
+
+    setJobsCreated((prev) =>
+      prev
+        ? prev.map((job) =>
+            job._id === jobId
+              ? {
+                  ...job,
+                  applicants: job.applicants.map((applicant) =>
+                    applicant.applicant._id === userId
+                      ? { ...applicant, status: action }
+                      : applicant
+                  ),
+                }
+              : job
+          )
+        : null
+    );
+    try {
+      const result = await changeAppliedStatus(token,jobId,userId,action)
+      if(result && result.error){
+        jobDispatch({ type: SHOW_INFO, payload: result.error.message });
+
+      }else{
+        console.log(result.message);
+        
+      }
+    } catch (error:any) {
+      jobDispatch({ type: SHOW_INFO, payload: error.message });
+    }
+
+
+  };
+
   return (
     <div className={globalStyles.views}>
       <section className={styles.container}>
         <div className={styles.appliedJobs}>
+          {/* <header>
+            <h3>Statistics</h3>
+          </header>
+          <section className={styles.statistics}>
+            <PieChartComponent/>
+          </section>
           <header>
             <h3>Applied to jobs</h3>
-          </header>
-          <AppliedToJobs/>
+          </header> */}
+          <div className={styles.appliedJobsList}>
+          <AppliedToJobs />
           </div>
+        </div>
         <div className={styles.myJobs}>
           <header>
             <h3>My Jobs</h3>
@@ -249,7 +300,7 @@ const Dashboard = () => {
                 <Spinner />
               </div>
             )}
-            {errorMsg !== null && <Error/>}
+            {errorMsg !== null && <Error />}
             {sortedJobs && sortedJobs.length > 0 ? (
               sortedJobs.map((job: IJobs) => (
                 <div key={job._id} className={styles.jobListItem}>
@@ -266,7 +317,7 @@ const Dashboard = () => {
                   <ul>
                     <h3>Details</h3>
                     <li>
-                      Pay: {job.pay.amount} / {job.pay.typeOfPay}
+                      Pay: {job.pay.amount}$/{job.pay.typeOfPay}
                     </li>
                     <li>
                       Posted:{" "}
@@ -296,18 +347,36 @@ const Dashboard = () => {
                       {job.applicants.length > 0 ? (
                         job.applicants.map((user, ind) => (
                           <li key={ind}>
-                            <p>
-                              @{user.applicant.username} / {user.applicant.email}
-                              {user.status}
-                            </p>
+                            <div className={styles.applicantData}>
+                              <p className={styles[user.status]}>
+                                Status: {user.status}
+                              </p>
+                              <p>
+                                <PersonOutlineOutlinedIcon />: @
+                                {user.applicant.username}
+                              </p>
+                              <p>
+                                <EmailOutlinedIcon />: {user.applicant.email}
+                              </p>
+                            </div>
                             <div className={styles.applicantBtn}>
-                              <span className={globalStyles.cancelBtn}>
+                              <span
+                                className={globalStyles.cancelBtn}
+                                onClick={() =>
+                                  handleStatusChange(user.applicant._id, job._id,"declined")
+                                }
+                              >
                                 Decline
                               </span>
                               <span className={globalStyles.confirmBtn}>
                                 Contact
                               </span>
-                              <span className={globalStyles.confirmBtn}>
+                              <span
+                                className={globalStyles.confirmBtn}
+                                onClick={() =>
+                                  handleStatusChange(user.applicant._id, job._id,"accepted")
+                                }
+                              >
                                 Accept
                               </span>
                             </div>
@@ -321,7 +390,15 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p>You have created 0 jobs</p>
+              <p className={styles.info}>
+                {" "}
+                <span>
+                  <InfoOutlinedIcon />
+                </span>
+                {logged
+                  ? "You haven't created any jobs yet!"
+                  : "Log in to see your jobs"}
+              </p>
             )}
           </section>
         </div>

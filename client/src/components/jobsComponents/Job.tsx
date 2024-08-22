@@ -21,7 +21,7 @@ const Job = ({ data }: JobProps) => {
     <div className={styles.job} onClick={() => navigateToJob(data._id)}>
       <section className={styles.jobContent}>
         <h2>{data.title}</h2>
-        <div className={styles.jobUsername}>{`posted by:${data.createdBy.username}`}</div>
+        <div className={styles.jobUsername}>{`posted by:@${data.createdBy.username}`}</div>
         <p>
           {data.description.length < 250
             ? data.description
@@ -35,7 +35,7 @@ const Job = ({ data }: JobProps) => {
         </div>
         <div>
           <AccountBalanceWalletOutlinedIcon sx={{ fontSize: "16px" }} />
-          <p>{`${data.pay.amount}/${data.pay.typeOfPay}`}</p>
+          <p>{`${data.pay.amount}$/${data.pay.typeOfPay}`}</p>
         </div>
         <div>
           <AccessTimeOutlinedIcon sx={{ fontSize: "16px" }} />

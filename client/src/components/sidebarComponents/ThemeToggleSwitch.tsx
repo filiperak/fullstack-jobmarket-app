@@ -7,8 +7,6 @@ import { ThemeContext, useTheme } from "../../context/ThemeContext";
 
 const ThemeToggleSwitch = () => {
   const { theme, toggleTheme } = useTheme();
-  console.log(theme);
-
   return (
     <div className={`${styles.toggle} `}>
       <div

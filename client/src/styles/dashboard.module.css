@@ -33,7 +33,6 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--app-padding);
-  height: 49.5px;
 }
 /* .addBtn {
   background-color: var(--app-theme-color);
@@ -41,7 +40,7 @@
   border-radius: var(--app-border-radius);
   cursor: pointer;
 } */
-.myJobsList {
+.myJobsList, .appliedJobsList{
     overflow: scroll;
     flex-grow: 1;
     margin-top: var(--app-margin);
@@ -81,32 +80,20 @@
     padding:8px;
     margin: var(--app-margin);
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
 }
-/* .applicantBtn span{
-    display: inline-block;
-}
-.applicantList li{
-    background-color: var(--background-color);
-    border-radius: var(--app-border-radius);
-    padding:8px;
-    margin: var(--app-margin);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-/* .applicantBtn span{
-    border-radius: var(--app-border-radius);
-    padding: var(--app-padding);
-    margin: var(--app-margin);
-    cursor: pointer;
-    background-color: var(--app-theme-color);
 
+.applicantData p{
+  display: flex;
+  align-items: center;
+  margin: var(--app-margin);
 }
-.applicantBtn span:first-child{ 
-    background-color: var(--app-red);
-} */
+.applicantData p:first-child{
+  display: inline-block;
+}
+
+
 .newJobForm{
   background-color: var(--halfway-color);
   padding: var(--app-padding);
@@ -194,9 +181,7 @@
   height: 40px;
   width: 40px;
 }
-.appliedToJob{
 
-}
 .accepted {
   border-radius: var(--app-border-radius);
   border: 2px solid var(--app-theme-color);
@@ -206,4 +191,27 @@
   border-radius: var(--app-border-radius);
   border: 2px solid var(--app-blue);
   padding: 2px;
+}
+
+.declined {
+  border-radius: var(--app-border-radius);
+  border: 2px solid var(--app-red);
+  padding: 2px;
+}
+.info{
+  display: flex;
+  align-items: center;
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+}
+.statistics{
+  height: 200px;
+  background-color: var(--halfway-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+  border-radius: var(--app-border-radius);
+
 }
