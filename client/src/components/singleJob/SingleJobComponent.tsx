@@ -38,7 +38,6 @@ const SingleJobComponent = ({ data }: IJobProps) => {
       if (application.error) {
         jobDispatch({ type: SHOW_INFO, payload: application.error });
       } else {
-        //userDispatch({type:USER_APPLIED_TO_JOB,payload:application.user})
         jobDispatch({
           type: SHOW_INFO,
           payload: `${application.message}:${application.job.title}`,

@@ -21,8 +21,6 @@ export const loginUser = async (username: string, password: string,userDispatch:
             id:result.user._id,
             username:result.user.username,
             email:result.user.email,
-            jobsCreated:result.user.jobsCreated,
-            jobsAppliedTo:result.user.jobsAppliedTo,
             token:result.token
 
         } 
@@ -31,8 +29,6 @@ export const loginUser = async (username: string, password: string,userDispatch:
       id: result.user._id,
       username: result.user.username,
       email: result.user.email,
-      jobsCreated:result.user.jobsCreated,
-      jobsAppliedTo:result.user.jobsAppliedTo,
       token: result.token,
   }));
     return result;

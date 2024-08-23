@@ -23,8 +23,8 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
                 id: '',
                 username: '',
                 email: '',
-                jobsCreated:[],
-                jobsAppliedTo:[],
+                //jobsCreated:[],
+                //jobsAppliedTo:[],
                 token: '',
                 logged: false
             };

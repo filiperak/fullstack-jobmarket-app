@@ -24,26 +24,15 @@ export const registerUser = async(username:string,email:string,password:string,u
                 id:result.user._id,
                 username:result.user.username,
                 email:result.user.email,
-                jobsCreated:[],
-                jobsAppliedTo:[],
                 token:result.token
-    
             } 
         });
-        localStorage.setItem('user', JSON.stringify({
-            id: result.user._id,
-            username: result.user.username,
-            email: result.user.email,
-            token: result.token,
-        }));
+
         return result
-        console.log(result);
     } catch (error:any) {
         console.log(error);
         throw new Error(error.message)
     }
 }
 
-function userDispatch(arg0: { type: string; payload: { id: any; username: any; email: any; token: any } }) {
-    throw new Error("Function not implemented.")
-}
+

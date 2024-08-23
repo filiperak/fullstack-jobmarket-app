@@ -7,8 +7,6 @@ export interface IUserState {
   id: string;
   username: string;
   email: string;
-  jobsCreated:any
-  jobsAppliedTo:any
   token: string;
   logged: boolean;
 }
@@ -18,8 +16,6 @@ export interface IUserAction {
   payload?: {
     id: string;
     username: string;
-    jobsCreated: IJobs[];
-    jobsAppliedTo: IJobs[]; 
     email: string;
     token: string;
   };
