@@ -8,6 +8,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--app-margin);
+  position: relative;
+  margin-bottom: 50px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -28,6 +30,9 @@
   .panelBtn {
     flex-direction: column;
     margin-left: auto;
+  }
+  .loadMoreBtn{
+    transform: translate(50%);
   }
 }
 
@@ -50,6 +55,9 @@
     flex-direction: column;
     margin-left: auto;
   }
+  .loadMoreBtn{
+    transform: translate(-50%);
+  }
 }
 
 @media only screen and (max-width: 529px) {
@@ -69,6 +77,9 @@
     margin: var(--app-margin);
     padding: var(--app-padding);
     text-align: center;
+  }
+  .loadMoreBtn{
+    transform: translate(-50%);
   }
 }
 
@@ -203,4 +214,26 @@
 .jobHeader {
   display: flex;
   align-items: center;
+}
+.loadMoreBtn{
+  position:fixed;
+  left: 50%;
+  bottom: 2%;
+  box-shadow: var(--app-border-shadow);
+  border-radius: var(--app-border-radius);
+  padding: var(--app-padding);
+  margin: var(--app-margin);
+  cursor: pointer;
+  background-color: var(--app-theme-color);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  font-weight: 600;
+}
+.loadMoreBtn:active{
+  background-color: darken(var(--app-theme-color), 10%);
+  /* transform: scale(0.98); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

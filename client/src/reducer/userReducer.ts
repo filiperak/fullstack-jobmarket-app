@@ -12,8 +12,6 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
                 id: action.payload?.id || '',
                 username: action.payload?.username || '',
                 email: action.payload?.email || '',
-                //jobsCreated: action.payload?.jobsCreated || [],
-                //jobsAppliedTo: action.payload?.jobsAppliedTo || [],
                 token: action.payload?.token || '',
                 logged: true
             };
@@ -23,28 +21,9 @@ export const userReducer =  (state: IUserState, action: IUserAction) => {
                 id: '',
                 username: '',
                 email: '',
-                //jobsCreated:[],
-                //jobsAppliedTo:[],
                 token: '',
                 logged: false
             };
-        // case USER_APPLIED_TO_JOB:
-        //     return{
-        //         ...state,
-        //         jobsAppliedTo:action.payload
-        //     }
-        // case USER_CREATED_JOB:
-        //     return{
-        //         ...state,
-        //         jobsCreated:action.payload
-
-        //     }
-        //case UPDATE_USER:
-        //    return{
-        //        ...state,
-        //        jobsCreated: action.payload?.jobsCreated || [],
-        //        jobsAppliedTo: action.payload?.jobsAppliedTo || [],
-        //    }
         default:
             return state;
     }

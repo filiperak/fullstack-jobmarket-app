@@ -1,14 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "../../styles/jobs.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import { JobContext } from "../../context/JobContext";
 import { getAllJobs } from "../../services/jobs/getAllJobs";
-import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE } from "../../reducer/actions";
+import { FETCH_JOBS_REQUEST, FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE, FETCH_JOBS_REPLACE_SUCCESS, EMPTY_JOBS } from "../../reducer/actions";
 import cityList from '../../assets/citys.json'
 import globalStyles from '../../styles/app.module.css'
+import { IJobsAction } from "../../interface/props";
 
-const Search = () => {
+interface SearchProps {
+  skip: number;
+  setSkip: React.Dispatch<React.SetStateAction<number>>;
+
+}
+const Search = ({skip,setSkip}:SearchProps) => {
   const {jobState,jobDispatch} = useContext(JobContext)
   const [showPanel, setShowPanel] = useState<boolean>(true);
   const [payRange, setPayRange] = useState<string>("0");
@@ -20,17 +26,16 @@ const Search = () => {
     sort: '',
   });
   
-
-  const fetchJobs = async() => {    
+  
+  const fetchJobs = async(typeAction:IJobsAction['type']) => {    
     try {
       jobDispatch({type:FETCH_JOBS_REQUEST});
-      const jobsData = await getAllJobs(searchParams.searchQuery,searchParams.city,searchParams.range,searchParams.sort);
+      const jobsData = await getAllJobs(searchParams.searchQuery,searchParams.city,searchParams.range,searchParams.sort,skip);
       if(jobsData.error){
         jobDispatch({type:FETCH_JOBS_FAILURE,payload:jobsData.error});
-        console.log(jobsData.error);
         
       }else{
-        jobDispatch({type:FETCH_JOBS_SUCCESS,payload:jobsData.jobs});
+        jobDispatch({type:typeAction,payload:jobsData.jobs});
         console.log(jobsData.jobs);
       }
     } catch (error: any) {
@@ -38,13 +43,22 @@ const Search = () => {
     }
   }
 
+  //dvaput se pozove fetchJobs, ovo ga sprecava
+  const initialRender = useRef(true);
   useEffect(() => {
-    fetchJobs()
-  },[])
+    if (initialRender.current) {
+      initialRender.current = false; 
+      jobDispatch({type:EMPTY_JOBS})
+    } else {
+      fetchJobs(FETCH_JOBS_SUCCESS);
+    }
+  }, [skip]);
+
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    fetchJobs()
+    setSkip(0)
+    fetchJobs(FETCH_JOBS_REPLACE_SUCCESS)    
   }
   useEffect(() => {
     switch (selectedRangeOption) {

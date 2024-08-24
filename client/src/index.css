@@ -12,8 +12,8 @@
   --app-border-radius:4px;
   --app-padding:4px;
   --app-margin:4px;
-  --app-border-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  /* --app-border-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); */
+  /* --app-border-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); */
+  --app-border-shadow: 2px 2px 4px rgba(4, 4, 4, 0.6);
 }
 /* theme colors */
 [data-theme="light"] {

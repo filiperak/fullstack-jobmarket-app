@@ -12,16 +12,18 @@ import Error from '../components/Error'
 const Jobs = () => {
   const {jobState,jobDispatch} = useContext(JobContext)
   const {loading,error,jobs} = jobState
-
+  const [skip,setSkip] = useState<number>(0)
+  
   return (
     <div className={`${globalStyles.views} ${styles.jobs}`}>
-      <Search/>
+      <Search skip={skip} setSkip={setSkip}/>
       {!loading ? 
       <section className={styles.jobList}>
       {jobs && jobs.length > 0?
       jobs.map((job: IJobs) => (
         <Job key={job._id} data={job}/>
       )):null}
+      <div className={styles.loadMoreBtn} onClick={() => setSkip(skip + 5)}>Load More...</div>
     </section>
     :<Loading/>  
     }
