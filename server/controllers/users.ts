@@ -35,7 +35,9 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
-    if (!username || !password) throw new Error();
+    if (!username || !password){
+      return res.status(400).json({message:"provide username/password"})
+    }
     const user = await UserModel.findOne({ username })
       .populate({
         path: "jobsCreated",

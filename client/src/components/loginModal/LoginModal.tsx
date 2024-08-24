@@ -15,7 +15,6 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const { userState, userDispatch } = useContext(UserContext);
   const [register, setRegister] = useState<boolean>(false);
   const [loading,setLoading] = useState<boolean>(false)
-  //const { handleLogin, handleRegister } = useAuth();
   const [formData, setFormData] = useState<{
     username: string;
     email: string;
@@ -36,6 +35,7 @@ const LoginModal = ({ open, setModalOpen }: ISidebar) => {
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
     setFormData({ username: "", email: "", password: "" });
+    setErrorMsg(null);
     setModalOpen();
   };
 

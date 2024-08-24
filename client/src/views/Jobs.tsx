@@ -23,7 +23,7 @@ const Jobs = () => {
       jobs.map((job: IJobs) => (
         <Job key={job._id} data={job}/>
       )):null}
-      <div className={styles.loadMoreBtn} onClick={() => setSkip(skip + 5)}>Load More...</div>
+      <div className={styles.loadMoreBtn} onClick={() => setSkip(skip + 10)}>Load More...</div>
     </section>
     :<Loading/>  
     }
