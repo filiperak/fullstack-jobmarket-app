@@ -8,6 +8,7 @@ import Job from '../components/jobsComponents/Job'
 import { JobContext } from '../context/JobContext'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
+import NotFound from '../components/jobsComponents/NotFound'
 
 const Jobs = () => {
   const {jobState,jobDispatch} = useContext(JobContext)
@@ -22,7 +23,7 @@ const Jobs = () => {
       {jobs && jobs.length > 0?
       jobs.map((job: IJobs) => (
         <Job key={job._id} data={job}/>
-      )):null}
+      )):<NotFound/>}
       <div className={styles.loadMoreBtn} onClick={() => setSkip(skip + 10)}>Load More...</div>
     </section>
     :<Loading/>  
