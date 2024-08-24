@@ -4,6 +4,7 @@
   max-width: 1500px;
   height: 100svh;
   margin: var(--app-margin) auto;
+  box-sizing: border-box;
 }
 .confirmBtn {
   border-radius: var(--app-border-radius);

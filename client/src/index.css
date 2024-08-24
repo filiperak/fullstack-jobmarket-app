@@ -80,4 +80,7 @@ code {
 .App{
   display: flex;
   background-color: var(--halfway-color);
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: hidden;
 }

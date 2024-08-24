@@ -1,6 +1,6 @@
 .singleJob{
     background-color: var(--background-color);
-    height: 100%;
+    height: 98%;
     margin: var(--app-margin);
     border-radius: var(--app-border-radius);
     padding: var(--app-padding);
