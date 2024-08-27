@@ -6,33 +6,47 @@ import { UserContext } from "../context/UserContext";
 import { API_URL } from "../services/API";
 import { getNotifications } from "../services/notifications/getNotifications";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { JobContext } from "../context/JobContext";
+import { SHOW_INFO } from "../reducer/actions";
 
 const socket = io(API_URL);
 
 const Notifications = () => {
   const { userState } = useContext(UserContext);
   const { id, token } = userState;
+  const {  jobDispatch } = useContext(JobContext);
+
 
   const [notifications, setNotifications] = useState<any>([]); //promeni tip kasnije
   const fetchNotifications = async () => {
     try {
       const data = await getNotifications(token);
-      console.log(data);
+      if (data && data.error) {
+        jobDispatch({ type: SHOW_INFO, payload: data.error.message });
+      } 
       setNotifications(data.notifications);
-    } catch (error) {}
+    } catch (error:any) {
+        jobDispatch({ type: SHOW_INFO, payload: error.message });
+    }
   };
   useEffect(() => {
-    fetchNotifications();
-    socket.emit("joinRoom", { userId: id });
-    socket.on("notification", (notification) => {
-      setNotifications((prev: any) => [notification,...prev]);
-      console.log(notification);
-    });
-
-    return () => {
-      socket.off("notification");
-    };
-  }, []);
+    if(id && token){
+        fetchNotifications();
+        socket.emit("joinRoom", { userId: id });
+        socket.on("notification", (notification) => {
+          setNotifications((prev: any) => [notification,...prev]);
+          console.log(notification);
+        });
+    
+        return () => {
+          socket.off("notification");
+          socket.disconnect();
+        };
+    }else{
+        setNotifications([])
+    }
+  }, [id,token]);
   return (
     <div className={globalStyles.views}>
       <NotificationWrapper>
@@ -40,7 +54,10 @@ const Notifications = () => {
           <h3>Notifications</h3>
         </header>
         {notifications && notifications.length === 0 ? (
-          <p>You have no notifications</p>
+          <InfoMsg>
+            <InfoOutlinedIcon/>
+            <p>{token?"You have no notifications yet" : "Log in to see notifications!"}</p>
+          </InfoMsg>
         ) : (
           <NotificationList>
             {notifications.map((elem: any, ind: any) => (
@@ -100,5 +117,10 @@ const TimeTag = styled.div`
   align-items: center;
   font-size: 0.7rem;
   opacity: 0.5;
+`;
+const InfoMsg = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 export default Notifications;
