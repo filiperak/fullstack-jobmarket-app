@@ -9,6 +9,7 @@ import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 import NotificationRouter from "./routes/notification";
 import { NotificationModel } from "./models/notification";
+import { handleSocketNotifications } from "./services/socketNotificationControler";
 
 const app = express();
 
@@ -28,30 +29,14 @@ app.use("/api/v1/jobs", JobsRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/notifications", NotificationRouter);
 
-interface UserSocketMap {
-  [key: string]: string;
-}
+// interface UserSocketMap {
+//   [key: string]: string;
+// }
 
-const userSocketMap: UserSocketMap = {};
+// const userSocketMap: UserSocketMap = {};
 
-io.on("connection", (socket) => {
-  console.log(`new client joined ${socket.id}`);
-  socket.on("joinRoom", ({ userId }) => {
-    socket.join(userId);
-  });
+handleSocketNotifications(io)
 
-  socket.on("sendNotification", async ({ senderId, receiverId, content }) => {
-    console.log(`$nessto se desava ${content} ${senderId} ${receiverId}`);
-
-    const notification = new NotificationModel({
-      sender: senderId,
-      receiver: receiverId,
-      content,
-    });
-    await notification.save();
-    socket.to(receiverId).emit(`notification`, notification);
-  });
-});
 
 const start = async () => {
   try {

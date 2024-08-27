@@ -21,7 +21,7 @@ import PieChartComponent from "../components/dahboard/PieChartComponent";
 import { io } from "socket.io-client";
 import { API_URL } from "../services/API";
 
-const socket = io('http://localhost:5000')
+const socket = io(API_URL)
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -133,7 +133,7 @@ const Dashboard = () => {
     });
     getJobs();
   };
-  const handleStatusChange = async(userId: string, jobId: string,action:string) => {
+  const handleStatusChange = async(userId: string, jobId: string,action:string,jobTitle:string) => {
 
     setJobsCreated((prev) =>
       prev
@@ -159,7 +159,7 @@ const Dashboard = () => {
         socket.emit('sendNotification',{
           senderId:id,
           receiverId:userId,
-          content: `${username} has ${action} you for the job ${jobId}`
+          content: `@${username} has ${action} yor application for the job: "${jobTitle}"`
         })
       }
     } catch (error:any) {
@@ -359,7 +359,7 @@ const Dashboard = () => {
                               <span
                                 className={globalStyles.cancelBtn}
                                 onClick={() =>
-                                  handleStatusChange(user.applicant._id, job._id,"declined")
+                                  handleStatusChange(user.applicant._id, job._id,"declined",job.title)
                                 }
                               >
                                 Decline
@@ -370,7 +370,7 @@ const Dashboard = () => {
                               <span
                                 className={globalStyles.confirmBtn}
                                 onClick={() =>
-                                  handleStatusChange(user.applicant._id, job._id,"accepted")
+                                  handleStatusChange(user.applicant._id, job._id,"accepted",job.title)
                                 }
                               >
                                 Accept
