@@ -18,12 +18,16 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { changeAppliedStatus } from "../services/jobs/changeAppliedStatus";
 import PieChartComponent from "../components/dahboard/PieChartComponent";
+import { io } from "socket.io-client";
+import { API_URL } from "../services/API";
+
+const socket = io('http://localhost:5000')
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
   const [jobsCreated, setJobsCreated] = useState<null | IJobs[]>(null);
   //const [jobsAppliedTo, setJobaAppliedTo] = useState<null | IJobsAppliedTo[]>(null);
-  const { logged, token, id } = userState;
+  const { logged, token, id,username } = userState;
   const sortedJobs = jobsCreated ? sortByDate(jobsCreated) : null;
   const { jobState, jobDispatch } = useContext(JobContext);
   const [showNew, setShowNew] = useState<boolean>(false);
@@ -129,7 +133,6 @@ const Dashboard = () => {
     });
     getJobs();
   };
-
   const handleStatusChange = async(userId: string, jobId: string,action:string) => {
 
     setJobsCreated((prev) =>
@@ -152,6 +155,12 @@ const Dashboard = () => {
       const result = await changeAppliedStatus(token,jobId,userId,action)
       if(result && result.error){
         jobDispatch({ type: SHOW_INFO, payload: result.error.message });
+      }else{
+        socket.emit('sendNotification',{
+          senderId:id,
+          receiverId:userId,
+          content: `${username} has ${action} you for the job ${jobId}`
+        })
       }
     } catch (error:any) {
       jobDispatch({ type: SHOW_INFO, payload: error.message });
