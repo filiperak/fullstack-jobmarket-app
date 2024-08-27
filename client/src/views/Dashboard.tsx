@@ -20,8 +20,7 @@ import { changeAppliedStatus } from "../services/jobs/changeAppliedStatus";
 import PieChartComponent from "../components/dahboard/PieChartComponent";
 import { io } from "socket.io-client";
 import { API_URL } from "../services/API";
-
-const socket = io(API_URL)
+import { SocketContext } from "../context/SocketContext";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -45,7 +44,9 @@ const Dashboard = () => {
       city: "",
     },
   });
-
+  const {socket} = useContext(SocketContext) ?? {socket:null}
+  console.log(typeof(socket));
+  
   const handleSelected = (currentId: string) => {
     const copySelected = [...selected];
     const findIndexOfSelected = copySelected.indexOf(currentId);

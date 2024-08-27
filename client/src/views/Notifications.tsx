@@ -9,13 +9,14 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { JobContext } from "../context/JobContext";
 import { SHOW_INFO } from "../reducer/actions";
+import { SocketContext } from "../context/SocketContext";
 
-const socket = io(API_URL);
 
 const Notifications = () => {
   const { userState } = useContext(UserContext);
   const { id, token } = userState;
   const {  jobDispatch } = useContext(JobContext);
+  const { socket } = useContext(SocketContext) ?? { socket: null };
 
 
   const [notifications, setNotifications] = useState<any>([]); //promeni tip kasnije
@@ -34,19 +35,19 @@ const Notifications = () => {
     if(id && token){
         fetchNotifications();
         socket.emit("joinRoom", { userId: id });
-        socket.on("notification", (notification) => {
-          setNotifications((prev: any) => [notification,...prev]);
-          console.log(notification);
-        });
-    
-        return () => {
-          socket.off("notification");
-          socket.disconnect();
-        };
+    socket.on("notification", (notification: any) => {
+      setNotifications((prev: any) => [notification,...prev]);
+      console.log(notification);
+    });
+
+    return () => {
+      socket.off("notification");
+    };
     }else{
         setNotifications([])
     }
   }, [id,token]);
+
   return (
     <div className={globalStyles.views}>
       <NotificationWrapper>
