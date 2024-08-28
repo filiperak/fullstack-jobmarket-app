@@ -1,0 +1,110 @@
+
+.chatWrapper{
+    background-color: var(--background-color);
+    border-radius: var(--app-border-radius);
+  margin: var(--app-margin);
+  padding: var(--app-padding);
+  height: 98svh;
+  display: flex;
+}
+.sidebar{
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+}
+.sidebar header, .chat header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--halfway-color);
+    height: 40px;
+}
+.chat{
+    flex-grow: 1;
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    display: flex;
+    flex-direction: column;
+
+}
+.chatContainer{
+ margin: var(--app-margin);
+    padding: var(--app-padding);
+    background-color: var(--halfway-color);
+    border-radius: var(--app-border-radius);
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: scroll;
+<<<<<<< HEAD
+    padding-bottom: 50px;
+=======
+    padding-bottom: 5%;
+>>>>>>> 0fbabd91bcdf03496a622da24d436d4ab52c8a7a
+}
+
+
+.msgInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background-color);
+    padding-left: var(--app-padding);
+    border-radius: 15px;
+    width: 50%;
+    max-width: 350px;
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    transform: translate(-50%);
+}
+.msgInput input{
+    outline: none;
+    background-color: var(--background-color);
+    border: none;
+    flex-grow: 1;
+    padding-left: 8px;
+}
+.sendBtn{
+    padding: var(--app-padding);
+    background-color: var(--app-blue);
+    border-radius: 0  15px 15px 0;
+    cursor: pointer;
+    border: none;
+}
+.newConversation{
+    display: flex;
+    flex-direction: column;
+    max-height: 250px;
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    border: 2px solid var(--halfway-color);
+    border-radius: var(--app-border-radius);
+    background-color: var(--halfway-color);
+
+}
+.newConversation input{
+    outline: none;
+    background-color: var(--background-color);
+    border: none;
+    border-radius: var(--app-border-radius);
+    width: 100%;
+    padding: var(--app-padding);
+}
+.newConversation ul{
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+.newConversation li{
+    list-style: none;
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    cursor: pointer;
+    border-radius: var(--app-border-radius);
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+}
+.newConversation li p{
+    margin: var(--app-margin);
+}

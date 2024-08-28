@@ -1,5 +1,6 @@
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { NotificationModel } from "../models/notification";
+import { MessageModel } from "../models/messages";
 
 interface UserSocketMap {
   [key: string]: string;
@@ -33,10 +34,26 @@ export const handleSocketNotifications = (io: SocketIOServer) => {
         await notification.save();
         socket.to(receiverId).emit("notification", notification);
       } catch (error) {
-        console.error("Error saving notification:", error);
+        console.log("Error saving notification:", error);
       }
     });
 
+    socket.on("sendMessage",async({senderId,receiverId,content}) => {
+      console.log(
+        `Notification content: ${content}, Sender: ${senderId}, Receiver: ${receiverId}`
+      );
+      try {
+        const message = new MessageModel({
+          sender: senderId,
+          receiver: receiverId,
+          content,
+        })
+        await message.save();
+        socket.to(receiverId).emit("receiveMessage",message)
+      } catch (error) {
+        console.log("Error saving notification:", error);
+      }
+    })
     socket.on("disconnect", () => {
       console.log(`Client disconnected: ${socket.id}`);
     });

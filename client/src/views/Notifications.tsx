@@ -31,6 +31,7 @@ const Notifications = () => {
         jobDispatch({ type: SHOW_INFO, payload: error.message });
     }
   };
+  //  PREMESTI OVO U REGISTER ILI LOGIN
   useEffect(() => {
     if(id && token){
         fetchNotifications();

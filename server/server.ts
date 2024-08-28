@@ -10,6 +10,7 @@ import { Server as SocketIOServer } from "socket.io";
 import NotificationRouter from "./routes/notification";
 import { NotificationModel } from "./models/notification";
 import { handleSocketNotifications } from "./services/socketNotificationControler";
+import MessageRouter from "./routes/messages";
 
 const app = express();
 
@@ -28,12 +29,7 @@ const port = process.env.PORT || 5000;
 app.use("/api/v1/jobs", JobsRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/notifications", NotificationRouter);
-
-// interface UserSocketMap {
-//   [key: string]: string;
-// }
-
-// const userSocketMap: UserSocketMap = {};
+app.use("api/v1/messages",MessageRouter)
 
 handleSocketNotifications(io)
 

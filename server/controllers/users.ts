@@ -71,6 +71,23 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+interface IqueryObject {
+  username?:{$regex:string ; $options:string}
+}
+export const getUserByUsername = async(req:Request,res:Response) => {
+  try {
+    const {username} = req.query
+    const queryObject:IqueryObject = {};
+    if(username){
+      queryObject.username = {$regex:username as string , $options: "i"}
+    }
+    const users = await UserModel.find(queryObject)
+    res.status(200).json({users})
+  } catch (error: any) {
+    res.status(500).json({ message: error });
+  }
+}
+
 //only for development
 export const getAllUsers = async (req: Request, res: Response) => {
   try {

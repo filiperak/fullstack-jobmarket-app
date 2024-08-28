@@ -9,7 +9,7 @@ const ProfileAvatar = ({ setModalOpen }: ISidebar) => {
   const { userState } = useContext(UserContext);
   return (
     <div onClick={() => setModalOpen()} className={styles.avatarCntainer}>
-      <Avatar />
+      <Avatar>{userState.username && userState.username[0].toUpperCase()}</Avatar>
       {userState.logged ? (
         <div>
           <p>{userState.username}</p>
