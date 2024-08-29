@@ -81,7 +81,7 @@ const Chats = () => {
                     </li>
                   ))
                 ) : (
-                  <li>{iRender?'Searching...':'No users Found'}</li>
+                  <li>{iRender?'Users...':'No users Found'}</li>
                 )}
               </ul>
             </div>
