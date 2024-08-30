@@ -22,7 +22,6 @@ function App() {
   const { jobState } = useContext(JobContext);
   const { infoMsg } = jobState;
 
-
   return (
     <div className="App">
       <ThemeProvider>

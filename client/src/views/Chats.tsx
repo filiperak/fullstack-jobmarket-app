@@ -60,10 +60,10 @@ const Chats = () => {
   }));
   //get conversations wheree userid is reciever or sender
   }
-  useEffect(() => {
-    socket.emit("joinRoom",{userId:id})
+  // useEffect(() => {
+  //   socket.emit("joinRoom",{userId:id})
 
-  },[])
+  // },[])
   const sendMessage = (e:React.FormEvent) => {
     e.preventDefault()
     //socket logic
@@ -83,14 +83,11 @@ const Chats = () => {
     if (socket) {
       socket.emit("joinRoom", { userId: id });
 
-      const handleReceiveMessage = (message: any) => {
-        console.log(message);
-      };
-
-      socket.on('receiveMessage', handleReceiveMessage);
+      socket.on('receiveMessage', (message:any) => console.log(message)
+      );
 
       return () => {
-        socket.off('receiveMessage', handleReceiveMessage);
+        socket.off('receiveMessage');
       };
     }
   }, [socket, id]);

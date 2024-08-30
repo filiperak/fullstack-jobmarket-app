@@ -49,8 +49,10 @@ export const handleSocketNotifications = (io: SocketIOServer) => {
           content,
         })
         await message.save();
+        //socket.to(senderId).emit("receiveMessage",message)
+        socket.emit("receiveMessage",message)
         socket.to(receiverId).emit("receiveMessage",message)
-        socket.to(senderId).emit("receiveMessage",message)
+        //socket.emit("receiveMessage",message)
       } catch (error) {
         console.log("Error saving notification:", error);
       }
