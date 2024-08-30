@@ -11,6 +11,7 @@ import NotificationRouter from "./routes/notification";
 import { NotificationModel } from "./models/notification";
 import { handleSocketNotifications } from "./services/socketNotificationControler";
 import MessageRouter from "./routes/messages";
+import ConversationRouter from "./routes/conversations";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api/v1/jobs", JobsRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/notifications", NotificationRouter);
 app.use("api/v1/messages",MessageRouter)
+app.use("api/v1/conversations",ConversationRouter)
 
 handleSocketNotifications(io)
 
