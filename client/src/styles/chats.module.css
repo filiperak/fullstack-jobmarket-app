@@ -10,7 +10,7 @@
 .sidebar{
     margin: var(--app-margin);
     padding: var(--app-padding);
-    min-width: 350px;
+    /* min-width: 350px; */
     display: flex;
     flex-direction: column;
 }
@@ -119,8 +119,39 @@
     background-color: var(--halfway-color);
     margin: var(--app-margin);
     padding: var(--app-padding);
-
+    cursor: pointer;
+}
+.convoUl li span{
+    font-size: 0.8rem;
 }
 .liUsername{
     flex-grow: 1;
+    padding:0 var(--app-padding) ;
+}
+.active{
+    background-color: var(--app-theme-color) !important;
+}
+.senderMsg{
+    border-radius: 4px 4px 0 4px;
+    background-color: var(--app-theme-color);
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    max-width: 80%;
+    margin-left: auto;
+}
+.senderMsg p:nth-child(2){
+    margin-top: var(--app-margin);
+    text-align: right;
+}
+.recieverMsg{
+    border-radius: 4px 4px 4px 0;
+    background-color: var(--app-blue);
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+    max-width: 80%;
+    margin-right: auto;
+}
+.recieverMsg p:nth-child(2){
+    margin-top: var(--app-margin);
+    text-align: left;
 }

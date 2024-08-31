@@ -13,7 +13,7 @@ export const createConversation = async (req: ConversationRequest,res: Response)
       return res.status(404).json({ messaage: "user  not logged in" });
     }
     const { receiverId } = req.body;
-    
+
     const conversation = await ConversationModel.create({
       participants: [userId, receiverId],
     });    
@@ -33,7 +33,11 @@ export const getMyConversations = async(req:ConversationRequest,res:Response) =>
             participants: { $in: [userId] },
           })
           .populate("participants", "username") 
-          .populate("messages") 
+          .populate({
+            path: "messages",
+            options: { sort: { createdAt: -1 } }
+        })
+          .sort({ updatedAt: -1 })
           .exec()
           res.status(200).json({ conversations });
     } catch (error: any) {

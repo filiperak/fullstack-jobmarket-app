@@ -1,6 +1,7 @@
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { NotificationModel } from "../models/notification";
 import { MessageModel } from "../models/messages";
+import { ConversationModel } from "../models/conversations";
 
 interface UserSocketMap {
   [key: string]: string;
@@ -34,11 +35,11 @@ export const handleSocketNotifications = (io: SocketIOServer) => {
         await notification.save();
         socket.to(receiverId).emit("notification", notification);
       } catch (error) {
-        console.log("Error saving notification:", error);
+        console.log("Error:", error);
       }
     });
 
-    socket.on("sendMessage",async({senderId,receiverId,content}) => {
+    socket.on("sendMessage",async({senderId,receiverId,content,conversationId}) => {
       console.log(
         `Notification content: ${content}, Sender: ${senderId}, Receiver: ${receiverId}`
       );
@@ -49,12 +50,19 @@ export const handleSocketNotifications = (io: SocketIOServer) => {
           content,
         })
         await message.save();
-        //socket.to(senderId).emit("receiveMessage",message)
         socket.emit("receiveMessage",message)
         socket.to(receiverId).emit("receiveMessage",message)
-        //socket.emit("receiveMessage",message)
+
+        const conversation = await ConversationModel.findById(conversationId);
+        if (conversation) {
+          conversation.messages.push(message._id);
+          await conversation.save();
+        } else {
+          console.log("Conversation not found");
+        }
+
       } catch (error) {
-        console.log("Error saving notification:", error);
+        console.log("Error:", error);
       }
     })
     socket.on("disconnect", () => {
