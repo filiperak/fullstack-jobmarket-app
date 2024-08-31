@@ -87,3 +87,22 @@ export interface IJobsAppliedTo {
     city: string;
   };
 }
+export interface IParticipant {
+  _id: string;
+  username: string;
+}
+
+export interface IMessage {
+  _id: string;
+  content: string; 
+  sender: string;   
+  createdAt: string;
+}
+
+export interface IConversation {
+  _id: string;
+  participants: IParticipant[];
+  messages: IMessage[];
+  createdAt: string;
+  updatedAt: string;
+}

@@ -155,3 +155,8 @@
     margin-top: var(--app-margin);
     text-align: left;
 }
+.loadingSpinner svg{
+    margin: 0 auto;
+    height: 40px;
+    width: 40px;
+}

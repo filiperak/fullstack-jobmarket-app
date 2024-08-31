@@ -3,7 +3,7 @@ import globalStyles from "../styles/app.module.css";
 import styles from "../styles/chats.module.css";
 import LibraryAddOutlinedIcon from "@mui/icons-material/LibraryAddOutlined";
 import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
-import { IUser } from "../interface/props";
+import { IConversation, IParticipant, IUser } from "../interface/props";
 import { getUserByUsername } from "../services/users/getUserByUsername";
 import { Avatar } from "@mui/material";
 import { UserContext } from "../context/UserContext";
@@ -11,6 +11,7 @@ import { SocketContext } from "../context/SocketContext";
 import { createConversation } from "../services/messages/createConversation";
 import { getConversations } from "../services/messages/getConversations";
 import { formatTime } from "../utility/formatTime";
+import { ReactComponent as Spinner} from '../assets/Spinner.svg'
 
 const Chats = () => {
   const { userState } = useContext(UserContext);
@@ -21,24 +22,41 @@ const Chats = () => {
   const [searchVal, setSearchVal] = useState<string>("");
   const [iRender, setIrender] = useState<boolean>(true);
   const [messageInp, setMessageInp] = useState<string>("");
-  const [convo, setConvo] = useState<any>([]);
-  const [currentConvo,setCurrentConvo] = useState<any>(null)
-  const [otherUser,setOtherUser] = useState<any>(null)  
+  const [convo, setConvo] = useState<IConversation[]>([]);
+  const [currentConvo,setCurrentConvo] = useState<IConversation | null>(null)
+  const [otherUser,setOtherUser] = useState<IParticipant | null | undefined>(null)  
+  const [errorMsg,setErrorMsg] = useState<null | string>(null)
+  const [loadingUsers, setLoadingUsers] = useState<boolean>(false);
+  const [loadingConversations, setLoadingConversations] = useState<boolean>(false);
 
+  console.log(currentConvo);
+  console.log(otherUser);
+  
+  
   const toggle = () => {
     setOpen(!open);
   };
 
   const searchUsers = async (query: string) => {
     try {
+      setLoadingUsers(true)
       const data = await getUserByUsername(query);
       if (data.error) {
-        alert(data.error);
-        return;
+        if (data && data.error) {
+          setLoadingUsers(false)
+          setErrorMsg(data.error);
+        }
       } else {
-        setUsers(data.users);
+        setTimeout(() => {
+
+          setLoadingUsers(false)
+          setUsers(data.users);
+        },300)
       }
-    } catch (error) {}
+    } catch (error:any) {
+      setLoadingUsers(false)
+      setErrorMsg(error.message)
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +69,7 @@ const Chats = () => {
       setUsers([]);
     }
   };
+
   const createNewConversation = async (id: string) => {
     const existingConvoIndex = convo.findIndex((conversation: any) =>
       conversation.participants.some(
@@ -76,18 +95,31 @@ const Chats = () => {
         setSearchVal('');
         
       }
-    } catch (error) {}
+    } catch (error:any) {
+      setErrorMsg(error.message)
+    }
   };
+
   const getMyConversations = async () => {
     try {
+      setLoadingConversations(true)
       const result = await getConversations(token);
-      console.log(result.conversations);
-      setConvo(result.conversations);
-    } catch (error) {}
+      if(result && result.error){
+        setLoadingConversations(false)
+        setErrorMsg(result.error)
+      }else{
+        setLoadingConversations(false)
+        setConvo(result.conversations);
+      }
+    } catch (error:any) {
+      setLoadingConversations(false)
+      setErrorMsg(error.message)
+    }
   };
 
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
+    if(!otherUser || !currentConvo)return
     //socket logic
     socket.emit("sendMessage", {
       senderId: id,
@@ -100,7 +132,6 @@ const Chats = () => {
 
 
   useEffect(() => {
-    getMyConversations();
     if (socket) {
       socket.emit("joinRoom", { userId: id });
       socket.on("receiveMessage", (message: any) => {
@@ -116,7 +147,16 @@ const Chats = () => {
   }, [socket, id]);
 
   useEffect(() => {
-    if (convo.length > 0) {
+    if(id && token){
+      getMyConversations()
+    }else{
+      setConvo([])
+      setCurrentConvo(null)
+    }
+  },[id])
+
+  useEffect(() => {
+    if (convo && convo.length > 0) {
       handleConvoChange(0); 
     }
   }, [convo]);
@@ -152,6 +192,7 @@ const Chats = () => {
                 onChange={(e) => handleChange(e)}
               />
               <ul>
+                {loadingUsers && <li className={styles.loadingSpinner}><Spinner/></li>}
                 {users && users.length > 0 ? (
                   users.map((elem) => (
                     <li
@@ -173,6 +214,7 @@ const Chats = () => {
             </div>
           ) : null}
           <ul className={styles.convoUl}>
+            {loadingConversations && <li className={styles.loadingSpinner}><Spinner/></li>}
             {convo && convo.length >0 ? (
               convo.map((elem: any,ind:number) => {
                 const otherParticipant = elem.participants.find(
@@ -203,7 +245,7 @@ const Chats = () => {
                 );
               })
             ) : (
-              <p>No Conversations yet</p>
+              <p>{id? 'No Conversations yet':'Log in to start messageing'}</p>
             )}
           </ul>
         </aside>
