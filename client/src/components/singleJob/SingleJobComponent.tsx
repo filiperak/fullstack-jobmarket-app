@@ -13,6 +13,7 @@ import Error from "../Error";
 import { JobContext } from "../../context/JobContext";
 import { SHOW_INFO, USER_APPLIED_TO_JOB } from "../../reducer/actions";
 import globalStyles from "../../styles/app.module.css";
+import { createConversation } from "../../services/messages/createConversation";
 
 interface IJobProps {
   data: IJobs;
@@ -21,7 +22,7 @@ const SingleJobComponent = ({ data }: IJobProps) => {
   const [errorMsg, setErrorMsg] = useState<null | string>(null);
   const { userState , userDispatch} = useContext(UserContext);
   const { jobDispatch } = useContext(JobContext);
-  const { token, logged } = userState;
+  const { token, logged,id } = userState;
   const Navigate = useNavigate();
   const handleApply = async () => {
     if (!logged) {
@@ -50,6 +51,26 @@ const SingleJobComponent = ({ data }: IJobProps) => {
       setErrorMsg(error.message);
     }
   };
+  const handleContact = async(receiverID:string) => {
+    if (!logged || ! id) {
+      jobDispatch({
+        type: SHOW_INFO,
+        payload: "You must log in to contact other users",
+      });
+      return;
+    }
+    try {
+      const result = await createConversation(token, receiverID);
+      if (result && result.error) {
+        jobDispatch({ type: SHOW_INFO, payload: result.error });
+      }else{
+        Navigate('/chats')
+      }
+    } catch (error: any) {
+      setErrorMsg(error.message);
+    }
+
+  }
   if (errorMsg !== null) return <Error msg={errorMsg} />;
   return (
     <div className={styles.singleJob}>
@@ -92,7 +113,7 @@ const SingleJobComponent = ({ data }: IJobProps) => {
       </section>
       <footer>
         <button onClick={() => Navigate(-1)} className={globalStyles.cancelBtn}>Go Back</button>
-        <button className={globalStyles.confirmBtn}>Send Message</button>
+        <button className={globalStyles.confirmBtn} onClick={() => handleContact(data.createdBy._id)}>Send Message</button>
         <button onClick={() => handleApply()} className={globalStyles.confirmBtn}>Apply To Job</button>
       </footer>
     </div>

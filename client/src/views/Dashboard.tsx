@@ -21,6 +21,8 @@ import PieChartComponent from "../components/dahboard/PieChartComponent";
 import { io } from "socket.io-client";
 import { API_URL } from "../services/API";
 import { SocketContext } from "../context/SocketContext";
+import { createConversation } from "../services/messages/createConversation";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { userState, userDispatch } = useContext(UserContext);
@@ -45,7 +47,8 @@ const Dashboard = () => {
     },
   });
   const {socket} = useContext(SocketContext) ?? {socket:null}
-  console.log(typeof(socket));
+  const Navigate = useNavigate();
+
   
   const handleSelected = (currentId: string) => {
     const copySelected = [...selected];
@@ -167,6 +170,19 @@ const Dashboard = () => {
       jobDispatch({ type: SHOW_INFO, payload: error.message });
     }
   };
+
+  const handleContact = async (applicantId:string) => {
+    try {
+      const result = await createConversation(token, applicantId);
+      if (result && result.error) {
+        jobDispatch({ type: SHOW_INFO, payload: result.error });
+      }else{
+        Navigate('/chats')
+      }
+    } catch (error: any) {
+      setErrorMsg(error.message);
+    }
+  }
 
   return (
     <div className={globalStyles.views}>
@@ -365,7 +381,10 @@ const Dashboard = () => {
                               >
                                 Decline
                               </span>
-                              <span className={globalStyles.confirmBtn}>
+                              <span 
+                              className={globalStyles.confirmBtn}
+                              onClick={() => handleContact(user.applicant._id)}
+                              >
                                 Contact
                               </span>
                               <span

@@ -3,7 +3,7 @@ import globalStyles from "../styles/app.module.css";
 import styles from "../styles/chats.module.css";
 import LibraryAddOutlinedIcon from "@mui/icons-material/LibraryAddOutlined";
 import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
-import { IConversation, IParticipant, IUser } from "../interface/props";
+import { IConversation, IMessage, IParticipant, IUser } from "../interface/props";
 import { getUserByUsername } from "../services/users/getUserByUsername";
 import { Avatar } from "@mui/material";
 import { UserContext } from "../context/UserContext";
@@ -12,8 +12,11 @@ import { createConversation } from "../services/messages/createConversation";
 import { getConversations } from "../services/messages/getConversations";
 import { formatTime } from "../utility/formatTime";
 import { ReactComponent as Spinner} from '../assets/Spinner.svg'
+import { JobContext } from "../context/JobContext";
+import { SHOW_INFO } from "../reducer/actions";
 
 const Chats = () => {
+  const {jobDispatch} = useContext(JobContext)
   const { userState } = useContext(UserContext);
   const { id, token } = userState;
   const { socket } = useContext(SocketContext) ?? { socket: null };
@@ -119,7 +122,13 @@ const Chats = () => {
 
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if(!otherUser || !currentConvo)return
+    if(!token || !otherUser || !currentConvo){
+      jobDispatch({
+        type: SHOW_INFO,
+        payload: "You must log in and create a conversation to chat to other users",
+      });
+      return;
+    }
     //socket logic
     socket.emit("sendMessage", {
       senderId: id,
@@ -134,7 +143,7 @@ const Chats = () => {
   useEffect(() => {
     if (socket) {
       socket.emit("joinRoom", { userId: id });
-      socket.on("receiveMessage", (message: any) => {
+      socket.on("receiveMessage", (message: IMessage) => {
         setCurrentConvo((prev:any) => ({
           ...prev,messages:[message,...prev.messages]
         }))
@@ -216,7 +225,7 @@ const Chats = () => {
           <ul className={styles.convoUl}>
             {loadingConversations && <li className={styles.loadingSpinner}><Spinner/></li>}
             {convo && convo.length >0 ? (
-              convo.map((elem: any,ind:number) => {
+              convo.map((elem: IConversation,ind:number) => {
                 const otherParticipant = elem.participants.find(
                   (participant: { _id: string; username: string }) =>
                     participant._id !== id
@@ -263,7 +272,7 @@ const Chats = () => {
           </header>
           <div className={styles.chatContainer}>
             {currentConvo && currentConvo.messages.length ?
-            currentConvo.messages.map((elem:any) => (
+            currentConvo.messages.map((elem:IMessage) => (
               <p className={elem.sender === id? styles.senderMsg : styles.recieverMsg}>
                 <p>{elem.content}</p>
                 <p>{formatTime(elem.createdAt)}</p>
