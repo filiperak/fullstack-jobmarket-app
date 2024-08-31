@@ -30,8 +30,8 @@ const port = process.env.PORT || 5000;
 app.use("/api/v1/jobs", JobsRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/notifications", NotificationRouter);
-app.use("api/v1/messages",MessageRouter)
-app.use("api/v1/conversations",ConversationRouter)
+app.use("/api/v1/messages",MessageRouter)
+app.use("/api/v1/conversations",ConversationRouter)
 
 handleSocketNotifications(io)
 

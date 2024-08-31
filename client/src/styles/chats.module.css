@@ -10,6 +10,9 @@
 .sidebar{
     margin: var(--app-margin);
     padding: var(--app-padding);
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
 }
 .sidebar header, .chat header{
     display: flex;
@@ -103,4 +106,21 @@
 }
 .newConversation li p{
     margin: var(--app-margin);
+}
+.convoUl{
+    list-style: none;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+.convoUl li{
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--app-border-radius);
+    background-color: var(--halfway-color);
+    margin: var(--app-margin);
+    padding: var(--app-padding);
+
+}
+.liUsername{
+    flex-grow: 1;
 }

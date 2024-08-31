@@ -9,25 +9,28 @@ import { getUserByUsername } from "../services/users/getUserByUsername";
 import { Avatar } from "@mui/material";
 import { UserContext } from "../context/UserContext";
 import { SocketContext } from "../context/SocketContext";
+import { createConversation } from "../services/messages/createConversation";
+import { getConversations } from "../services/messages/getConversations";
 
 const Chats = () => {
-
-  const {userState} = useContext(UserContext);
-  const {id,token} = userState
+  const { userState } = useContext(UserContext);
+  const { id, token } = userState;
   const { socket } = useContext(SocketContext) ?? { socket: null };
   const [open, setOpen] = useState<boolean>(false);
   const [users, setUsers] = useState<IUser[]>([]);
   const [searchVal, setSearchVal] = useState<string>("");
-  const [iRender,setIrender] = useState<boolean>(true)
-  const [receiver,setReceiver] = useState<any>({    //PROMENI TIP IZ ANY U NESTO 
-    receiverId:'',
-    receiverUsername:'',
-    messages:[]
-  })
-  const [messageInp,setMessageInp] = useState<string>('')
+  const [iRender, setIrender] = useState<boolean>(true);
+  const [receiver, setReceiver] = useState<any>({
+    //PROMENI TIP IZ ANY U NESTO
+    receiverId: "",
+    receiverUsername: "",
+    messages: [],
+  });
+  const [messageInp, setMessageInp] = useState<string>("");
+  const [convo, setConvo] = useState<any>([]);
 
   const toggle = () => {
-    setOpen(!open)
+    setOpen(!open);
   };
 
   const searchUsers = async (query: string) => {
@@ -47,25 +50,42 @@ const Chats = () => {
     setSearchVal(newVal);
     if (newVal.length > 0) {
       searchUsers(newVal);
-      setIrender(!iRender)
+      setIrender(!iRender);
     } else {
       setUsers([]);
     }
   };
-  const createConversation = (id:string,username:string) => {
-    setReceiver((prevReceiver:any) => ({
+  const createNewConversation = async (id: string, username: string) => {
+    try {
+      console.log(id);
+
+      const result = await createConversation(token, id);
+      if (result && result.error) {
+        console.log(result.error);
+      } else {
+        console.log(result.conversation);
+      }
+    } catch (error) {}
+    setReceiver((prevReceiver: any) => ({
       ...prevReceiver,
       receiverId: id,
       receiverUsername: username,
-  }));
-  //get conversations wheree userid is reciever or sender
-  }
+    }));
+    //get conversations wheree userid is reciever or sender
+  };
+  const getMyConversations = async () => {
+    try {
+      const result = await getConversations(token);
+      console.log(result.conversations);
+      setConvo(result.conversations);
+    } catch (error) {}
+  };
   // useEffect(() => {
   //   socket.emit("joinRoom",{userId:id})
 
   // },[])
-  const sendMessage = (e:React.FormEvent) => {
-    e.preventDefault()
+  const sendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
     //socket logic
     //socket.emit("joinRoom",{userId:id})
     socket.emit("sendMessage", {
@@ -73,21 +93,21 @@ const Chats = () => {
       receiverId: receiver.receiverId,
       content: messageInp,
     });
-    setMessageInp('')
-  }
+    setMessageInp("");
+  };
 
   // socket.on('receiveMessage',(message:any) => {
   //   console.log(message);
   // })
   useEffect(() => {
+    getMyConversations();
     if (socket) {
       socket.emit("joinRoom", { userId: id });
 
-      socket.on('receiveMessage', (message:any) => console.log(message)
-      );
+      socket.on("receiveMessage", (message: any) => console.log(message));
 
       return () => {
-        socket.off('receiveMessage');
+        socket.off("receiveMessage");
       };
     }
   }, [socket, id]);
@@ -114,7 +134,12 @@ const Chats = () => {
               <ul>
                 {users && users.length > 0 ? (
                   users.map((elem) => (
-                    <li key={elem._id} onClick={() => createConversation(elem._id,elem.username)}>
+                    <li
+                      key={elem._id}
+                      onClick={() =>
+                        createNewConversation(elem._id, elem.username)
+                      }
+                    >
                       <Avatar sx={{ width: 24, height: 24 }} variant="rounded">
                         {elem.username[0].toUpperCase()}
                       </Avatar>
@@ -122,21 +147,56 @@ const Chats = () => {
                     </li>
                   ))
                 ) : (
-                  <li>{iRender?'Users...':'No users Found'}</li>
+                  <li>{iRender ? "Users..." : "No users Found"}</li>
                 )}
               </ul>
             </div>
           ) : null}
+          <ul className={styles.convoUl}>
+            {convo && convo.length ? (
+              convo.map((elem: any) => {
+                const otherParticipant = elem.participants.find(
+                  (participant: { _id: string; username: string }) =>
+                    participant._id !== id
+                );
+
+                return (
+                  <li key={elem._id}>
+                    <Avatar variant="rounded">
+                      {otherParticipant?.username[0].toUpperCase()}
+                    </Avatar>
+                    <div className={styles.liUsername}>
+                      <p>{otherParticipant?.username}</p>
+                    </div>
+                    <p>
+                      {new Date(elem.updatedAt).toLocaleDateString("en-GB")}
+                    </p>
+                  </li>
+                );
+              })
+            ) : (
+              <p>No Conversations yet</p>
+            )}
+          </ul>
         </aside>
         <section className={styles.chat}>
           <header>
-          <p>{receiver.receiverUsername.length ? receiver.receiverUsername: 'Select conversation'}</p>
+            <p>
+              {receiver.receiverUsername.length
+                ? receiver.receiverUsername
+                : "Select conversation"}
+            </p>
           </header>
           <div className={styles.chatContainer}>
             <p>testes</p>
 
             <form className={styles.msgInput} onSubmit={(e) => sendMessage(e)}>
-              <input type="text" placeholder="Message..."  value={messageInp} onChange={(e) => setMessageInp(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="Message..."
+                value={messageInp}
+                onChange={(e) => setMessageInp(e.target.value)}
+              />
               <button className={styles.sendBtn} type="submit">
                 <ArrowUpwardOutlinedIcon />
               </button>
