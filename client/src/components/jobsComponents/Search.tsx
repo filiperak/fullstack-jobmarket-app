@@ -46,12 +46,13 @@ const Search = ({skip,setSkip}:SearchProps) => {
   //dvaput se pozove fetchJobs, ovo ga sprecava
   const initialRender = useRef(true);
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false; 
-      jobDispatch({type:EMPTY_JOBS})
-    } else {
-      fetchJobs(FETCH_JOBS_SUCCESS);
-    }
+    // if (initialRender.current) {
+    //   initialRender.current = false; 
+    //   jobDispatch({type:EMPTY_JOBS})
+    // } else {
+    //   fetchJobs(FETCH_JOBS_SUCCESS);
+    // }
+    fetchJobs(FETCH_JOBS_SUCCESS);
   }, [skip]);
 
 
