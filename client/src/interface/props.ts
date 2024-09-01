@@ -106,3 +106,10 @@ export interface IConversation {
   createdAt: string;
   updatedAt: string;
 }
+export interface INotification{
+  content: string;       
+  createdAt: string;     
+  receiver: string;      
+  sender: string;        
+  updatedAt: string;     
+}

@@ -29,6 +29,22 @@
     flex-direction: column;
 
 }
+
+@media only screen and (max-width: 768px) {
+    .chatWrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    .chat{
+        overflow-y: scroll;
+    }
+    .sidebar{
+        max-height: 40%;
+    }
+    .newConversation ul{
+        max-height: 200px;
+    }
+}
 .chatContainer{
  margin: var(--app-margin);
     padding: var(--app-padding);

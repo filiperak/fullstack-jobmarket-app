@@ -10,6 +10,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { JobContext } from "../context/JobContext";
 import { SHOW_INFO } from "../reducer/actions";
 import { SocketContext } from "../context/SocketContext";
+import { INotification } from "../interface/props";
+import { formatTime } from "../utility/formatTime";
 
 
 const Notifications = () => {
@@ -19,7 +21,8 @@ const Notifications = () => {
   const { socket } = useContext(SocketContext) ?? { socket: null };
 
 
-  const [notifications, setNotifications] = useState<any>([]); //promeni tip kasnije
+  const [notifications, setNotifications] = useState<INotification[]>([]);
+  
   const fetchNotifications = async () => {
     try {
       const data = await getNotifications(token);
@@ -31,7 +34,7 @@ const Notifications = () => {
         jobDispatch({ type: SHOW_INFO, payload: error.message });
     }
   };
-  //  PREMESTI OVO U REGISTER ILI LOGIN
+
   useEffect(() => {
     if(id && token){
         fetchNotifications();
@@ -68,11 +71,7 @@ const Notifications = () => {
                 <TimeTag>
                   <AccessTimeIcon />
                   <p>
-                    {new Date(elem.createdAt).toLocaleDateString("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                    {formatTime(elem.createdAt)}
                   </p>
                 </TimeTag>
               </NotificationListItem>

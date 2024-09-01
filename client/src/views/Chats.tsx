@@ -122,6 +122,7 @@ const Chats = () => {
 
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
+    if(messageInp.trim().length === 0) return
     if(!token || !otherUser || !currentConvo){
       jobDispatch({
         type: SHOW_INFO,
@@ -260,7 +261,8 @@ const Chats = () => {
         </aside>
         <section className={styles.chat}>
           <header>
-          <p>
+          <h3>
+            @
           {currentConvo ? (
             currentConvo.participants.find(
               (participant: { _id: string }) => participant._id !== id
@@ -268,12 +270,12 @@ const Chats = () => {
           ) : (
             "Select conversation"
           )}
-        </p>
+        </h3>
           </header>
           <div className={styles.chatContainer}>
             {currentConvo && currentConvo.messages.length ?
             currentConvo.messages.map((elem:IMessage) => (
-              <p className={elem.sender === id? styles.senderMsg : styles.recieverMsg}>
+              <p className={elem.sender === id? styles.senderMsg : styles.recieverMsg} key={elem._id}>
                 <p>{elem.content}</p>
                 <p>{formatTime(elem.createdAt)}</p>
               </p>

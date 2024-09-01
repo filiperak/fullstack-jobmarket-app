@@ -89,6 +89,9 @@
   background-color: var(--background-color);
   padding: var(--app-padding);
 }
+.search input{
+  accent-color: var(--app-theme-color);
+}
 .barAndFilter {
   display: flex;
   align-items: center;
