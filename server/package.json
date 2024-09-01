@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/server.js",
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"tsc"
   },
   "author": "",
   "license": "ISC",
