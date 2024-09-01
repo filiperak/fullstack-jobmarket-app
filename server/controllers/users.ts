@@ -127,7 +127,6 @@ export const getUser = async (req: Request, res: Response) => {
             path: "applicants.applicant",
            // match: {_id: req.params.id },
             select: "username email status",
-            //VIDI ZASTO VRACA SVE USERE A NE SAMO JEDNOG
           },
  
         ],
