@@ -12,6 +12,8 @@ import InfoMsg from "./components/InfoMsg";
 import Notifications from "./views/Notifications";
 import Chats from "./views/Chats";
 import { SocketContext, SocketContextProvider } from "./context/SocketContext";
+import Settings from "./views/Settings";
+import Info from "./views/Info";
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/chats" element={<Chats />} />
+                <Route path="/info" element={<Info />} />
+                <Route path="/settings" element={<Settings />} />
               </Routes>
             </Router>
           </JobContextProvider>
