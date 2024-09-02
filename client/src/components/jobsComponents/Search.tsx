@@ -45,9 +45,13 @@ const Search = ({skip,setSkip}:SearchProps) => {
 
   const initialRender = useRef(true);
   useEffect(() => {
-    fetchJobs(FETCH_JOBS_SUCCESS);
+    if (initialRender.current) {
+      initialRender.current = false; 
+      jobDispatch({type:EMPTY_JOBS})
+    } else {
+      fetchJobs(FETCH_JOBS_SUCCESS);
+    }
   }, [skip]);
-
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
