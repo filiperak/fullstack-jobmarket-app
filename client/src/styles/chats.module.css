@@ -158,6 +158,8 @@
 .senderMsg p:nth-child(2){
     margin-top: var(--app-margin);
     text-align: right;
+    display:flex;
+    align-items: center;
 }
 .recieverMsg{
     border-radius: 4px 4px 4px 0;
@@ -170,6 +172,12 @@
 .recieverMsg p:nth-child(2){
     margin-top: var(--app-margin);
     text-align: left;
+    display:flex;
+    align-items: center;
+}
+.recieverMsg p:nth-child(2) span,.senderMsg p:nth-child(2) span  {
+  margin:0 4px;
+  font-size: 0.7rem;
 }
 .loadingSpinner svg{
     margin: 0 auto;

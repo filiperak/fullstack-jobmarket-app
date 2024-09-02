@@ -14,6 +14,7 @@ import { formatTime } from "../utility/formatTime";
 import { ReactComponent as Spinner} from '../assets/Spinner.svg'
 import { JobContext } from "../context/JobContext";
 import { SHOW_INFO } from "../reducer/actions";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const Chats = () => {
   const {jobDispatch} = useContext(JobContext)
@@ -277,7 +278,10 @@ const Chats = () => {
             currentConvo.messages.map((elem:IMessage) => (
               <p className={elem.sender === id? styles.senderMsg : styles.recieverMsg} key={elem._id}>
                 <p>{elem.content}</p>
-                <p>{formatTime(elem.createdAt)}</p>
+                <p>
+                  <DoneAllIcon sx={{ fontSize: "16px" }}/>
+                  <span>{formatTime(elem.createdAt)}</span>
+                  </p>
               </p>
             ))
             :null}
