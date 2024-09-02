@@ -12,7 +12,6 @@ import { NotificationModel } from "./models/notification";
 import { handleSocketNotifications } from "./services/socketNotificationControler";
 import MessageRouter from "./routes/messages";
 import ConversationRouter from "./routes/conversations";
-import path from 'path'
 
 const app = express();
 
@@ -28,10 +27,6 @@ app.use(express.json());
 app.use(cors());
 const port = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 app.use("/api/v1/jobs", JobsRouter);
 app.use("/api/v1/users", UserRouter);
