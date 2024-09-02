@@ -48,6 +48,7 @@ const Search = ({skip,setSkip}:SearchProps) => {
     if (initialRender.current) {
       initialRender.current = false; 
       jobDispatch({type:EMPTY_JOBS})
+      fetchJobs(FETCH_JOBS_SUCCESS);
     } else {
       fetchJobs(FETCH_JOBS_SUCCESS);
     }
