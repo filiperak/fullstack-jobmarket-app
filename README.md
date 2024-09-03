@@ -6,6 +6,7 @@ To get started, users need to create a profile and log in. Once logged in, they 
 
 Additionally, if users have any questions about a job, they can send direct messages to the job poster, enabling seamless communication throughout the job application process.
 
+![2024-09-03 - 15_57_51 - Gig Works](https://github.com/user-attachments/assets/a9cf5f77-815a-45a6-8551-9b1fb48c430b)
 # Features
 
 -**User Authentication:** Secure registration and login system with `JWT`-based authentication.
