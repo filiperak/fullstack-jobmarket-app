@@ -33,4 +33,5 @@ Additionally, if users have any questions about a job, they can send direct mess
 ## Live Demo
 Check out the live demo hosted on Render.com: [job app](https://fullstack-jobmarket-app.onrender.com/)
 link: https://fullstack-jobmarket-app.onrender.com/
--**!Note**: The app is deployed using a free instance, and due to inactivity, the first render may take up to 50 seconds!
+
+-**Note:** The app is deployed using a free instance, and due to inactivity, the first render may take up to 50 seconds!
